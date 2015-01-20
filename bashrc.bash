@@ -2,14 +2,43 @@
 
 # TODO Switch from \e to \033 (octal) because of dash.
 
-export BLACK=$(tput setaf 0)
-export RED=$(tput setaf 1)
-export GREEN=$(tput setaf 2)
-export YELLOW=$(tput setaf 3)
-export BLUE=$(tput setaf 4)
-export MAGENTA=$(tput setaf 5)
-export CYAN=$(tput setaf 6)
-export WHITE=$(tput setaf 7)
+# foreground
+export FG_BLACK=$(tput setaf 0)
+export FG_RED=$(tput setaf 1)
+export FG_GREEN=$(tput setaf 2)
+export FG_YELLOW=$(tput setaf 3)
+export FG_BLUE=$(tput setaf 4)
+export FG_MAGENTA=$(tput setaf 5)
+export FG_CYAN=$(tput setaf 6)
+export FG_WHITE=$(tput setaf 7)
+export FG_DEFAULT=$(tput setaf 9)
+
+# background
+export BG_BLACK=$(tput setab 0)
+export BG_RED=$(tput setab 1)
+export BG_GREEN=$(tput setab 2)
+export BG_YELLOW=$(tput setab 3)
+export BG_BLUE=$(tput setab 4)
+export BG_MAGENTA=$(tput setab 5)
+export BG_CYAN=$(tput setab 6)
+export BG_WHITE=$(tput setab 7)
+export BG_DEFAULT=$(tput setab 9)
+
+# text
+export TG_RESET=$(tput sgr0)
+export TG_BOLD=$(tput bold)
+export TG_DIM=$(tput dim)
+export TG_BLINK=$(tput blink)
+export TG_REVERSE=$(tput rev)
+export TG_HIDDEN=$(tput invis)
+
+# TODO I am not sure if these are all ANSI.
+export UNDERLINE_START=$(tput smul)
+export UNDERLINE_STOP=$(tput rmul)
+export EMPHASIS_START=$(tput smso)
+export EMPHASIS_STOP=$(tput rmso)
+export ITALIC_START=$(tput sitm)
+export ITALIC_STOP=$(tput ritm)
 
 export PATH="$PATH:."
 export PS1='\[\e[0;36m\][\#] \u@\H:\w \$\[\e[0;33m\] '
