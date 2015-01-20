@@ -1,0 +1,2 @@
+hardstatus alwayslastline "%{=b}%{G} Screen(s): %{b}%w %=%{kG}%C%A "
+
