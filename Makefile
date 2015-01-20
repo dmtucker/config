@@ -5,7 +5,7 @@
 ~/.kde/share/config/konversationrc: konversationrc
 	cp -i $^ $@
 
-~/.vimrc: vimrc
+~/.vimrc: vimrc.vim
 	cp -i $^ $@
 
 
