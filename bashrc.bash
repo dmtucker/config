@@ -62,7 +62,7 @@ export CLEAR="$(tput clear)"
 export FLASH="$(tput flash)"
 
 export PATH="$PATH:."
-export PS1="\[$FG_CYAN\][\#] \u@\H:\w \$\[$FG_YELLOW\] "
+export PS1="\[$TXT_CYAN_FG\][\#] \u@\H:\w \$\[$TXT_YELLOW_FG\] "
 trap "printf '$TXT_RESET'" DEBUG                                                # https://wiki.archlinux.org/index.php/Color_Bash_Prompt#Different_colors_for_text_entry_and_console_output
 export PROMPT_COMMAND="printf '$CUR_TITLE$USER@$HOSTNAME\a'; $PROMPT_COMMAND"   # http://apple.stackexchange.com/questions/83659/terminal-tab-title-after-ssh-session  # TODO Is this only an OS X thing?
 
