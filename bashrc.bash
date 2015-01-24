@@ -1,53 +1,78 @@
 [[ $- = *i* ]] || return  # Require an interactive shell.
 
-# TODO Switch from \e to \033 (octal) because of dash.
-
-# foreground
-export FG_BLACK=$(tput setaf 0)
-export FG_RED=$(tput setaf 1)
-export FG_GREEN=$(tput setaf 2)
-export FG_YELLOW=$(tput setaf 3)
-export FG_BLUE=$(tput setaf 4)
-export FG_MAGENTA=$(tput setaf 5)
-export FG_CYAN=$(tput setaf 6)
-export FG_WHITE=$(tput setaf 7)
-export FG_DEFAULT=$(tput setaf 9)
-
-# background
-export BG_BLACK=$(tput setab 0)
-export BG_RED=$(tput setab 1)
-export BG_GREEN=$(tput setab 2)
-export BG_YELLOW=$(tput setab 3)
-export BG_BLUE=$(tput setab 4)
-export BG_MAGENTA=$(tput setab 5)
-export BG_CYAN=$(tput setab 6)
-export BG_WHITE=$(tput setab 7)
-export BG_DEFAULT=$(tput setab 9)
+# cursor
+export CUR_TITLE='\033]0;'
+export CUR_HOME="$(tput home)"
+export CUR_SAVE="$(tput sc)"
+export CUR_RESTORE="$(tput rc)"
+export CUR_HIDE="$(tput civis)"
+export CUR_SHOW="$(tput cvvis)"
+export CUR_LEFT="$(tput cub1)"
+export CUR_DOWN="$(tput cud1)"
+export CUR_RIGHT="$(tput cuf1)"
+export CUR_UP="$(tput cuu1)"
 
 # text
-export TG_RESET=$(tput sgr0)
-export TG_BOLD=$(tput bold)
-export TG_DIM=$(tput dim)
-export TG_BLINK=$(tput blink)
-export TG_REVERSE=$(tput rev)
-export TG_HIDDEN=$(tput invis)
+export TXT_RESET="$(tput sgr0)"
 
-# TODO I am not sure if these are all ANSI.
-export UNDERLINE_START=$(tput smul)
-export UNDERLINE_STOP=$(tput rmul)
-export EMPHASIS_START=$(tput smso)
-export EMPHASIS_STOP=$(tput rmso)
-export ITALIC_START=$(tput sitm)
-export ITALIC_STOP=$(tput ritm)
+export TXT_BLACK_FG="$(tput setaf 0)"
+export TXT_BLACK_BG="$(tput setab 0)"
+export TXT_RED_FG="$(tput setaf 1)"
+export TXT_RED_BG="$(tput setab 1)"
+export TXT_GREEN_FG="$(tput setaf 2)"
+export TXT_GREEN_BG="$(tput setab 2)"
+export TXT_YELLOW_FG="$(tput setaf 3)"
+export TXT_YELLOW_BG="$(tput setab 3)"
+export TXT_BLUE_FG="$(tput setaf 4)"
+export TXT_BLUE_BG="$(tput setab 4)"
+export TXT_MAGENTA_FG="$(tput setaf 5)"
+export TXT_MAGENTA_BG="$(tput setab 5)"
+export TXT_CYAN_FG="$(tput setaf 6)"
+export TXT_CYAN_BG="$(tput setab 6)"
+export TXT_WHITE_FG="$(tput setaf 7)"
+export TXT_WHITE_BG="$(tput setab 7)"
+export TXT_DEFAULT_FG="$(tput setaf 9)"
+export TXT_DEFAULT_BG="$(tput setab 9)"
+export TXT_DEFAULT="$TXT_DEFAULT_FG$TXT_DEFAULT_BG"
+
+export TXT_BLINK="$(tput blink)"
+export TXT_BOLD_FG="$(tput bold)"
+export TXT_BOLD_BG="$(tput smso)"
+export TXT_BOLD_BG_END="$(tput rmso)"
+export TXT_DIM="$(tput dim)"
+export TXT_HIDE="$(tput invis)"
+export TXT_ITALIC="$(tput sitm)"
+export TXT_ITALIC_END="$(tput ritm)"
+export TXT_REVERSE="$(tput rev)"
+export TXT_UNDERLINE="$(tput smul)"
+export TXT_UNDERLINE_END="$(tput rmul)"
+
+# shortcuts
+export BLACK="$TXT_BLACK_FG"
+export RED="$TXT_RED_FG"
+export GREEN="$TXT_GREEN_FG"
+export YELLOW="$TXT_YELLOW_FG"
+export BLUE="$TXT_BLUE_FG"
+export MAGENTA="$TXT_MAGENTA_FG"
+export CYAN="$TXT_CYAN_FG"
+export WHITE="$TXT_WHITE_FG"
+
+# other
+export CLEAR="$(tput clear)"
+export FLASH="$(tput flash)"
 
 export PATH="$PATH:."
-export PS1='\[\e[0;36m\][\#] \u@\H:\w \$\[\e[0;33m\] '
-trap 'printf "\e[0m"' DEBUG                                                     # https://wiki.archlinux.org/index.php/Color_Bash_Prompt#Different_colors_for_text_entry_and_console_output
-export PROMPT_COMMAND="printf '\e]0;$USER@$HOSTNAME\a'; $PROMPT_COMMAND"        # http://apple.stackexchange.com/questions/83659/terminal-tab-title-after-ssh-session  # TODO Is this only an OS X thing?
+export PS1="\[$TXT_CYAN_FG\][\#] \u@\H:\w \\$\[$TXT_YELLOW_FG\] "
+trap "printf '$TXT_RESET'" DEBUG                                                # https://wiki.archlinux.org/index.php/Color_Bash_Prompt#Different_colors_for_text_entry_and_console_output
+export PROMPT_COMMAND="printf '$CUR_TITLE$USER@$HOSTNAME\a'; $PROMPT_COMMAND"   # http://apple.stackexchange.com/questions/83659/terminal-tab-title-after-ssh-session  # TODO Is this only an OS X thing?
 
-# TODO These are for `gist` on Isilon networks. How do I tell I'm at Isilon?
-#export GITHUB_URL='http://github.west.isilon.com/'
-export BROWSER='google-chrome'
+ISILON_GITHUB='github.west.isilon.com'
+if ping -qc1 "$ISILON_GITHUB" 2>&1 1>/dev/null
+then
+    # These are for `gist` on Isilon networks.
+    export GITHUB_URL="https://$ISILON_GITHUB/"
+    export BROWSER='google-chrome'
+fi
 
 case "$(uname -s)" in
     Darwin)
@@ -116,6 +141,8 @@ generate_key () {                                                               
     head -n 1
 }
 alias keygen='generate_key'
+
+alias projects='cdr ~/projects; gizmos/git.sh status'
 
 if command -v fortune &> /dev/null; then fortune; fi
 
