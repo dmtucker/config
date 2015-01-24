@@ -67,7 +67,7 @@ trap "printf '$TXT_RESET'" DEBUG                                                
 export PROMPT_COMMAND="printf '$CUR_TITLE$USER@$HOSTNAME\a'; $PROMPT_COMMAND"   # http://apple.stackexchange.com/questions/83659/terminal-tab-title-after-ssh-session  # TODO Is this only an OS X thing?
 
 ISILON_GITHUB='github.west.isilon.com'
-if ping -qc1 "$ISILON_GITHUB" 2>&1 1>/dev/null
+if ping -qc1 "$ISILON_GITHUB" 1>/dev/null 2>&1
 then
     # These are for `gist` on Isilon networks.
     export GITHUB_URL="https://$ISILON_GITHUB/"
