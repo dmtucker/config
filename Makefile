@@ -1,16 +1,17 @@
+/etc/hosts: $(shell hostname -f | cut -d. -f2-).hosts
+~/.kde/share/config/konversationrc: konversationrc
+~/.vimrc: vimrc.vim
+
+/etc/hosts ~/.kde/share/config/konversationrc ~/.vimrc:
+	cp -i $^ $@
+
 ~/.bashrc: bashrc.bash
 	# TODO Install if not already.
 	cat $@ 2> /dev/null | grep "source ${PWD}/$^" || \
 		printf "source ${PWD}/$^" >> $@
 
-~/.kde/share/config/konversationrc: konversationrc
-	cp -i $^ $@
 
-~/.vimrc: vimrc.vim
-	cp -i $^ $@
-
-
-.PHONY: all bash chrome gedit gnome konversation linux nvidia pycharm ubuntu vim workspaces
+.PHONY: all bash chrome gedit gnome hosts konversation linux nvidia pycharm ubuntu vim workspaces
 
 all: bash vim
 
@@ -35,6 +36,8 @@ gedit:
 	gsettings set org.gnome.gedit.preferences.editor tabs-size uint32 4         # default: 8?
 
 gnome: gedit
+
+hosts: /etc/hosts
 
 konversation: ~/.kde/share/config/konversationrc
 	# TODO Install if not already.
