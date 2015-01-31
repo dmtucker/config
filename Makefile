@@ -1,14 +1,15 @@
+~/.bashrc: bashrc.bash
+	# TODO Install if not already.
+	cat $@ 2> /dev/null | grep "source ${PWD}/$^" || \
+		printf "source ${PWD}/$^" >> $@
+
+
 /etc/hosts: $(shell hostname -f | cut -d. -f2-).hosts
 ~/.kde/share/config/konversationrc: konversationrc
 ~/.vimrc: vimrc.vim
 
 /etc/hosts ~/.kde/share/config/konversationrc ~/.vimrc:
 	cp -i $^ $@
-
-~/.bashrc: bashrc.bash
-	# TODO Install if not already.
-	cat $@ 2> /dev/null | grep "source ${PWD}/$^" || \
-		printf "source ${PWD}/$^" >> $@
 
 
 .PHONY: all bash chrome gedit gnome hosts konversation linux nvidia pycharm ubuntu vim workspaces
@@ -27,6 +28,7 @@ chrome:
 	dpkg -i google-chrome*.deb
 
 gedit:
+	# TODO Install if not already.
 	# Run the following command for a list of all options:
 	# gsettings list-recursively | grep -i gedit
 	gsettings set org.gnome.gedit.preferences.editor auto-indent true           # default: false?
