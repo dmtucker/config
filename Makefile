@@ -1,7 +1,6 @@
 ~/.bashrc: bashrc.bash
 	# TODO Install if not already.
-	cat $@ 2> /dev/null | grep "source ${PWD}/$^" || \
-		printf "source ${PWD}/$^" >> $@
+	cat $@ 2> /dev/null | grep "source ${PWD}/$^" || echo "source ${PWD}/$^" >> $@
 
 
 /etc/hosts: $(shell hostname -f | cut -d. -f2-).hosts
