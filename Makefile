@@ -8,7 +8,10 @@
 ~/.vimrc: vimrc.vim
 
 /etc/hosts ~/.kde/share/config/konversationrc ~/.vimrc:
-	cp -i $^ $@
+	if [ -w $@ ]; then cp -i $^ $@; else sudo cp -i $^ $@; fi
+
+/usr/bin/vim:
+	sudo apt-get install vim
 
 
 .PHONY: all bash chrome gedit gnome hosts konversation linux nvidia pycharm ubuntu vim workspaces
@@ -62,8 +65,7 @@ pycharm:
 ubuntu: linux workspaces
 	ubuntu-drivers autoinstall
 
-vim: ~/.vimrc
-	# TODO Install if not already.
+vim: ~/.vimrc /usr/bin/vim
 
 workspaces:
 	gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ hsize 2
