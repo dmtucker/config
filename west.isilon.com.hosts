@@ -1,0 +1,67 @@
+127.0.0.1    localhost
+::1          localhost ip6-localhost ip6-loopback
+ff02::1      ip6-allnodes
+ff02::2      ip6-allrouters
+
+10.7.183.13                                        wkstn-dtucker.west.isilon.com wkstn-dtucker
+
+10.7.217.10                                       vm-dtucker-win.west.isilon.com vm-dtucker-win
+10.7.217.172                                      vm-dtucker-nas.west.isilon.com vm-dtucker-nas
+
+# sc-dtucker-tst.west.isilon.com
+10.7.223.64                                     sc-dtucker-tst-1.west.isilon.com sc-dtucker-tst-1    vbox2450
+10.7.223.65                                     sc-dtucker-tst-2.west.isilon.com sc-dtucker-tst-2    vbox2451
+10.7.223.66                                     sc-dtucker-tst-3.west.isilon.com sc-dtucker-tst-3    vbox2452
+10.7.223.67                                     sc-dtucker-tst-4.west.isilon.com sc-dtucker-tst-4    vbox2453
+10.7.223.68                                     sc-dtucker-tst-5.west.isilon.com sc-dtucker-tst-5    vbox2454
+#10.7.223.69    # unused
+#10.7.223.70    # unused
+#10.7.223.71    # unused
+
+10.111.223.239                                       dt-dur-sc-1.west.isilon.com dt-dur-sc-1
+10.111.223.240                                       dt-dur-sc-2.west.isilon.com dt-dur-sc-2
+10.111.223.241                                       dt-dur-sc-3.west.isilon.com dt-dur-sc-3
+10.111.223.242                                       dt-dur-sc-4.west.isilon.com dt-dur-sc-4
+10.111.223.243                                       dt-dur-sc-5.west.isilon.com dt-dur-sc-5
+10.111.223.244                                       dt-dur-sc-6.west.isilon.com dt-dur-sc-6
+# dt-dur-sc.west.isilon.com
+10.111.223.245                                 dt-dur-sc-1-david.west.isilon.com dt-dur-sc-1-david
+10.111.223.246                                 dt-dur-sc-2-david.west.isilon.com dt-dur-sc-2-david
+10.111.223.247                                 dt-dur-sc-3-david.west.isilon.com dt-dur-sc-3-david
+10.111.223.248                                 dt-dur-sc-4-david.west.isilon.com dt-dur-sc-4-david
+10.111.223.249                                 dt-dur-sc-5-david.west.isilon.com dt-dur-sc-5-david
+10.111.223.250                                 dt-dur-sc-6-david.west.isilon.com dt-dur-sc-6-david
+# dt-dur-sc-hwx.west.isilon.com
+10.111.224.76                                    dt-dur-sc-hwx-1.west.isilon.com dt-dur-sc-hwx-1
+10.111.224.77                                    dt-dur-sc-hwx-2.west.isilon.com dt-dur-sc-hwx-2
+10.111.224.78                                    dt-dur-sc-hwx-3.west.isilon.com dt-dur-sc-hwx-3
+10.111.224.79                                    dt-dur-sc-hwx-4.west.isilon.com dt-dur-sc-hwx-4
+10.111.224.113                                   dt-dur-sc-hwx-5.west.isilon.com dt-dur-sc-hwx-5
+10.111.224.114                                   dt-dur-sc-hwx-6.west.isilon.com dt-dur-sc-hwx-6 
+
+# dt_hwx_cluster (dt-dur-sc.west.isilon.com)
+10.111.227.195                                     dt-hwx-server.west.isilon.com dt-hwx-server
+10.111.227.215                                    dt-hwx-gateway.west.isilon.com dt-hwx-gateway
+10.111.227.254                                   dt-hwx-master-1.west.isilon.com dt-hwx-master-1
+10.111.227.246                                   dt-hwx-master-2.west.isilon.com dt-hwx-master-2
+10.111.227.228                                   dt-hwx-master-3.west.isilon.com dt-hwx-master-3
+10.111.227.240                                    dt-hwx-slave-1.west.isilon.com dt-hwx-slave-1
+10.111.227.200                                    dt-hwx-slave-2.west.isilon.com dt-hwx-slave-2
+10.111.227.213                                    dt-hwx-slave-3.west.isilon.com dt-hwx-slave-3
+10.111.227.212                                    dt-hwx-slave-4.west.isilon.com dt-hwx-slave-4
+10.111.227.209                                    dt-hwx-slave-5.west.isilon.com dt-hwx-slave-5
+10.111.227.211                                    dt-hwx-slave-6.west.isilon.com dt-hwx-slave-6
+
+# vc-dtucker-hwx-1 (dt-dur-sc-hwx.west.isilon.com)
+10.111.227.181                           vm-dtucker-hwx-1-server.west.isilon.com vm-dtucker-hwx-1-server
+10.111.227.179                          vm-dtucker-hwx-1-gateway.west.isilon.com vm-dtucker-hwx-1-gateway
+10.111.227.178                         vm-dtucker-hwx-1-master-1.west.isilon.com vm-dtucker-hwx-1-master-1
+10.111.227.175                         vm-dtucker-hwx-1-master-2.west.isilon.com vm-dtucker-hwx-1-master-2
+10.111.227.177                         vm-dtucker-hwx-1-master-3.west.isilon.com vm-dtucker-hwx-1-master-3
+10.111.227.174                          vm-dtucker-hwx-1-slave-1.west.isilon.com vm-dtucker-hwx-1-slave-1
+10.111.227.173                          vm-dtucker-hwx-1-slave-2.west.isilon.com vm-dtucker-hwx-1-slave-2
+10.111.227.176                          vm-dtucker-hwx-1-slave-3.west.isilon.com vm-dtucker-hwx-1-slave-3
+10.111.227.172                          vm-dtucker-hwx-1-slave-4.west.isilon.com vm-dtucker-hwx-1-slave-4
+10.111.227.171                          vm-dtucker-hwx-1-slave-5.west.isilon.com vm-dtucker-hwx-1-slave-5
+10.111.227.170                          vm-dtucker-hwx-1-slave-6.west.isilon.com vm-dtucker-hwx-1-slave-6
+
