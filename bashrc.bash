@@ -108,7 +108,7 @@ case "$(uname -s)" in
     Linux)
         alias ls='ls --color=auto'
         ;;
-    *) echo 'This OS is not recognized by dmtucker.bashrc.'
+    *) echo 'This OS is not recognized.'
 esac
 
 alias ll='ls -lh'
