@@ -1,7 +1,8 @@
 [[ $- = *i* ]] || return  # Require an interactive shell.
 
+export PATH="$PATH:."
+
 # cursor
-export CUR_TITLE='\033]0;'
 export CUR_HOME="$(tput home)"
 export CUR_SAVE="$(tput sc)"
 export CUR_RESTORE="$(tput rc)"
@@ -61,10 +62,16 @@ export WHITE="$TXT_WHITE_FG"
 export CLEAR="$(tput clear)"
 export FLASH="$(tput flash)"
 
-export PATH="$PATH:."
-export PS1="\[$TXT_CYAN_FG\][\#] \u@\H:\w \\$\[$TXT_YELLOW_FG\] "
+# terminal
+export TERM_CUR_TITLE='\033]0'
+export TERM_CUR_TITLE_END='\007'
+case $TERM in
+    xterm*) TITLE="\[$TERM_CUR_TITLE;\u@\h$TERM_CUR_TITLE_END\]";;
+    *)      TITLE='';;
+esac
+
+export PS1="$TITLE\[$TXT_CYAN_FG\][\#] \u@\H:\w \\$\[$TXT_YELLOW_FG\] "
 trap "printf '$TXT_RESET'" DEBUG                                                # https://wiki.archlinux.org/index.php/Color_Bash_Prompt#Different_colors_for_text_entry_and_console_output
-export PROMPT_COMMAND="printf '$CUR_TITLE$USER@$HOSTNAME\a'; $PROMPT_COMMAND"   # http://apple.stackexchange.com/questions/83659/terminal-tab-title-after-ssh-session  # TODO Is this only an OS X thing?
 
 ISILON_GITHUB='github.west.isilon.com'
 if ping -qc1 "$ISILON_GITHUB" 1>/dev/null 2>&1
