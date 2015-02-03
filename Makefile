@@ -14,7 +14,7 @@
 	sudo apt-get install vim
 
 
-.PHONY: all bash chrome gedit gnome hosts konversation linux nvidia pycharm ubuntu vim workspaces
+.PHONY: all bash chrome gedit gnome hosts konversation linux nvidia pycharm time ubuntu vim workspaces
 
 all: bash vim
 
@@ -61,6 +61,9 @@ pycharm:
 	apt-get update
 	apt-get install pycharm
 	# TODO PyCharm profiles?
+
+time:
+    sudo ntpdate -u 'pool.ntp.org'
 
 ubuntu: linux workspaces
 	ubuntu-drivers autoinstall

@@ -73,16 +73,6 @@ esac
 export PS1="$TITLE\[$TXT_CYAN_FG\][\#] \u@\H:\w \\$\[$TXT_YELLOW_FG\] "
 trap "printf '$TXT_RESET'" DEBUG                                                # https://wiki.archlinux.org/index.php/Color_Bash_Prompt#Different_colors_for_text_entry_and_console_output
 
-TIME_SERVER='pool.ntp.org'
-if ping -qc1 "$TIME_SERVER" 1>/dev/null 2>&1
-then ntpdate -u "$TIME_SERVER"
-fi
-
-ISILON_TIME='time.isilon.com'
-if ping -qc1 "$ISILON_TIME" 1>/dev/null 2>&1
-then ntpdate -u "$ISILON_TIME"
-fi
-
 ISILON_GITHUB='github.west.isilon.com'
 if ping -qc1 "$ISILON_GITHUB" 1>/dev/null 2>&1
 then
