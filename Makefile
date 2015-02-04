@@ -4,19 +4,18 @@
 
 
 /etc/hosts: $(shell hostname -f | cut -d. -f2-).hosts
-~/.kde/share/config/konversationrc: konversationrc
+~/.irssi/config: irssi.cfg
+~/.kde/share/config/konversationrc: konversationrc.cfg
 ~/.vimrc: vimrc.vim
 
-/etc/hosts ~/.kde/share/config/konversationrc ~/.vimrc:
+/etc/hosts ~/.irssi/config ~/.kde/share/config/konversationrc.cfg ~/.vimrc:
 	if [ -w $@ ]; then cp -i $^ $@; else sudo cp -i $^ $@; fi
 
 /usr/bin/vim:
 	sudo apt-get install vim
 
 
-.PHONY: all bash chrome gedit gnome hosts konversation linux nvidia pycharm time ubuntu vim workspaces
-
-all: bash vim
+.PHONY: bash chrome gedit gnome hosts konversation nvidia pycharm time ubuntu vim workspaces
 
 bash: ~/.bashrc
 	#chsh -s /bin/bash "$(whoami)"  # This is the non-LDAP way to do this.
@@ -29,7 +28,7 @@ chrome:
 	wget 'https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'  # TODO Use 'i386' instead of 'amd64' for 32bit systems.
 	dpkg -i google-chrome*.deb
 
-gedit:
+gedit: gnome
 	# TODO Install if not already.
 	# Run the following command for a list of all options:
 	# gsettings list-recursively | grep -i gedit
@@ -39,14 +38,14 @@ gedit:
 	gsettings set org.gnome.gedit.preferences.editor insert-spaces true         # default: false?
 	gsettings set org.gnome.gedit.preferences.editor tabs-size uint32 4         # default: 8?
 
-gnome: gedit
+gnome:
 
 hosts: /etc/hosts
 
-konversation: ~/.kde/share/config/konversationrc
-	# TODO Install if not already.
+irssi: ~/.irssi/config
 
-linux: bash chrome gnome konversation pycharm vim
+konversation: ~/.kde/share/config/konversationrc.cfg
+	# TODO Install if not already.
 
 nvidia:
 	apt-get install nvidia-current
@@ -63,7 +62,7 @@ pycharm:
 	# TODO PyCharm profiles?
 
 time:
-    sudo ntpdate -u 'pool.ntp.org'
+	sudo ntpdate -u 'pool.ntp.org'
 
 ubuntu: linux workspaces
 	ubuntu-drivers autoinstall
