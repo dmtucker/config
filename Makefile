@@ -4,7 +4,7 @@
 
 
 ~/.irssi/config: irssi.cfg
-	if [ -w $@ ]; then cp -i $^ $@; else sudo cp -i $^ $@; fi
+	if [ -w $@ ] || ([ ! -e $@ ] && [ -w "$$(dirname $@)" ]); then cp -i $^ $@; else sudo cp -i $^ $@; fi
 	./personalize.sh $@
 
 
@@ -18,7 +18,7 @@
 	sudo apt-get install vim
 
 
-.PHONY: bash chrome gedit gnome hosts nvidia pycharm time ubuntu vim workspaces
+.PHONY: bash chrome gedit hosts nvidia pycharm time ubuntu vim workspaces
 
 bash: ~/.bashrc
 	#chsh -s /bin/bash "$(whoami)"  # This is the non-LDAP way to do this.
@@ -31,7 +31,7 @@ chrome:
 	wget 'https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'  # TODO Use 'i386' instead of 'amd64' for 32bit systems.
 	dpkg -i google-chrome*.deb
 
-gedit: gnome
+gedit:
 	# TODO Install if not already.
 	# Run the following command for a list of all options:
 	# gsettings list-recursively | grep -i gedit
@@ -40,8 +40,6 @@ gedit: gnome
 	gsettings set org.gnome.gedit.preferences.editor display-right-margin true  # default: false?
 	gsettings set org.gnome.gedit.preferences.editor insert-spaces true         # default: false?
 	gsettings set org.gnome.gedit.preferences.editor tabs-size uint32 4         # default: 8?
-
-gnome:
 
 hosts: /etc/hosts
 

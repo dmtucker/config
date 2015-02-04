@@ -34,10 +34,6 @@ case "$f" in
         printf "Nickname: [$nickname] "
         read input
         [ "$input" != '' ] && nickname="$input"
-        group="$nickname"
-        printf "Group: [$group] "
-        read input
-        [ "$input" != '' ] && group="$input"
         printf "NickServ Password: "
         stty -echo && read password; stty echo; printf '\n'
         OS="$(lsb_release -si 2> /dev/null | tr '[:upper:]' '[:lower:]')"
@@ -47,7 +43,6 @@ case "$f" in
             personalize "$f" '##PERSONALIZE:OS##' "$OS"
         fi
         [ "$password" != '' ] && personalize "$f" '##PERSONALIZE:password##' "$password"
-        personalize "$f" '##PERSONALIZE:group##' "$group"
         personalize "$f" '##PERSONALIZE:nickname##' "$nickname"
         personalize "$f" '##PERSONALIZE:username##' "$username"
         ;;
