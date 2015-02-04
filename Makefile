@@ -3,13 +3,17 @@
 	cat $@ 2> /dev/null | grep "source ${PWD}/$^" || echo "source ${PWD}/$^" >> $@
 
 
-/etc/hosts: $(shell hostname -f | cut -d. -f2-).hosts
 ~/.irssi/config: irssi.cfg
+	if [ -w $@ ]; then cp -i $^ $@; else sudo cp -i $^ $@; fi
+	./personalize.sh $@
+
+
+/etc/hosts: $(shell hostname -f | cut -d. -f2-).hosts
 ~/.kde/share/config/konversationrc: konversationrc.cfg
 ~/.vimrc: vimrc.vim
 
-/etc/hosts ~/.irssi/config ~/.kde/share/config/konversationrc.cfg ~/.vimrc:
-	if [ -w $@ ]; then cp -i $^ $@; else sudo cp -i $^ $@; fi
+/etc/hosts ~/.kde/share/config/konversationrc.cfg ~/.vimrc:
+	if [ -w $@ ]; then cp -i $^ $@; else sudo cp -i $^ $@; fi  # TODO This requires sudo if the target does not exist.
 
 /usr/bin/vim:
 	sudo apt-get install vim
