@@ -9,17 +9,16 @@
 
 
 /etc/hosts: $(shell hostname -f | cut -d. -f2-).hosts
-~/.kde/share/config/konversationrc: konversationrc.cfg
 ~/.vimrc: vimrc.vim
 
-/etc/hosts ~/.kde/share/config/konversationrc.cfg ~/.vimrc:
+/etc/hosts ~/.vimrc:
 	if [ -w $@ ]; then cp -i $^ $@; else sudo cp -i $^ $@; fi  # TODO This requires sudo if the target does not exist.
 
 /usr/bin/vim:
 	sudo apt-get install vim
 
 
-.PHONY: bash chrome gedit gnome hosts konversation nvidia pycharm time ubuntu vim workspaces
+.PHONY: bash chrome gedit gnome hosts nvidia pycharm time ubuntu vim workspaces
 
 bash: ~/.bashrc
 	#chsh -s /bin/bash "$(whoami)"  # This is the non-LDAP way to do this.
@@ -47,9 +46,6 @@ gnome:
 hosts: /etc/hosts
 
 irssi: ~/.irssi/config
-
-konversation: ~/.kde/share/config/konversationrc.cfg
-	# TODO Install if not already.
 
 nvidia:
 	apt-get install nvidia-current
