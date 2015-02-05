@@ -12,7 +12,7 @@
 ~/.vimrc: vimrc.vim
 
 /etc/hosts ~/.vimrc:
-	if [ -w $@ ]; then cp -i $^ $@; else sudo cp -i $^ $@; fi  # TODO This requires sudo if the target does not exist.
+	if [ -w $@ ] || ([ ! -e $@ ] && [ -w "$$(dirname $@)" ]); then cp -i $^ $@; else sudo cp -i $^ $@; fi
 
 /usr/bin/vim:
 	sudo apt-get install vim
