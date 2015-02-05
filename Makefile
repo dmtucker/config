@@ -53,10 +53,10 @@ pycharm:
 	# Install PyCharm CE on a Debian-like system.
 	# Source: http://www.sysads.co.uk/2014/06/install-pycharm-3-4-ubuntu-14-04/
 	# Access: 2014-11-10
-	wget -q -O - 'http://archive.getdeb.net/getdeb-archive.key' | apt-key add -
-	echo "deb http://archive.getdeb.net/ubuntu $(lsb_release -sc)-getdeb apps" >> '/etc/apt/sources.list.d/getdeb.list'
-	apt-get update
-	apt-get install pycharm
+	wget -q -O - 'http://archive.getdeb.net/getdeb-archive.key' | sudo apt-key add -
+	sudo echo "deb http://archive.getdeb.net/ubuntu $(lsb_release -sc)-getdeb apps" >> '/etc/apt/sources.list.d/getdeb.list'
+	sudo apt-get update
+	sudo apt-get install pycharm
 	# TODO PyCharm profiles?
 
 time:
