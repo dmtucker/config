@@ -23,6 +23,20 @@
 bash: ~/.bashrc
 	#chsh -s /bin/bash "$(whoami)"  # This is the non-LDAP way to do this.
 	#echo "nss_override_attribute_value loginShell /bin/bash" >> /etc/ldap/ldap.conf
+	# TODO Evaluate/integrate the script below.
+	## After running, .bash_profile will source .bashrc which,
+	## in turn, will source all specified files (if they exist).
+	## If .bash_profile or .bashrc already exist, they will be moved to *.old.
+	#USAGE="usage: $(basename "$0") [<file> ...]"
+	#[ "$#" -lt '1' ] && echo "$USAGE"
+	#lnk="$HOME/.bash_profile"
+	#dst="$HOME/.bashrc"
+	#if [ -e "$lnk" ]; then mv -i "$lnk" "$lnk.old"; fi
+	#echo "source $dst" >> "$lnk"
+	#if [ -e "$dst" ]; then mv -i "$dst" "$dst.old"; fi
+	#for src in "$@"
+	#do if [ -e "$src" ]; then echo "source $PWD/$src" >> "$dst"; fi
+	#done
 
 chrome:
 	# Source: http://askubuntu.com/questions/79280/how-to-install-chrome-browser-properly-via-command-line
