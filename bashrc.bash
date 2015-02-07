@@ -149,7 +149,7 @@ generate_key () {                                                               
 }
 alias keygen='generate_key'
 
-alias projects='cdr ~/projects; gizmos/git.sh status'
+alias projects='cdr ~/projects; gizmos/git.sh fetch status'
 
 if command -v fortune &> /dev/null; then fortune; fi
 
