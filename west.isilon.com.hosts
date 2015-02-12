@@ -24,12 +24,12 @@ ff02::2      ip6-allrouters
 
 # 10.111.224.192 (VIP)  # TODO
 ## System(1)  # TODO Verify this is correct.      sc-dtucker-dur.west.isilon.com sc-dtucker-dur  # TODO Set up SmartConnect.
-10.111.223.239                                  sc-dtucker-dur-1.west.isilon.com sc-dtucker-dur-1
-10.111.223.240                                  sc-dtucker-dur-2.west.isilon.com sc-dtucker-dur-2
-10.111.223.241                                  sc-dtucker-dur-3.west.isilon.com sc-dtucker-dur-3
-10.111.223.242                                  sc-dtucker-dur-4.west.isilon.com sc-dtucker-dur-4
-10.111.223.243                                  sc-dtucker-dur-5.west.isilon.com sc-dtucker-dur-5
-10.111.223.244                                  sc-dtucker-dur-6.west.isilon.com sc-dtucker-dur-6
+10.111.225.239                                  sc-dtucker-dur-1.west.isilon.com sc-dtucker-dur-1
+10.111.225.240                                  sc-dtucker-dur-2.west.isilon.com sc-dtucker-dur-2
+10.111.225.241                                  sc-dtucker-dur-3.west.isilon.com sc-dtucker-dur-3
+10.111.225.242                                  sc-dtucker-dur-4.west.isilon.com sc-dtucker-dur-4
+10.111.225.243                                  sc-dtucker-dur-5.west.isilon.com sc-dtucker-dur-5
+10.111.225.244                                  sc-dtucker-dur-6.west.isilon.com sc-dtucker-dur-6
 ## hwx(4)                                           dt-dur-sc-hwx.west.isilon.com dt-dur-sc-hwx  # TODO This should be sc-dtucker-dur-hwx1.
 10.111.224.76                              sc-dtucker-dur-hwx1-1.west.isilon.com dt-dur-sc-hwx-1
 10.111.224.77                              sc-dtucker-dur-hwx1-2.west.isilon.com dt-dur-sc-hwx-2
@@ -38,12 +38,12 @@ ff02::2      ip6-allrouters
 10.111.224.113                             sc-dtucker-dur-hwx1-5.west.isilon.com dt-dur-sc-hwx-5
 10.111.224.114                             sc-dtucker-dur-hwx1-6.west.isilon.com dt-dur-sc-hwx-6
 ## hwx2(5)                                              dt-dur-sc.west.isilon.com dt-dur-sc  # TODO This should be sc-dtucker-dur-hwx2.
-10.111.224.245                             sc-dtucker-dur-hwx2-1.west.isilon.com sc-dtucker-hwx2-1
-10.111.224.246                             sc-dtucker-dur-hwx2-2.west.isilon.com sc-dtucker-hwx2-2
-10.111.224.247                             sc-dtucker-dur-hwx2-3.west.isilon.com sc-dtucker-hwx2-3
-10.111.224.248                             sc-dtucker-dur-hwx2-4.west.isilon.com sc-dtucker-hwx2-4
-10.111.224.249                             sc-dtucker-dur-hwx2-5.west.isilon.com sc-dtucker-hwx2-5
-10.111.224.250                             sc-dtucker-dur-hwx2-6.west.isilon.com sc-dtucker-hwx2-6
+10.111.225.245                             sc-dtucker-dur-hwx2-1.west.isilon.com sc-dtucker-hwx2-1
+10.111.225.246                             sc-dtucker-dur-hwx2-2.west.isilon.com sc-dtucker-hwx2-2
+10.111.225.247                             sc-dtucker-dur-hwx2-3.west.isilon.com sc-dtucker-hwx2-3
+10.111.225.248                             sc-dtucker-dur-hwx2-4.west.isilon.com sc-dtucker-hwx2-4
+10.111.225.249                             sc-dtucker-dur-hwx2-5.west.isilon.com sc-dtucker-hwx2-5
+10.111.225.250                             sc-dtucker-dur-hwx2-6.west.isilon.com sc-dtucker-hwx2-6
 
 # NN dt-dur-sc-hwx  # TODO This should be "NN sc-dtucker-dur-hwx1".
 10.111.227.181                           vm-dtucker-hwx-1-server.west.isilon.com vm-dtucker-hwx-1-server  # TODO Apply SCHEME.
