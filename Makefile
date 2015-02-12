@@ -9,16 +9,17 @@
 
 
 /etc/hosts: $(shell hostname -f | cut -d. -f2-).hosts
+~/.gitconfig: gitconfig.cfg
 ~/.vimrc: vimrc.vim
 
-/etc/hosts ~/.vimrc:
+/etc/hosts ~/.gitconfig ~/.vimrc:
 	if [ -w $@ ] || ([ ! -e $@ ] && [ -w "$$(dirname $@)" ]); then cp -i $^ $@; else sudo cp -i $^ $@; fi
 
 /usr/bin/vim:
 	sudo apt-get install vim
 
 
-.PHONY: bash chrome gedit hosts nvidia pycharm time ubuntu vim workspaces
+.PHONY: bash chrome gedit git hosts nvidia pycharm time ubuntu vim workspaces
 
 bash: ~/.bashrc
 	#chsh -s /bin/bash "$(whoami)"  # This is the non-LDAP way to do this.
@@ -54,6 +55,8 @@ gedit:
 	gsettings set org.gnome.gedit.preferences.editor display-right-margin true  # default: false?
 	gsettings set org.gnome.gedit.preferences.editor insert-spaces true         # default: false?
 	gsettings set org.gnome.gedit.preferences.editor tabs-size uint32 4         # default: 8?
+
+git: ~/.gitconfig
 
 hosts: /etc/hosts
 
