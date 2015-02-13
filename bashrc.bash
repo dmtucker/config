@@ -149,6 +149,20 @@ generate_key () {                                                               
 }
 alias keygen='generate_key'
 
+countdown () {
+    from="$1"
+    shift
+    prompt='countdown: '
+    printf "$prompt"
+    for i in $(seq -f "%0${#from}g" $(($from)) -1 1)
+    do
+        printf "$i"
+        sleep 1
+        for j in $(seq "${#from}"); do printf '\b'; done
+    done
+    for i in $(seq "${#prompt}"); do printf '\b'; done
+}
+
 alias projects='cdr ~/projects; gizmos/git.sh "fetch --all -q" "status -bs"'
 
 if command -v fortune &> /dev/null; then fortune; fi
