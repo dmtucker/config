@@ -163,6 +163,12 @@ countdown () {
     for i in $(seq "${#prompt}"); do printf '\b'; done
 }
 
+where () {
+    name="$1"
+    shift
+    find . -iname $name \( -type f -o -type d \) -print
+}
+
 alias projects='cdr ~/projects; gizmos/git.sh "fetch --all -q" "status -bs"'
 
 if command -v fortune &> /dev/null; then fortune; fi
