@@ -16,7 +16,7 @@ personalize () {
     touch "$tmp"
     while read line
     do
-        if [ "$(echo "$line" | grep "$tag" &>/dev/null)" != '' ]
+        if [ "$(echo "$line" | grep "$tag" 1>/dev/null 2>&1)" != '' ]
         then line="$(echo "$line" | sed "s/<personalize>/$data/")"
         fi
         echo "$line" >> "$tmp"

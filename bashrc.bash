@@ -142,7 +142,7 @@ wan_ip () {
 alias wimi='wan_ip'
 
 generate_key () {                                                               # https://gist.github.com/earthgecko/3089509
-    cat /dev/urandom |                                                          # http://en.wikipedia.org/?title=/dev/random
+    cat /dev/urandom |
     env LC_CTYPE=C tr -dc "a-zA-Z0-9" |
     fold -w "${1:-32}" |
     head -n 1
@@ -171,5 +171,5 @@ where () {
 
 alias projects='cdr ~/projects; gizmos/git.sh "fetch --all -q" "status -bs"'
 
-if command -v fortune &> /dev/null; then fortune; fi
+if command -v fortune 1>/dev/null 2>&1; then fortune; fi
 
