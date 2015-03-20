@@ -9,18 +9,13 @@
 	./personalize.sh $@
 
 
-/etc/hosts: $(shell hostname -f | cut -d. -f2-).hosts
-~/.gitconfig: gitconfig.cfg
-~/.vimrc: vimrc.vim
-
-/etc/hosts ~/.gitconfig ~/.vimrc:
-	if [ -w $@ ] || ([ ! -e $@ ] && [ -w "$$(dirname $@)" ]); then cp -i $^ $@; else sudo cp -i $^ $@; fi
-
-/usr/bin/vim:
-	sudo apt-get install vim
+~/.gitconfig: ${PWD}/gitconfig.ini
+~/.vimrc: ${PWD}/vimrc.vim
+~/.gitconfig ~/.vimrc:
+	if [ -w "$@" ] || ([ ! -e "$@" ] && [ -w "$$(dirname "$@")" ]); then cp -i "$^" "$@"; else sudo cp -i "$^" "$@"; fi
 
 
-.PHONY: bash chrome gedit git hosts nvidia pycharm time ubuntu vim workspaces
+.PHONY: bash chrome gedit git nvidia pycharm time ubuntu vim workspaces
 
 bash: ~/.bash_profile
 	chsh -s /bin/bash "$$(id -un)"
@@ -44,8 +39,6 @@ gedit:
 
 git: ~/.gitconfig
 
-hosts: /etc/hosts
-
 irssi: ~/.irssi/config
 
 nvidia:
@@ -68,7 +61,7 @@ time:
 ubuntu: linux workspaces
 	ubuntu-drivers autoinstall
 
-vim: ~/.vimrc /usr/bin/vim
+vim: ~/.vimrc
 
 workspaces:
 	gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ hsize 2
