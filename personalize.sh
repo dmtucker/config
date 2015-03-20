@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
-USAGE="$(basename $0) <path>"
+usage="$(basename $0) <path>"
 if [ "$#" != '1' ]
 then
-    echo "$USAGE"
-    exit 1
+    echo "$usage"
+    exit "$LINENO"
 fi
 f="$1"
 shift
@@ -47,8 +47,7 @@ case "$f" in
         personalize "$f" '##PERSONALIZE:username##' "$username"
         ;;
     *)
-        echo "$USAGE"
-        exit 2
+        echo "$usage"
+        exit "$LINENO"
         ;;
 esac
-
