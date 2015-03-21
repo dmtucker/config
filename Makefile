@@ -36,7 +36,7 @@ linux-gedit:
 	gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
 	gsettings set org.gnome.gedit.preferences.editor display-right-margin true
 	gsettings set org.gnome.gedit.preferences.editor insert-spaces true
-	gsettings set org.gnome.gedit.preferences.editor tabs-size uint32 4
+	gsettings set org.gnome.gedit.preferences.editor tabs-size 4
 
 ubuntu: linux ubuntu-workspaces
 	ubuntu-drivers autoinstall
