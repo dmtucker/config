@@ -70,7 +70,7 @@ case $TERM in
     *)      TITLE='';;
 esac
 
-export PS1="$TITLE\[$TXT_GREEN_FG\]\d \t\n\[$TXT_CYAN_FG\][\#] \u@\H:\w \\$\[$TXT_YELLOW_FG\] "
+export PS1="$TITLE\[$TXT_CYAN_FG\][\D{%F}T\t\D{%z}] \u@\H \\$\[$TXT_YELLOW_FG\] "
 trap "printf '$TXT_RESET'" DEBUG                                                # https://wiki.archlinux.org/index.php/Color_Bash_Prompt#Different_colors_for_text_entry_and_console_output
 
 ISILON_GITHUB='github.west.isilon.com'
