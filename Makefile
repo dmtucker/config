@@ -8,11 +8,11 @@
  ~/.irssi/config: ${PWD}/irssi.pl
 ~/.vimrc: ${PWD}/vimrc.vim
 ~/.gitconfig ~/.irssi/config ~/.vimrc:
-	[ ! -e "$$(dirname $@)" ] && mkdir -p "$$(dirname $@)"
+	[ ! -e "$$(dirname "$@")" ] && mkdir -p "$$(dirname "$@")"
 	if [ -w "$@" ] || ([ ! -e "$@" ] && [ -w "$$(dirname "$@")" ]); then cp -i "$^" "$@"; else sudo cp -i "$^" "$@"; fi
 
 
-.PHONY: bash clock git irssi linux linux-gedit ubuntu ubuntu-workspaces vim
+.PHONY: bash clock git irssi linux linux-gedit mac mac-sublime ubuntu ubuntu-workspaces vim
 
 bash: ~/.bash_profile
 	chsh -s /bin/bash "$$(id -un)"
@@ -35,6 +35,11 @@ linux-gedit:
 	gsettings set org.gnome.gedit.preferences.editor display-right-margin true
 	gsettings set org.gnome.gedit.preferences.editor insert-spaces true
 	gsettings set org.gnome.gedit.preferences.editor tabs-size 4
+
+mac: mac-sublime
+
+mac-sublime: ${PWD}/sublime.json
+	ln -fs "$^" ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Preferences.sublime-settings
 
 ubuntu: linux ubuntu-workspaces
 	ubuntu-drivers autoinstall
