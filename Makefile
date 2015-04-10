@@ -13,12 +13,12 @@
 	if [ -w "$@" ] || ([ ! -e "$@" ] && [ -w "$$(dirname "$@")" ]); then cp -i "$^" "$@"; else sudo cp -i "$^" "$@"; fi
 
 
-.PHONY: bash cli clock git irssi linux linux-gedit mac mac-sublime screen ubuntu ubuntu-workspaces vim
+.PHONY: bash cli clock git irssi linux linux-gedit mac mac-sublime personalized screen ubuntu ubuntu-workspaces vim
 
 bash: ~/.bash_profile
 	chsh -s /bin/bash "$$(id -un)"
 
-cli: bash clock git irssi screen vim
+cli: bash clock git screen vim
 
 clock:
 	sudo ntpdate -u 'pool.ntp.org'
@@ -43,6 +43,8 @@ mac: mac-sublime
 
 mac-sublime: ${PWD}/sublime.json
 	ln -fs "$^" ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Preferences.sublime-settings
+
+personalized: irssi
 
 screen: ~/.screenrc
 
