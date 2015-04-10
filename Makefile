@@ -16,7 +16,7 @@
 .PHONY: bash cli clock git irssi linux linux-gedit mac mac-sublime personalized screen ubuntu ubuntu-workspaces vim
 
 bash: ~/.bash_profile
-	chsh -s /bin/bash "$$(id -un)"
+	if cut -d: -f1 /etc/passwd | grep "$$(id -un)"; then chsh -s /bin/bash "$$(id -un)"; fi
 
 cli: bash clock git screen vim
 
