@@ -8,7 +8,7 @@
  ~/.irssi/config: ${PWD}/irssi.pl
 ~/.vimrc: ${PWD}/vimrc.vim
 ~/.gitconfig ~/.irssi/config ~/.vimrc:
-	[ ! -e "$$(dirname "$@")" ] && mkdir -p "$$(dirname "$@")"
+	[ -e "$$(dirname "$@")" ] || mkdir -p "$$(dirname "$@")"
 	if [ -w "$@" ] || ([ ! -e "$@" ] && [ -w "$$(dirname "$@")" ]); then cp -i "$^" "$@"; else sudo cp -i "$^" "$@"; fi
 
 
