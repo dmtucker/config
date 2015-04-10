@@ -5,17 +5,20 @@
 
 
 ~/.gitconfig: ${PWD}/gitconfig.ini
- ~/.irssi/config: ${PWD}/irssi.pl
+~/.irssi/config: ${PWD}/irssi.pl
+~/.screenrc: ${PWD}/screenrc.screen
 ~/.vimrc: ${PWD}/vimrc.vim
-~/.gitconfig ~/.irssi/config ~/.vimrc:
+~/.gitconfig ~/.irssi/config ~/.screenrc ~/.vimrc:
 	[ -e "$$(dirname "$@")" ] || mkdir -p "$$(dirname "$@")"
 	if [ -w "$@" ] || ([ ! -e "$@" ] && [ -w "$$(dirname "$@")" ]); then cp -i "$^" "$@"; else sudo cp -i "$^" "$@"; fi
 
 
-.PHONY: bash clock git irssi linux linux-gedit mac mac-sublime ubuntu ubuntu-workspaces vim
+.PHONY: bash cli clock git irssi linux linux-gedit mac mac-sublime screen ubuntu ubuntu-workspaces vim
 
 bash: ~/.bash_profile
 	chsh -s /bin/bash "$$(id -un)"
+
+cli: bash clock git irssi screen vim
 
 clock:
 	sudo ntpdate -u 'pool.ntp.org'
@@ -40,6 +43,8 @@ mac: mac-sublime
 
 mac-sublime: ${PWD}/sublime.json
 	ln -fs "$^" ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Preferences.sublime-settings
+
+screen: ~/.screenrc
 
 ubuntu: linux ubuntu-workspaces
 	ubuntu-drivers autoinstall
