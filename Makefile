@@ -16,6 +16,12 @@ help:
 		Darwin) \
 			echo "Install '$$(basename "$@")' with Homebrew."; \
 			false;; \
+		Linux) \
+			case "$$(lsb_release -is)" in \
+				Debian) \
+					sudo apt-get -y -qq install "$$(basename "$@")" | \
+						sed 's/^/# /';; \
+			esac;; \
 		*) \
 			echo "Your operating system ($$(uname -s)) is not supported."; \
 			false;; \
@@ -41,9 +47,7 @@ help:
 .PHONY: bash git irssi screen vim
 
 bash: /bin/bash ~/.bash_profile
-	if cut -d ':' -f '1' /etc/passwd | grep -q "$$(id -un)"; \
-	then chsh -s /bin/bash "$$(id -un)"; \
-	fi
+	-[ "$$(uname -s)" = 'Linux' ] && chsh -s /bin/bash
 
 git: /usr/bin/git ~/.gitconfig
 
@@ -69,8 +73,10 @@ cli-all: cli irssi
 
 
 gnome: gnome-gedit
+	command -v gnome-session > /dev/null || exit
 
 gnome-gedit:
+	command -v gedit > /dev/null || exit
 	gsettings set org.gnome.gedit.plugins.filebrowser open-at-first-doc false
 	gsettings set org.gnome.gedit.preferences.editor auto-indent true
 	gsettings set org.gnome.gedit.preferences.editor create-backup-copy false
@@ -83,16 +89,20 @@ gnome-gedit:
 	# For more options, run `gsettings list-recursively | grep -i gedit`.
 
 
-mac: mac-sublime
+mac:
+	[ "$$(uname -s)" = 'Darwin' ] || exit
 
 mac-sublime: ${PWD}/sublime.json
+	[ "$$(uname -s)" = 'Darwin' ] || exit
 	ln -fs "$^" ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Preferences.sublime-settings
 
 
 ubuntu: ubuntu-workspaces
+	[ "$$(lsb_release -is)" = 'Ubuntu' ] || exit
 	ubuntu-drivers autoinstall
 
 ubuntu-workspaces:
+	[ "$$(lsb_release -is)" = 'Ubuntu' ] || exit
 	gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ hsize 2
 	gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ vsize 2
 
