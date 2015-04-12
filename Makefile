@@ -52,7 +52,7 @@ bash: /bin/bash ~/.bash_profile
 git: /usr/bin/git ~/.gitconfig
 
 irssi: /usr/bin/irssi ~/.irssi/config
-	./personalize.sh "$^"
+	./customize.py -t '##customize.py##' -p '# ' ~/.irssi/config
 
 screen: /usr/bin/screen ~/.screenrc
 

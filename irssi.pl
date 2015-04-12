@@ -11,16 +11,16 @@ servers = (
 chatnets = {
   Freenode = {
     type = "IRC";
-    ##PERSONALIZE:nickname##nick = "<personalize>";
-    ##PERSONALIZE:password##autosendcmd = "/msg NickServ IDENTIFY <personalize>";
+    ##customize.py##nick = "<nickname>";
+    ##customize.py##autosendcmd = "/msg NickServ IDENTIFY <password>";
   };
 };
 
 channels = (
   { chatnet = "FreeNode"; autojoin = "Yes"; name = "#freenode"; },
-  ##PERSONALIZE:username##{ chatnet = "FreeNode"; autojoin = "Yes"; name = "#<personalize>"; },
+  ##customize.py##{ chatnet = "FreeNode"; autojoin = "Yes"; name = "#<primary-nickname>"; },
   { chatnet = "FreeNode"; autojoin = "Yes"; name = "##news"; },
-  ##PERSONALIZE:OS##{ chatnet = "FreeNode"; autojoin = "Yes"; name = "#<personalize>"; },
+  ##customize.py##{ chatnet = "FreeNode"; autojoin = "Yes"; name = "#<operating-system>"; },
   { chatnet = "FreeNode"; autojoin = "Yes"; name = "#irssi"; },
 );
 
@@ -190,9 +190,9 @@ statusbar = {
 };
 settings = {
   core = {
-    ##PERSONALIZE:username##user_name = "<personalize>";
-    ##PERSONALIZE:nickname##nick = "<personalize>";
+    ##customize.py##user_name = "<primary-nickname>";
+    ##customize.py##nick = "<nickname>";
   };
   "fe-text" = { actlist_sort = "refnum"; };
-  ##PERSONALIZE:username##"irc/core" = { alternate_nick = "<personalize>"; };
+  ##customize.py##"irc/core" = { alternate_nick = "<primary-nickname>"; };
 };
