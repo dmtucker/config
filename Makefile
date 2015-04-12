@@ -71,11 +71,15 @@ cli-all: cli irssi
 gnome: gnome-gedit
 
 gnome-gedit:
+	gsettings set org.gnome.gedit.plugins.filebrowser open-at-first-doc false
 	gsettings set org.gnome.gedit.preferences.editor auto-indent true
+	gsettings set org.gnome.gedit.preferences.editor create-backup-copy false
 	gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
 	gsettings set org.gnome.gedit.preferences.editor display-right-margin true
 	gsettings set org.gnome.gedit.preferences.editor insert-spaces true
+	gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
 	gsettings set org.gnome.gedit.preferences.editor tabs-size 4
+	gsettings set org.gnome.gedit.preferences.ui side-panel-visible true
 	# For more options, run `gsettings list-recursively | grep -i gedit`.
 
 
