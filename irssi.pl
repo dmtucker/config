@@ -21,6 +21,7 @@ channels = (
   ##customize.py##{ chatnet = "FreeNode"; autojoin = "Yes"; name = "#<primary-nickname>"; },
   { chatnet = "FreeNode"; autojoin = "Yes"; name = "##news"; },
   ##customize.py##{ chatnet = "FreeNode"; autojoin = "Yes"; name = "#<operating-system>"; },
+  { chatnet = "FreeNode"; autojoin = "Yes"; name = "#bash"; },
   { chatnet = "FreeNode"; autojoin = "Yes"; name = "#irssi"; },
 );
 
