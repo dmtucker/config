@@ -171,9 +171,17 @@ where () {
 
 projects () {
     local loc="$HOME/projects"
-    [ -e "$loc" ] || mkdir -p "$loc"
+    [[ -e "$loc" ]] || mkdir -p "$loc"
     cdr "$loc"
-    gizmos/git.sh 'fetch --all -q' 'status -bs'  # TODO Remove this dependency.
+    for repo in $(echo * | sort)
+    do
+        echo "$(tput setaf 4)$repo$(tput sgr0)"
+        cd "$loc/$repo" &&
+        for cmd in 'fetch --all -q' 'status -bs'
+        do git $cmd
+        done
+    done
+    cd "$loc"
 }
 
 clear
