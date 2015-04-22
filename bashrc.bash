@@ -74,7 +74,7 @@ export PS1="$TITLE\[$TXT_CYAN_FG\][\D{%F}T\t\D{%z}] \u@\H \\$\[$TXT_YELLOW_FG\] 
 trap "printf '$TXT_RESET'" DEBUG                                                # https://wiki.archlinux.org/index.php/Color_Bash_Prompt#Different_colors_for_text_entry_and_console_output
 
 ISILON_GITHUB='github.west.isilon.com'
-if ping -qc1 "$ISILON_GITHUB" &>/dev/null
+if ping -q -w '1' -i '0.2' "$ISILON_GITHUB" &>/dev/null
 then
     # These are for `gist` on Isilon networks.
     export GITHUB_URL="https://$ISILON_GITHUB/"
