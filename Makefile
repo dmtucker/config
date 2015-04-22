@@ -20,6 +20,9 @@ print:
 					sudo apt-get install cups && \
 					sudo adduser "$$(id -un)" lpadmin && \
 					echo 'http://localhost:631/admin' ;; \
+				*) \
+					echo "Your distribution ($$(lsb_release -is)) is not supported."; \
+					false;;
 			esac;; \
 		*) \
 			echo "Your operating system ($$(uname -s)) is not supported."; \
@@ -91,10 +94,7 @@ cli-all: cli irssi
 .PHONY: gnome gnome-gedit mac mac-sublime ubuntu ubuntu-workspaces
 
 
-gnome: gnome-gedit
-	command -v gnome-session > /dev/null || exit
-
-gnome-gedit:
+gedit:
 	command -v gedit > /dev/null || exit
 	gsettings set org.gnome.gedit.plugins.filebrowser open-at-first-doc false
 	gsettings set org.gnome.gedit.preferences.editor auto-indent true
