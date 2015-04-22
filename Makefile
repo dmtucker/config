@@ -156,3 +156,10 @@ sublime: ${PWD}/sublime.json
 .PHONY: gnome
 
 gnome: gedit nautilus
+
+
+################################################################################
+
+.PHONY: workstation
+
+workstation: cli-all gnome chrome print
