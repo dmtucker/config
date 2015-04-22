@@ -108,12 +108,14 @@ gnome-gedit:
 	# For more options, run `gsettings list-recursively | grep -i gedit`.
 
 
-mac:
-	[ "$$(uname -s)" = 'Darwin' ] || exit
-
-mac-sublime: ${PWD}/sublime.json
-	[ "$$(uname -s)" = 'Darwin' ] || exit
-	ln -fs "$^" ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Preferences.sublime-settings
+sublime: ${PWD}/sublime.json
+	@case "$$(uname -s)" in \
+		Darwin) \
+			ln -fs "$^" ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Preferences.sublime-settings;;
+		*) \
+			echo "Your operating system ($$(uname -s)) is not supported."; \
+			false;; \
+	esac
 
 
 ubuntu: ubuntu-workspaces
