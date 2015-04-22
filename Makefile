@@ -32,7 +32,7 @@ print:
 ################################################################################
 
 
-/bin/bash /usr/bin/git /usr/bin/irssi /usr/bin/screen /usr/bin/vim:
+/bin/bash /usr/bin/git /usr/bin/irssi /usr/bin/screen /usr/bin/ssh /usr/bin/vim:
 	# Installing $@...
 	@case "$$(uname -s)" in \
 		Darwin) \
@@ -69,7 +69,11 @@ print:
 	cp -i "$^" "$@"
 
 
-.PHONY: bash git irssi screen vim
+~/.ssh/id_ecdsa:
+	ssh-keygen -q -N '' -t 'ecdsa' -f "$@"
+
+
+.PHONY: bash git irssi screen ssh vim
 
 bash: /bin/bash ~/.bash_profile
 	-[ "$$(uname -s)" = 'Linux' ] && chsh -s /bin/bash
@@ -81,12 +85,14 @@ irssi: /usr/bin/irssi ~/.irssi/config
 
 screen: /usr/bin/screen ~/.screenrc
 
+ssh: /usr/bin/ssh ~/.ssh/id_ecdsa
+
 vim: /usr/bin/vim ~/.vimrc
 
 
 .PHONY: cli cli-all
 
-cli: bash git screen vim
+cli: bash git screen ssh vim
 
 cli-all: cli irssi
 
