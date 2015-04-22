@@ -91,7 +91,7 @@ cli-all: cli irssi
 ################################################################################
 
 
-.PHONY: gedit sublime ubuntu ubuntu-workspaces
+.PHONY: gedit sublime
 
 
 gedit:
@@ -116,14 +116,3 @@ sublime: ${PWD}/sublime.json
 			echo "Your operating system ($$(uname -s)) is not supported."; \
 			false;; \
 	esac
-
-
-ubuntu: ubuntu-workspaces
-	[ "$$(lsb_release -is)" = 'Ubuntu' ] || exit
-	ubuntu-drivers autoinstall
-
-ubuntu-workspaces:
-	[ "$$(lsb_release -is)" = 'Ubuntu' ] || exit
-	gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ hsize 2
-	gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ vsize 2
-
