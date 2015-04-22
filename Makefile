@@ -91,7 +91,7 @@ cli-all: cli irssi
 ################################################################################
 
 
-.PHONY: gnome gnome-gedit mac mac-sublime ubuntu ubuntu-workspaces
+.PHONY: gedit sublime ubuntu ubuntu-workspaces
 
 
 gedit:
