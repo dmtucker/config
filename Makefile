@@ -7,28 +7,6 @@ help:
 	@make -pn | grep -B1 '#  Phony target (prerequisite of .PHONY).' | \
 		grep -vE '#|--|@' | cut -d ':' -f '1' | sort | sed 's/^/    /'
 
-.PHONY: print
-
-print:
-	@case "$$(uname -s)" in \
-		Darwin) \
-			echo "Use System Preferences."; \
-			false;; \
-		Linux) \
-			case "$$(lsb_release -is)" in \
-				Debian) \
-					sudo apt-get install cups && \
-					sudo adduser "$$(id -un)" lpadmin && \
-					echo 'http://localhost:631/admin';; \
-				*) \
-					echo "Your distribution ($$(lsb_release -is)) is not supported."; \
-					false;; \
-			esac;; \
-		*) \
-			echo "Your operating system ($$(uname -s)) is not supported."; \
-			false;; \
-	esac
-
 ################################################################################
 
 
@@ -100,8 +78,7 @@ cli-all: cli irssi
 ################################################################################
 
 
-.PHONY: chrome gedit nautilus sublime
-
+.PHONY: chrome gedit nautilus print sublime
 
 chrome:
 	@case "$$(uname -s)" in \
@@ -144,6 +121,27 @@ gedit: /usr/bin/gedit
 nautilus:
 	gsettings set org.gnome.nautilus.preferences default-folder-viewer 'list-view'
 	# For more options, run `gsettings list-recursively | grep -i nautilus`.
+
+
+print:
+	@case "$$(uname -s)" in \
+		Darwin) \
+			echo "Use System Preferences."; \
+			false;; \
+		Linux) \
+			case "$$(lsb_release -is)" in \
+				Debian) \
+					sudo apt-get install cups && \
+					sudo adduser "$$(id -un)" lpadmin && \
+					echo 'http://localhost:631/admin';; \
+				*) \
+					echo "Your distribution ($$(lsb_release -is)) is not supported."; \
+					false;; \
+			esac;; \
+		*) \
+			echo "Your operating system ($$(uname -s)) is not supported."; \
+			false;; \
+	esac
 
 sublime: ${PWD}/sublime.json
 	@case "$$(uname -s)" in \
