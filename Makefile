@@ -32,7 +32,7 @@ print:
 ################################################################################
 
 
-/bin/bash /usr/bin/git /usr/bin/irssi /usr/bin/screen /usr/bin/ssh /usr/bin/vim:
+/bin/bash /usr/bin/gedit /usr/bin/git /usr/bin/irssi /usr/bin/screen /usr/bin/ssh /usr/bin/vim:
 	# Installing $@...
 	@case "$$(uname -s)" in \
 		Darwin) \
@@ -100,7 +100,7 @@ cli-all: cli irssi
 ################################################################################
 
 
-.PHONY: chrome gedit sublime
+.PHONY: chrome gedit nautilus sublime
 
 
 chrome:
@@ -129,9 +129,7 @@ chrome:
 			false;; \
 	esac
 
-
-gedit:
-	command -v gedit > /dev/null || exit
+gedit: /usr/bin/gedit
 	gsettings set org.gnome.gedit.plugins.filebrowser open-at-first-doc false
 	gsettings set org.gnome.gedit.preferences.editor auto-indent true
 	gsettings set org.gnome.gedit.preferences.editor create-backup-copy false
@@ -143,6 +141,9 @@ gedit:
 	gsettings set org.gnome.gedit.preferences.ui side-panel-visible true
 	# For more options, run `gsettings list-recursively | grep -i gedit`.
 
+nautilus:
+	gsettings set org.gnome.nautilus.preferences default-folder-viewer 'list-view'
+	# For more options, run `gsettings list-recursively | grep -i nautilus`.
 
 sublime: ${PWD}/sublime.json
 	@case "$$(uname -s)" in \
@@ -152,3 +153,8 @@ sublime: ${PWD}/sublime.json
 			echo "Your operating system ($$(uname -s)) is not supported."; \
 			false;; \
 	esac
+
+
+.PHONY: gnome
+
+gnome: gedit nautilus
