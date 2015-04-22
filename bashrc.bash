@@ -169,7 +169,12 @@ where () {
     find . -iname $name \( -type f -o -type d \) -print
 }
 
-alias projects='cdr ~/projects; gizmos/git.sh "fetch --all -q" "status -bs"'
+projects () {
+    local loc="$HOME/projects"
+    [ -e "$loc" ] || mkdir -p "$loc"
+    cdr "$loc"
+    gizmos/git.sh 'fetch --all -q' 'status -bs'  # TODO Remove this dependency.
+}
 
 clear
 if command -v fortune &>/dev/null; then fortune; fi
