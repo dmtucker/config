@@ -19,10 +19,10 @@ print:
 				Debian) \
 					sudo apt-get install cups && \
 					sudo adduser "$$(id -un)" lpadmin && \
-					echo 'http://localhost:631/admin' ;; \
+					echo 'http://localhost:631/admin';; \
 				*) \
 					echo "Your distribution ($$(lsb_release -is)) is not supported."; \
-					false;;
+					false;; \
 			esac;; \
 		*) \
 			echo "Your operating system ($$(uname -s)) is not supported."; \
@@ -43,6 +43,9 @@ print:
 				Debian) \
 					sudo apt-get -y -qq install "$$(basename "$@")" | \
 						sed 's/^/# /';; \
+				*) \
+					echo "Your distribution ($$(lsb_release -is)) is not supported."; \
+					false;; \
 			esac;; \
 		*) \
 			echo "Your operating system ($$(uname -s)) is not supported."; \
@@ -91,7 +94,34 @@ cli-all: cli irssi
 ################################################################################
 
 
-.PHONY: gedit sublime
+.PHONY: chrome gedit sublime
+
+
+chrome:
+	@case "$$(uname -s)" in \
+		Darwin) \
+			echo "Install '$$(basename "$@")' with Homebrew."; \
+			false;; \
+		Linux) \
+			case "$$(lsb_release -is)" in \
+				Debian) \
+					case "$$(uname -m)" in \
+						x86_64) \
+							wget -O https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+							sudo dpkg -i ./google-chrome*.deb && \
+							rm ./google-chrome*.deb;; \
+						*) \
+							echo "Your architecture $$(uname -m) is not supported."; \
+							false;; \
+					esac;; \
+				*) \
+					echo "Your distribution ($$(lsb_release -is)) is not supported."; \
+					false;; \
+			esac;; \
+		*) \
+			echo "Your operating system ($$(uname -s)) is not supported."; \
+			false;; \
+	esac
 
 
 gedit:
