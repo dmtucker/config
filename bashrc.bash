@@ -1,4 +1,7 @@
 [[ $- = *i* ]] || return  # Require an interactive shell.
+if command -v fortune &>/dev/null; then fortune; fi
+
+######################################################################## exports
 
 export PATH="$PATH:."
 
@@ -65,13 +68,17 @@ export FLASH="$(tput flash)"
 # terminal
 export TERM_CUR_TITLE='\033]0'
 export TERM_CUR_TITLE_END='\007'
+
+######################################################################### prompt
+
+TITLE=''
 case $TERM in
     xterm*) TITLE="\[$TERM_CUR_TITLE;\u@\h$TERM_CUR_TITLE_END\]";;
-    *)      TITLE='';;
 esac
-
 export PS1="$TITLE\[$TXT_CYAN_FG\][\D{%F}T\t\D{%z}] \u@\H \\$\[$TXT_YELLOW_FG\] "
-trap "printf '$TXT_RESET'" DEBUG                                                # https://wiki.archlinux.org/index.php/Color_Bash_Prompt#Different_colors_for_text_entry_and_console_output
+trap "printf '$TXT_RESET'" DEBUG  # Make output the default color.
+
+################################################################ system-specific
 
 ISILON_GITHUB='github.west.isilon.com'
 if ping -q -w '1' -i '0.2' "$ISILON_GITHUB" &>/dev/null
@@ -101,23 +108,30 @@ case "$(uname -s)" in
     *) echo 'This OS is not recognized.'
 esac
 
+###################################################################### utilities
+# Note: A utility tier may only use utilities on lower tiers.
+######################################################################### tier 0
+
 alias ll='ls -lh'
+
 refresh () {
+    [[ "$#" != '0' ]] && echo "usage: $FUNCNAME" 1>&2 && return 1
     clear
     ll
 }
-alias cll='refresh'; alias r='refresh'
+alias r='refresh'
+
 fresh () {
-    cd "$@"
+    cd $@
     refresh
 }
 alias cdr='fresh'
 
+######################################################################### tier 1
+
 preview () {
-    if [[ "$#" = '0' ]]
-    then paths='.'
-    else paths="$@"
-    fi
+    paths='.'
+    [[ "$#" = '0' ]] || paths="$@"
     for path in $paths
     do
         if [[ ! -e "$path" ]]
@@ -127,7 +141,7 @@ preview () {
             else echo "$path does not exist." 1>&2
             fi
         elif [[ -d "$path" ]]
-        then ls -l "$path"  # TODO -l doesn't belong here.
+        then ll "$path"
         elif [[ -f "$path" ]]
         then less "$path"
         else echo "$FUNCNAME cannot handle special files yet!" 1>&2
@@ -136,40 +150,8 @@ preview () {
 }
 alias l='preview'
 
-wan_ip () {
-    echo "$(curl -s 'http://api.ipify.org?format=txt')"
-}
-alias wimi='wan_ip'
-
-generate_key () {                                                               # https://gist.github.com/earthgecko/3089509
-    cat /dev/urandom |
-    env LC_CTYPE=C tr -dc "a-zA-Z0-9" |
-    fold -w "${1:-32}" |
-    head -n 1
-}
-alias keygen='generate_key'
-
-countdown () {
-    from="$1"
-    shift
-    prompt='countdown: '
-    printf "$prompt"
-    for i in $(seq -f "%0${#from}g" $(($from)) -1 1)
-    do
-        printf "$i"
-        sleep 1
-        for j in $(seq "${#from}"); do printf '\b'; done
-    done
-    for i in $(seq "${#prompt}"); do printf '\b'; done
-}
-
-where () {
-    name="$1"
-    shift
-    find . -iname $name \( -type f -o -type d \) -print
-}
-
 projects () {
+    [[ "$#" != '0' ]] && echo "usage: $FUNCNAME" 1>&2 && return 1
     local loc="$HOME/projects"
     [[ -e "$loc" ]] || mkdir -p "$loc"
     cdr "$loc"
@@ -184,6 +166,41 @@ projects () {
     cd "$loc"
 }
 
-clear
-if command -v fortune &>/dev/null; then fortune; fi
+######################################################################### tier 2
 
+countdown () {
+    [[ "$#" != '1' ]] && echo "usage: $FUNCNAME <seconds>" 1>&2 && return 1
+    local from="$1"
+    shift 1
+    local prompt='countdown: '
+    printf "$prompt"
+    for i in $(seq -f "%0${#from}g" $(($from)) -1 1)
+    do
+        printf "$i"
+        sleep 1
+        for j in $(seq "${#from}"); do printf '\b'; done
+    done
+    for i in $(seq "${#prompt}"); do printf '\b'; done
+}
+
+generate_key () {  # https://gist.github.com/earthgecko/3089509
+    [[ "$#" != '0' ]] && echo "usage: $FUNCNAME" 1>&2 && return 1
+    cat /dev/urandom |
+    env LC_CTYPE=C tr -dc "a-zA-Z0-9" |
+    fold -w "${1:-32}" |
+    head -n 1
+}
+alias keygen='generate_key'
+
+wan_ip () {
+    [[ "$#" != '0' ]] && echo "usage: $FUNCNAME" 1>&2 && return 1
+    echo "$(curl -s 'http://api.ipify.org?format=txt')"
+}
+alias wimi='wan_ip'
+
+where () {
+    [[ "$#" != '1' ]] && echo "usage: $FUNCNAME <name>" 1>&2 && return 1
+    local name="$1"
+    shift 1
+    find . -iname $name \( -type f -o -type d \) -print
+}
