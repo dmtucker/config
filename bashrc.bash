@@ -193,11 +193,7 @@ generate_key () {  # https://gist.github.com/earthgecko/3089509
 alias keygen='generate_key'
 
 random_ipv6 () {
-    echo "$(
-        od -An -tx2 -N1  /dev/urandom | sed 's/^\s00/fd/'\
-    ):$(\
-        od -An -tx2 -N14 /dev/urandom | sed -e 's/ *//' -e 's/ /:/g'
-    )"
+    od -An -tx2 -N16 /dev/urandom | awk  -v OFS=':' '{$1=$1;sub(/../,"fd")}1'
 }
 
 wan_ip () {
