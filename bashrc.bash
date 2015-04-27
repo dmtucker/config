@@ -192,6 +192,14 @@ generate_key () {  # https://gist.github.com/earthgecko/3089509
 }
 alias keygen='generate_key'
 
+random_ipv6 () {
+    echo "$(
+        od -An -tx2 -N1  /dev/urandom | sed 's/^\s00/fd/'\
+    ):$(\
+        od -An -tx2 -N14 /dev/urandom | sed -e 's/ *//' -e 's/ /:/g'
+    )"
+}
+
 wan_ip () {
     [[ "$#" != '0' ]] && echo "usage: $FUNCNAME" 1>&2 && return 1
     echo "$(curl -s 'http://api.ipify.org?format=txt')"
