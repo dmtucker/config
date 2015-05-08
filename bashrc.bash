@@ -71,11 +71,12 @@ export TERM_CUR_TITLE_END='\007'
 
 ######################################################################### prompt
 
+export PS1="\[$TXT_CYAN_FG\][\D{%F}T\t\D{%z}] \u@\H \\$\[$TXT_YELLOW_FG\] "
 TITLE=''
 case $TERM in
     xterm*) TITLE="\[$TERM_CUR_TITLE;\u@\h$TERM_CUR_TITLE_END\]";;
 esac
-export PS1="$TITLE\[$TXT_CYAN_FG\][\D{%F}T\t\D{%z}] \u@\H \\$\[$TXT_YELLOW_FG\] "
+export PS1="$TITLE$PS1"
 trap "printf '$TXT_RESET'" DEBUG  # Make output the default color.
 
 ################################################################ system-specific
@@ -97,9 +98,8 @@ case "$(uname -s)" in
             then defaults write com.apple.Finder AppleShowAllFiles YES
             else defaults write com.apple.Finder AppleShowAllFiles NO
             fi
-            killall Finder
+            killall Finder  # TODO Is this a good idea?
         }
-        alias hidden='toggle_hidden_files'
         alias ls='ls -G'  # TODO This is a BSD thing, not just OS X.
         ;;
     Linux)
@@ -109,49 +109,114 @@ case "$(uname -s)" in
 esac
 
 ###################################################################### utilities
-# Note: A utility tier may only use utilities on lower tiers.
-######################################################################### tier 0
 
-alias ll='ls -lh'
 
-refresh () {
-    [[ "$#" != '0' ]] && echo "usage: $FUNCNAME" 1>&2 && return 1
-    clear
-    ll
+capture () {
+    # Redirect output to unique files.
+    local timestamp="$(date -u "+%Y%m%dT%H%M%SZ")"
+    local unique="$timestamp.$(hostname -s).$$"  # TODO Who?
+    local stdcmd="$unique.stdcmd.log"
+    local stderr="$unique.stderr.log"
+    local stdout="$unique.stdout.log"
+    echo "$@" > "$stdcmd"
+    local tmperr="$(mktemp)"
+    local tmpout="$(mktemp)"
+    $@ 1> "$tmpout" 2> "$tmperr"
+    [[ -s "$tmperr" ]] && mv "$tmperr" "$stderr"
+    [[ -s "$tmpout" ]] && mv "$tmpout" "$stdout"
 }
-alias r='refresh'
 
-fresh () {
-    cd $@
-    refresh
+
+countdown () {
+    # Sleep verbosely.
+    # Example: Reboot in 10min.
+    #   $ countdown 600 && reboot
+    local usage="usage: $FUNCNAME <seconds>"
+    if [ "$#" != "1" ]
+    then
+        echo "$usage" 1>&2
+        return "$LINENO"
+    fi
+    local from="$1"
+    shift 1
+    local prompt='countdown: '
+    printf "$prompt"
+    for i in $(seq -f "%0${#from}g" $(($from)) -1 1)
+    do
+        printf "$i"
+        sleep 1
+        for j in $(seq "${#from}"); do printf '\b \b'; done
+    done
+    for i in $(seq "${#prompt}"); do printf '\b \b'; done
 }
-alias cdr='fresh'
 
-######################################################################### tier 1
+
+functions () {
+    # Retrieve all the currently set shell functions.
+    local usage="usage: $FUNCNAME"
+    if [ "$#" != '0' ]
+    then
+        echo "$usage" 1>&2
+        return "$LINENO"
+    fi
+    set | grep -Po '^\w*(?=\s\(\))'
+}
+
+
+pretty_bash () {
+    # Pretty print a bash script.
+    # Example: Style an existing script in-place.
+    #   echo "$(pretty_bash < ~/.bashrc)" > ~/.bashrc
+    local usage="usage: $FUNCNAME"
+    if [ "$#" != '0' ]  # TODO Is this necessary?
+    then
+        echo "$usage" 1>&2
+        return "$LINENO"
+    fi
+    printf 'pretty(){ %s\n }; declare -f pretty' "$(cat)" | bash
+}
+
 
 preview () {
-    paths='.'
+    # View a file or directory with less or ls, respectively.
+    local paths='.'
     [[ "$#" = '0' ]] || paths="$@"
     for path in $paths
     do
-        if [[ ! -e "$path" ]]
-        then
-            if [[ "${path:0:1}" == '-' ]]
-            then echo "$FUNCNAME cannot handle runtime options yet!" 1>&2
-            else echo "$path does not exist." 1>&2
-            fi
-        elif [[ -d "$path" ]]
-        then ll "$path"
-        elif [[ -f "$path" ]]
+        if [[ -f "$path" ]]
         then less "$path"
-        else echo "$FUNCNAME cannot handle special files yet!" 1>&2
+        elif [[ -d "$path" ]]
+        then
+            local dst="$path"
+            [[ -L "$path" ]] && dst="$path/.."
+            cd "$dst"
+            pwd
+            cd - &>/dev/null
+            ls -lh "$path"
+        elif [[ -e "$path" ]]
+        then echo "$FUNCNAME does not support special files." 1>&2
+        elif [[ "${path:0:1}" == '-' ]]
+        then echo "$FUNCNAME does not support runtime options." 1>&2
+        else echo "$path does not exist." 1>&2
         fi
     done
 }
 alias l='preview'
+alias r='clear && preview' # refresh
+cdr () { cd $@ && r; }
+
+# Since `preview` (a.k.a `l`) does not support runtime options,
+# it cannot be used to show hidden files in a directory listing.
+alias ll='ls -lh' # e.g. `ll -a`
+
 
 projects () {
-    [[ "$#" != '0' ]] && echo "usage: $FUNCNAME" 1>&2 && return 1
+    local usage="usage: $FUNCNAME"
+    if [ "$#" != '0' ]  # TODO Is this necessary?
+    then
+        echo "$usage" 1>&2
+        return "$LINENO"
+    fi
     local loc="$HOME/projects"
     [[ -e "$loc" ]] || mkdir -p "$loc"
     cdr "$loc"
@@ -166,45 +231,25 @@ projects () {
     cd "$loc"
 }
 
-######################################################################### tier 2
 
-countdown () {
-    [[ "$#" != '1' ]] && echo "usage: $FUNCNAME <seconds>" 1>&2 && return 1
-    local from="$1"
-    shift 1
-    local prompt='countdown: '
-    printf "$prompt"
-    for i in $(seq -f "%0${#from}g" $(($from)) -1 1)
-    do
-        printf "$i"
-        sleep 1
-        for j in $(seq "${#from}"); do printf '\b'; done
+ssh_copy_id () {
+    # Emulate ssh-copy-id.
+    local usage="usage: $FUNCNAME [<[user@]host> ...]"
+    [ "$#" -lt '1' ] && echo "$usage"
+    for host in "$@"
+    do ssh "$host" "echo $(cat $HOME/.ssh/id_*.pub) >> ~/.ssh/authorized_keys"
     done
-    for i in $(seq "${#prompt}"); do printf '\b'; done
 }
 
-generate_key () {  # https://gist.github.com/earthgecko/3089509
-    [[ "$#" != '0' ]] && echo "usage: $FUNCNAME" 1>&2 && return 1
-    cat /dev/urandom |
-    env LC_CTYPE=C tr -dc "a-zA-Z0-9" |
-    fold -w "${1:-32}" |
-    head -n 1
-}
-alias keygen='generate_key'
-
-random_ipv6 () {
-    od -An -tx2 -N16 /dev/urandom | awk  -v OFS=':' '{$1=$1;sub(/../,"fd")}1'
-}
 
 wan_ip () {
-    [[ "$#" != '0' ]] && echo "usage: $FUNCNAME" 1>&2 && return 1
+    # Get the public IP address of localhost.
+    local usage="usage: $FUNCNAME"
+    if [ "$#" != '0' ]
+    then
+        echo "$usage" 1>&2
+        return "$LINENO"
+    fi
     echo "$(curl -s 'http://api.ipify.org?format=txt')"
 }
 alias wimi='wan_ip'
-
-where () {
-    [[ "$#" != '1' ]] && echo "usage: $FUNCNAME <name>" 1>&2 && return 1
-    local name="$1"
-    shift 1
-    find . -iname $name \( -type f -o -type d \) -print
-}
