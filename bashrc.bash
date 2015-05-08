@@ -211,6 +211,7 @@ alias ll='ls -lh' # e.g. `ll -a`
 
 
 projects () {
+    # View the status of git repositorys in ~/projects.
     local loc="$HOME/projects"
     [[ -e "$loc" ]] || mkdir -p "$loc"
     if [[ "$#" = '1' ]]
