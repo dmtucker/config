@@ -219,7 +219,6 @@ projects () {
         local repo="$1"
         shift 1
         cd "$loc/$repo"
-        clear
         ls -lh
         git status
     else
