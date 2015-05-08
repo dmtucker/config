@@ -211,24 +211,30 @@ alias ll='ls -lh' # e.g. `ll -a`
 
 
 projects () {
-    local usage="usage: $FUNCNAME"
-    if [[ "$#" != '0' ]]  # TODO Is this necessary?
-    then
-        echo "$usage" 1>&2
-        return "$LINENO"
-    fi
     local loc="$HOME/projects"
     [[ -e "$loc" ]] || mkdir -p "$loc"
-    cdr "$loc"
-    for repo in $(echo * | sort)
-    do
-        echo "$(tput setaf 4)$repo$(tput sgr0)"
-        cd "$loc/$repo" &&
-        for cmd in 'fetch --all -q' 'status -bs'
-        do git $cmd
+    if [[ "$#" = '1' ]]
+    then
+        local repo="$1"
+        shift 1
+        cd "$loc/$repo"
+        clear
+        ls -lh
+        git status
+    else
+        cd "$loc"
+        local repos="$@"
+        [[ "$#" = '0' ]] && repos="$(echo * | sort)"
+        for repo in $repos
+        do
+            echo "$(tput setaf 4)$repo$(tput sgr0)"
+            cd "$loc/$repo" &&
+            for cmd in 'fetch --all -q' 'status -bs'
+            do git $cmd
+            done
         done
-    done
-    cd "$loc"
+        cd "$loc"
+    fi
 }
 
 
