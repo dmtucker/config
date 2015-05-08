@@ -255,6 +255,7 @@ projects () {
         cd "$loc"
     fi
 }
+alias proj='projects'
 
 
 ssh_copy_id () {
