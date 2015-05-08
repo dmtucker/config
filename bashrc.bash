@@ -94,7 +94,7 @@ case "$(uname -s)" in
         export CLICOLOR=1  # TODO This is a BSD thing, not just OS X.
         toggle_hidden_files () {
             check='defaults read com.apple.Finder AppleShowAllFiles'
-            if [ ! $check -o $("$check") = 'NO' ]
+            if [ ! $check -o $("$check") = 'NO' ]  # TODO Use bash conditional.
             then defaults write com.apple.Finder AppleShowAllFiles YES
             else defaults write com.apple.Finder AppleShowAllFiles NO
             fi
@@ -113,12 +113,12 @@ esac
 
 capture () {
     # Redirect output to unique files.
-    local timestamp="$(date -u "+%Y%m%dT%H%M%SZ")"
-    local unique="$timestamp.$(hostname -s).$$"  # TODO Who?
-    local stdcmd="$unique.stdcmd.log"
+    local unique="$(date -u "+%Y%m%dT%H%M%SZ").$(hostname -s).$$"
+    local stdcmd="$unique.stdcmd.bash"
     local stderr="$unique.stderr.log"
     local stdout="$unique.stdout.log"
-    echo "$@" > "$stdcmd"
+    echo "#!/usr/bin/env bash" >> "$stdcmd"
+    echo "$@" >> "$stdcmd"
     local tmperr="$(mktemp)"
     local tmpout="$(mktemp)"
     $@ 1> "$tmpout" 2> "$tmperr"
@@ -132,7 +132,7 @@ countdown () {
     # Example: Reboot in 10min.
     #   $ countdown 600 && reboot
     local usage="usage: $FUNCNAME <seconds>"
-    if [ "$#" != "1" ]
+    if [[ "$#" != "1" ]]
     then
         echo "$usage" 1>&2
         return "$LINENO"
@@ -154,7 +154,7 @@ countdown () {
 functions () {
     # Retrieve all the currently set shell functions.
     local usage="usage: $FUNCNAME"
-    if [ "$#" != '0' ]
+    if [[ "$#" != '0' ]]
     then
         echo "$usage" 1>&2
         return "$LINENO"
@@ -168,7 +168,7 @@ pretty_bash () {
     # Example: Style an existing script in-place.
     #   echo "$(pretty_bash < ~/.bashrc)" > ~/.bashrc
     local usage="usage: $FUNCNAME"
-    if [ "$#" != '0' ]  # TODO Is this necessary?
+    if [[ "$#" != '0' ]]
     then
         echo "$usage" 1>&2
         return "$LINENO"
@@ -212,7 +212,7 @@ alias ll='ls -lh' # e.g. `ll -a`
 
 projects () {
     local usage="usage: $FUNCNAME"
-    if [ "$#" != '0' ]  # TODO Is this necessary?
+    if [[ "$#" != '0' ]]  # TODO Is this necessary?
     then
         echo "$usage" 1>&2
         return "$LINENO"
@@ -235,7 +235,7 @@ projects () {
 ssh_copy_id () {
     # Emulate ssh-copy-id.
     local usage="usage: $FUNCNAME [<[user@]host> ...]"
-    [ "$#" -lt '1' ] && echo "$usage"
+    [[ "$#" -lt '1' ]] && echo "$usage"
     for host in "$@"
     do ssh "$host" "echo $(cat $HOME/.ssh/id_*.pub) >> ~/.ssh/authorized_keys"
     done
@@ -245,7 +245,7 @@ ssh_copy_id () {
 wan_ip () {
     # Get the public IP address of localhost.
     local usage="usage: $FUNCNAME"
-    if [ "$#" != '0' ]
+    if [[ "$#" != '0' ]]
     then
         echo "$usage" 1>&2
         return "$LINENO"
