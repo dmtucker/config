@@ -237,8 +237,8 @@ projects () {
     then
         local repo="$1"
         shift 1
-        cd "$loc/$repo"
-        ls -lh
+        cd "$loc/$repo" &&
+        ls -lh &&
         git status
     else
         cd "$loc"
