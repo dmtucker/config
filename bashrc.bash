@@ -81,14 +81,6 @@ trap "printf '$TXT_RESET'" DEBUG  # Make output the default color.
 
 ################################################################ system-specific
 
-ISILON_GITHUB='github.west.isilon.com'
-if ping -q -w '1' -i '0.2' "$ISILON_GITHUB" &>/dev/null
-then
-    # These are for `gist` on Isilon networks.
-    export GITHUB_URL="https://$ISILON_GITHUB/"
-    export BROWSER='google-chrome'
-fi
-
 case "$(uname -s)" in
     Darwin)
         export CLICOLOR=1  # TODO This is a BSD thing, not just OS X.
