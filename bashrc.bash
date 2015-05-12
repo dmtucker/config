@@ -231,28 +231,31 @@ alias ll='ls -lh' # e.g. `ll -a`
 
 projects () {
     # View the status of git repositorys in ~/projects.
+    local here="$PWD"
     local loc="$HOME/projects"
     [[ -e "$loc" ]] || mkdir -p "$loc"
     if [[ "$#" = '1' ]]
     then
         local repo="$1"
         shift 1
-        cd "$loc/$repo" &&
+        [[ -e "$repo" ]] || repo="$loc/$repo"
+        cd "$repo" &&
         ls -lh &&
         git status
     else
-        cd "$loc"
         local repos="$@"
-        [[ "$#" = '0' ]] && repos="$(echo * | sort)"
+        [[ "$#" = '0' ]] && repos="$(echo "$loc"/* | sort)"
         for repo in $repos
         do
-            echo "$(tput setaf 4)$repo$(tput sgr0)"
-            cd "$loc/$repo" &&
+            echo "$(tput setaf 4)$(basename "$repo")$(tput sgr0)"
+            [[ -e "$repo" ]] || repo="$loc/$repo"
+            cd "$repo" &&
             for cmd in 'fetch --all -q' 'status -bs'
             do git $cmd
             done
         done
-        cd "$loc"
+        cd "$here"
+        [[ "$#" = '0' ]] && cd "$loc"
     fi
 }
 alias proj='projects'
