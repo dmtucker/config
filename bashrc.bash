@@ -105,7 +105,7 @@ esac
 alias r='clear && ls -h -l' # refresh
 cdr () { cd $@ && r; }
 
-alias l="$HOME/projects/gizmos/l.py -h -l"
+alias l="$HOME/projects/gizmos/l.py"
 alias ll='ls -h -l'
 
 ###################################################################### utilities
