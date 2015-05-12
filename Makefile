@@ -17,14 +17,20 @@ help:
 			echo "Install '$$(basename "$@")' with Homebrew."; \
 			false;; \
 		Linux) \
-			case "$$(lsb_release -is)" in \
-				Debian) \
-					sudo apt-get -y -qq install "$$(basename "$@")" | \
-						sed 's/^/# /';; \
-				*) \
-					echo "Your distribution ($$(lsb_release -is)) is not supported."; \
-					false;; \
-			esac;; \
+			if command -v lsb_release 1>/dev/null 2>&1; \
+			then \
+				case "$$(lsb_release -is)" in \
+					Debian) \
+						sudo apt-get -y -qq install "$$(basename "$@")" | \
+							sed 's/^/# /';; \
+					*) \
+						echo "Your distribution ($$(lsb_release -is)) is not supported."; \
+						false;; \
+				esac \
+			else \
+				echo 'Non-standard Linux systems are not supported.'; \
+				false; \
+			fi;; \
 		*) \
 			echo "Your operating system ($$(uname -s)) is not supported."; \
 			false;; \
