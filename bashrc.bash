@@ -198,27 +198,30 @@ pretty_bash () {
 
 preview () {
     # View a file or directory with less or ls, respectively.
-    local paths='.'
-    [[ "$#" = '0' ]] || paths="$@"
-    for path in $paths
-    do
-        if [[ -f "$path" ]]
-        then less "$path"
-        elif [[ -d "$path" ]]
-        then
-            local dst="$path"
-            [[ -L "$path" ]] && dst="$path/.."
-            cd "$dst"
-            pwd
-            cd - &>/dev/null
-            ls -lh "$path"
-        elif [[ -e "$path" ]]
-        then echo "$FUNCNAME does not support special files." 1>&2
-        elif [[ "${path:0:1}" == '-' ]]
-        then echo "$FUNCNAME does not support runtime options." 1>&2
-        else echo "$path does not exist." 1>&2
-        fi
-    done
+    local usage="usage: $FUNCNAME <file-or-dir>"
+    if [[ "$#" -gt '1' ]]
+    then
+        echo "$usage" 1>&2
+        return "$LINENO"
+    fi
+    local path='.'
+    [[ "$#" = '0' ]] || path="$@"
+    if [[ -f "$path" ]]
+    then less "$path"
+    elif [[ -d "$path" ]]
+    then
+        local dst="$path"
+        [[ -L "$path" ]] && dst="$path/.."
+        cd "$dst"
+        pwd
+        cd - &>/dev/null
+        ls -lh "$path"
+    elif [[ -e "$path" ]]
+    then echo "$FUNCNAME does not support special files." 1>&2
+    elif [[ "${path:0:1}" == '-' ]]
+    then echo "$FUNCNAME does not support runtime options." 1>&2
+    else echo "$path does not exist." 1>&2
+    fi
 }
 alias l='preview'
 alias r='clear && preview' # refresh
