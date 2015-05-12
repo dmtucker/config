@@ -3,7 +3,7 @@ if command -v fortune &>/dev/null; then fortune; fi
 
 ######################################################################## exports
 
-export PATH="$PATH:."
+export PATH=".:$PATH"
 
 # cursor
 export CUR_HOME="$(tput home)"
@@ -108,6 +108,14 @@ case "$(uname -s)" in
     *) echo 'This OS is not recognized.'
 esac
 
+######################################################################## aliases
+
+alias r='clear && ls -h -l' # refresh
+cdr () { cd $@ && r; }
+
+alias l="$HOME/projects/gizmos/l.py -h -l"
+alias ll='ls -h -l'
+
 ###################################################################### utilities
 
 
@@ -194,42 +202,6 @@ pretty_bash () {
     fi
     printf 'pretty(){ %s\n }; declare -f pretty' "$(cat)" | bash
 }
-
-
-preview () {
-    # View a file or directory with less or ls, respectively.
-    local usage="usage: $FUNCNAME <file-or-dir>"
-    if [[ "$#" -gt '1' ]]
-    then
-        echo "$usage" 1>&2
-        return "$LINENO"
-    fi
-    local path='.'
-    [[ "$#" = '0' ]] || path="$@"
-    if [[ -f "$path" ]]
-    then less "$path"
-    elif [[ -d "$path" ]]
-    then
-        local dst="$path"
-        [[ -L "$path" ]] && dst="$path/.."
-        cd "$dst"
-        pwd
-        cd - &>/dev/null
-        ls -lh "$path"
-    elif [[ -e "$path" ]]
-    then echo "$FUNCNAME does not support special files." 1>&2
-    elif [[ "${path:0:1}" == '-' ]]
-    then echo "$FUNCNAME does not support runtime options." 1>&2
-    else echo "$path does not exist." 1>&2
-    fi
-}
-alias l='preview'
-alias r='clear && preview' # refresh
-cdr () { cd $@ && r; }
-
-# Since `preview` (a.k.a `l`) does not support runtime options,
-# it cannot be used to show hidden files in a directory listing.
-alias ll='ls -lh' # e.g. `ll -a`
 
 
 projects () {
