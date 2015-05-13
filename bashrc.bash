@@ -69,7 +69,7 @@ export FLASH="$(tput flash)"
 export TERM_CUR_TITLE='\033]0'
 export TERM_CUR_TITLE_END='\007'
 
-######################################################################### prompt
+############################################################################# UI
 
 export PS1="\[$TXT_CYAN_FG\][\D{%F}T\t\D{%z}] \u@\H \\$\[$TXT_YELLOW_FG\] "
 TITLE=''
@@ -95,6 +95,7 @@ case "$(uname -s)" in
         alias ls='ls -G'  # TODO This is a BSD thing, not just OS X.
         ;;
     Linux)
+        eval "$(dircolors --sh)"  # Set LS_COLORS.
         alias ls='ls --color=auto'
         ;;
     *) echo 'This OS is not recognized.'
@@ -105,7 +106,7 @@ esac
 alias r='clear && ls -h -l' # refresh
 cdr () { cd $@ && r; }
 
-alias l="$HOME/projects/gizmos/l.py"
+alias l="$HOME/projects/gizmos/l.py"  # https://github.com/dmtucker/gizmos
 alias ll='ls -h -l'
 
 ###################################################################### utilities
