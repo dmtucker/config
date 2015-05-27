@@ -183,6 +183,17 @@ functions () {
 }
 
 
+monitor () {
+    # Continuously generate output.
+    while true
+    do
+        clear
+        $@
+        sleep 1
+    done
+}
+
+
 pretty_bash () {
     # Pretty print a bash script.
     # Example: Style an existing script in-place.
