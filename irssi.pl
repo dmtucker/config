@@ -18,11 +18,10 @@ chatnets = {
 
 channels = (
   { chatnet = "FreeNode"; autojoin = "Yes"; name = "#freenode"; },
-  ##customize.py##{ chatnet = "FreeNode"; autojoin = "Yes"; name = "#<primary-nickname>"; },
-  { chatnet = "FreeNode"; autojoin = "Yes"; name = "##news"; },
-  ##customize.py##{ chatnet = "FreeNode"; autojoin = "Yes"; name = "#<operating-system>"; },
-  { chatnet = "FreeNode"; autojoin = "Yes"; name = "#bash"; },
   { chatnet = "FreeNode"; autojoin = "Yes"; name = "#irssi"; },
+  { chatnet = "FreeNode"; autojoin = "Yes"; name = "#bash"; },
+  ##customize.py##{ chatnet = "FreeNode"; autojoin = "Yes"; name = "#<operating-system>"; },
+  ##customize.py##{ chatnet = "FreeNode"; autojoin = "Yes"; name = "#<primary-nickname>"; },
 );
 
 
