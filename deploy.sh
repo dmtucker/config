@@ -1,16 +1,10 @@
 #!/usr/bin/env sh
 
-if [ "$(id -un)" != '0' ]
-then
-    echo 'You must be root.' 1>&2
-    exit "$LINENO"
-fi
-
 case "$$(uname -s)" in
     Linux)
         case "$$(lsb_release -is)" in
             Debian)
-                apt-get -y -qq install \
+                sudo apt-get -y -qq install \
                     git \
                     make \
                     ssh openssh-server
