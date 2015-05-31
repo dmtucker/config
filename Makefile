@@ -96,8 +96,8 @@ chrome:
 				Debian) \
 					case "$$(uname -m)" in \
 						x86_64) \
-							wget -O https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-							sudo dpkg -i ./google-chrome*.deb && \
+							wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+							sudo gdebi ./google-chrome*.deb && \
 							rm ./google-chrome*.deb;; \
 						*) \
 							echo "Your architecture $$(uname -m) is not supported."; \
