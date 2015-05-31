@@ -162,6 +162,7 @@ sublime: ${PWD}/sublime.json
 .PHONY: gnome
 
 gnome: gedit nautilus
+	gsettings set org.gnome.Terminal.Legacy.Settings dark-theme true
 
 
 ################################################################################
