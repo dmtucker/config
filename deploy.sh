@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 
-case "$$(uname -s)" in
+case "$(uname -s)" in
     Linux)
-        case "$$(lsb_release -is)" in
+        case "$(lsb_release -is)" in
             Debian)
                 sudo apt-get -y -qq install \
                     git \
@@ -10,11 +10,11 @@ case "$$(uname -s)" in
                     ssh openssh-server
                 ;;
             *)
-                echo "Your distribution ($$(lsb_release -is)) is not supported." 1>&2
+                echo "Your distribution ($(lsb_release -is)) is not supported." 1>&2
                 exit "$LINENO"
         esac;;
     *)
-        echo "Your operating system ($$(uname -s)) is not supported." 1>&2
+        echo "Your operating system ($(uname -s)) is not supported." 1>&2
         exit "$LINENO"
 esac
 
