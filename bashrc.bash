@@ -101,6 +101,8 @@ case "$(uname -s)" in
     *) echo 'This OS is not recognized.'
 esac
 
+alias grep='grep --color=auto'
+
 ######################################################################## aliases
 
 alias r='clear && ls -h -l' # refresh
