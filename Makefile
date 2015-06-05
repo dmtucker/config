@@ -105,6 +105,17 @@ chrome:
 							echo "Your architecture $$(uname -m) is not supported."; \
 							false;; \
 					esac;; \
+				Ubuntu) \
+					case "$$(uname -m)" in \
+						x86_64) \
+							echo 'http://askubuntu.com/questions/79280/how-to-install-chrome-browser-properly-via-command-line'; \
+							sudo apt-get install libxss1 libappindicator1 libindicator7; \
+							wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb; \
+							sudo dpkg -i google-chrome*.deb;; \
+						*) \
+							echo "Your architecture $$(uname -m) is not supported."; \
+							false;; \
+					esac;; \
 				*) \
 					echo "Your distribution ($$(lsb_release -is)) is not supported."; \
 					false;; \
