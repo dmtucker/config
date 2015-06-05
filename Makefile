@@ -73,7 +73,7 @@ ssh: /usr/bin/ssh ~/.ssh/id_ecdsa
 
 vim: /usr/bin/vim ~/.vimrc
 	export EDITOR=vim
-	update-alternatives --set editor /usr/bin/vim.basic
+	sudo update-alternatives --set editor /usr/bin/vim.basic
 
 
 .PHONY: cli cli-all
