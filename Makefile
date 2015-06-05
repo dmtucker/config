@@ -20,7 +20,7 @@ help:
 			if command -v lsb_release 1>/dev/null 2>&1; \
 			then \
 				case "$$(lsb_release -is)" in \
-					Debian) \
+					Debian|Ubuntu) \
 						sudo apt-get -y -qq install "$$(basename "$@")" | \
 							sed 's/^/# /';; \
 					*) \
