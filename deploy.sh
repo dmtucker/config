@@ -3,7 +3,7 @@
 case "$(uname -s)" in
     Linux)
         case "$(lsb_release -is)" in
-            Debian)
+            Debian|Ubuntu)
                 sudo apt-get -y -qq install \
                     git \
                     make \
