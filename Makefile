@@ -135,7 +135,7 @@ gedit: /usr/bin/gedit
 	gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
 	gsettings set org.gnome.gedit.preferences.editor tabs-size 4
 	gsettings set org.gnome.gedit.preferences.ui side-panel-visible true
-	gsettings set org.gnome.gedit.plugins active-plugins "['filebrowser', 'time', 'git', 'modelines', 'docinfo', 'spell', 'drawspaces']"
+	gsettings set org.gnome.gedit.plugins active-plugins "['filebrowser', 'time', 'git', 'modelines', 'docinfo', 'spell', 'drawspaces', 'bookmarks']"
 	# For more options, run `gsettings list-recursively | grep -i gedit`.
 
 nautilus:
