@@ -150,7 +150,7 @@ print:
 			false;; \
 		Linux) \
 			case "$$(lsb_release -is)" in \
-				Debian) \
+				Debian|Ubuntu) \
 					sudo apt-get install cups && \
 					sudo adduser "$$(id -un)" lpadmin && \
 					echo 'http://localhost:631/admin';; \
