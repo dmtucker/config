@@ -212,20 +212,19 @@ pretty_bash () {
 
 projects () {
     # View the status of git repositorys in ~/projects.
-    local here="$PWD"
     local loc="$HOME/projects"
     [[ -e "$loc" ]] || mkdir -p "$loc"
-    if [[ "$#" = '1' ]]
+    if [[ "$#" < "2" ]]
     then
         local repo="$1"
         shift 1
+        [[ "$repo" = "" ]] && repo="."
         [[ -e "$repo" ]] || repo="$loc/$repo"
         cd "$repo" &&
         ls -lh &&
         git status
     else
         local repos="$@"
-        [[ "$#" = '0' ]] && repos="$(echo "$loc"/* | sort)"
         for repo in $repos
         do
             echo "$(tput setaf 4)$(basename "$repo")$(tput sgr0)"
@@ -234,9 +233,8 @@ projects () {
             for cmd in 'fetch --all -q' 'status -bs'
             do git $cmd
             done
+            cd -
         done
-        cd "$here"
-        [[ "$#" = '0' ]] && cd "$loc"
     fi
 }
 alias proj='projects'
