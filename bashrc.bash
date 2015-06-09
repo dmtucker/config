@@ -135,7 +135,7 @@ countdown () {
     # Example: Reboot in 10min.
     #   $ countdown 600 && reboot
     local usage="usage: $FUNCNAME <seconds>"
-    if [[ "$#" != "1" ]]
+    if (( $# != 1 ))
     then
         echo "$usage" 1>&2
         return "$LINENO"
@@ -157,14 +157,14 @@ countdown () {
 freenode () {
     # Quickly get on IRC.
     local usage="usage: $FUNCNAME [<nick>]"
-    if [[ "$#" -gt '1' ]]
+    if (( $# > 1 ))
     then
         echo "$usage" 1>&2
         return "$LINENO"
     fi
     screen -ls freenode && screen -r freenode
     local nick="$1"
-    if [[ "$#" = '0' ]]
+    if (( $# == 0 ))
     then nick="$(id -un)"
     else shift 1
     fi
@@ -176,7 +176,7 @@ alias irc='freenode'
 functions () {
     # Retrieve all the currently set shell functions.
     local usage="usage: $FUNCNAME"
-    if [[ "$#" != '0' ]]
+    if (( $# != 0 ))
     then
         echo "$usage" 1>&2
         return "$LINENO"
@@ -201,7 +201,7 @@ pretty_bash () {
     # Example: Style an existing script in-place.
     #   echo "$(pretty_bash < ~/.bashrc)" > ~/.bashrc
     local usage="usage: $FUNCNAME"
-    if [[ "$#" != '0' ]]
+    if (( $# != 0 ))
     then
         echo "$usage" 1>&2
         return "$LINENO"
@@ -214,7 +214,7 @@ export PROJECTS="$HOME/projects"
 projects () {
     # View the status of git repositorys in $PROJECTS.
     [[ -e "$PROJECTS" ]] || mkdir -p "$PROJECTS"
-    if [[ "$#" < "2" ]]
+    if (( $# < 2 ))
     then
         local repo="$1"
         shift 1
@@ -245,7 +245,7 @@ alias proj-all='projects-all'
 ssh_copy_id () {
     # Emulate ssh-copy-id.
     local usage="usage: $FUNCNAME [<[user@]host> ...]"
-    [[ "$#" -lt '1' ]] && echo "$usage"
+    (( $# < 1 )) && echo "$usage"
     for host in "$@"
     do ssh "$host" "echo $(cat $HOME/.ssh/id_*.pub) >> ~/.ssh/authorized_keys"
     done
@@ -255,7 +255,7 @@ ssh_copy_id () {
 wan_ip () {
     # Get the public IP address of localhost.
     local usage="usage: $FUNCNAME"
-    if [[ "$#" != '0' ]]
+    if (( $# != 0 ))
     then
         echo "$usage" 1>&2
         return "$LINENO"
