@@ -233,7 +233,7 @@ projects () {
             for cmd in 'fetch --all -q' 'status -bs'
             do git $cmd
             done
-            cd -
+            cd - &>/dev/null
         done
     fi
 }
