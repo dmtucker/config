@@ -210,16 +210,16 @@ pretty_bash () {
 }
 
 
+export PROJECTS="$HOME/projects"
 projects () {
-    # View the status of git repositorys in ~/projects.
-    local loc="$HOME/projects"
-    [[ -e "$loc" ]] || mkdir -p "$loc"
+    # View the status of git repositorys in $PROJECTS.
+    [[ -e "$PROJECTS" ]] || mkdir -p "$PROJECTS"
     if [[ "$#" < "2" ]]
     then
         local repo="$1"
         shift 1
         [[ "$repo" = "" ]] && repo="."
-        [[ -e "$repo" ]] || repo="$loc/$repo"
+        [[ -e "$repo" ]] || repo="$PROJECTS/$repo"
         cd "$repo" &&
         ls -lh &&
         git status
@@ -228,7 +228,7 @@ projects () {
         for repo in $repos
         do
             echo "$(tput setaf 4)$(basename "$repo")$(tput sgr0)"
-            [[ -e "$repo" ]] || repo="$loc/$repo"
+            [[ -e "$repo" ]] || repo="$PROJECTS/$repo"
             cd "$repo" &&
             for cmd in 'fetch --all -q' 'status -bs'
             do git $cmd
@@ -237,7 +237,9 @@ projects () {
         done
     fi
 }
+alias projects-all='projects "$PROJECTS/"*'
 alias proj='projects'
+alias proj-all='projects-all'
 
 
 ssh_copy_id () {
