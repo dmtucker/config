@@ -153,25 +153,6 @@ countdown () {
 }
 
 
-freenode () {
-    # Quickly get on IRC.
-    local usage="usage: $FUNCNAME [<nick>]"
-    if (( $# > 1 ))
-    then
-        echo "$usage" 1>&2
-        return "$LINENO"
-    fi
-    screen -ls freenode && screen -r freenode
-    local nick="$1"
-    if (( $# == 0 ))
-    then nick="$(id -un)"
-    else shift 1
-    fi
-    screen -dS freenode -m irssi --connect=chat.freenode.net --nick="$nick"
-}
-alias irc='freenode'
-
-
 functions () {
     # Retrieve all the currently set shell functions.
     local usage="usage: $FUNCNAME"
