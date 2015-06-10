@@ -41,6 +41,7 @@ help:
 ~/.bash_profile: ~/.bashrc
 ~/.bashrc ~/.bash_profile:
 	@[ -e "$$(dirname "$@")" ] || mkdir -p "$$(dirname "$@")"
+	touch '$@'
 	grep -q "source '$^'" '$@' || echo "source '$^'" >> '$@'
 
 
