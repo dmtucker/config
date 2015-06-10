@@ -1,7 +1,7 @@
 [[ $- = *i* ]] || return  # Require an interactive shell.
 if command -v fortune &>/dev/null; then fortune; fi
 
-######################################################################## exports
+############################################################################ env
 
 export PATH=".:$PATH"
 
@@ -69,7 +69,7 @@ export FLASH="$(tput flash)"
 export TERM_CUR_TITLE='\033]0'
 export TERM_CUR_TITLE_END='\007'
 
-############################################################################# UI
+############################################################################ CLI
 
 export PS1="\[$TXT_CYAN_FG\][\D{%F}T\t\D{%z}] \u@\H \\$\[$TXT_YELLOW_FG\] "
 TITLE=''
@@ -103,15 +103,14 @@ esac
 
 alias grep='grep --color=auto'
 
-######################################################################## aliases
+###################################################################### utilities
+
 
 alias r='clear && ls -h -l' # refresh
 cdr () { cd $@ && r; }
 
-alias l="$HOME/projects/gizmos/l.py"  # https://github.com/dmtucker/gizmos
+alias l="$PROJECTS/gizmos/l.py"  # https://github.com/dmtucker/gizmos
 alias ll='ls -h -l'
-
-###################################################################### utilities
 
 
 capture () {
@@ -154,25 +153,6 @@ countdown () {
 }
 
 
-freenode () {
-    # Quickly get on IRC.
-    local usage="usage: $FUNCNAME [<nick>]"
-    if (( $# > 1 ))
-    then
-        echo "$usage" 1>&2
-        return "$LINENO"
-    fi
-    screen -ls freenode && screen -r freenode
-    local nick="$1"
-    if (( $# == 0 ))
-    then nick="$(id -un)"
-    else shift 1
-    fi
-    screen -dS freenode -m irssi --connect=chat.freenode.net --nick="$nick"
-}
-alias irc='freenode'
-
-
 functions () {
     # Retrieve all the currently set shell functions.
     local usage="usage: $FUNCNAME"
@@ -196,7 +176,7 @@ monitor () {
 }
 
 
-pretty_bash () {
+pprint () {
     # Pretty print a bash script.
     # Example: Style an existing script in-place.
     #   echo "$(pretty_bash < ~/.bashrc)" > ~/.bashrc
