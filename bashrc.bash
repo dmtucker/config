@@ -176,7 +176,7 @@ monitor () {
 }
 
 
-pretty_bash () {
+pprint () {
     # Pretty print a bash script.
     # Example: Style an existing script in-place.
     #   echo "$(pretty_bash < ~/.bashrc)" > ~/.bashrc
