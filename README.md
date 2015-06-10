@@ -137,3 +137,9 @@ optional arguments:
                         Specify a prefix for each line of output.
   -t TAG, --tag TAG     Specify a tag to search for.
 ```
+
+# Docker
+
+Try this environment out with Docker!
+
+[![Docker Build Status](http://dockeri.co/image/dmtucker/config)](//registry.hub.docker.com/u/dmtucker/config)
