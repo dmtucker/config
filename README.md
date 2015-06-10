@@ -47,7 +47,7 @@ Life is better in color.
 * `functions` will show you all set shell functions.
 * `monitor` wraps commands that are then called every second forever. This is useful with tools like `ifconfig` while debugging network issues.
 * `pprint` is a pretty printer for Bash code (which it accepts via `stdin`).
-* `projects` (a.k.a. `proj`) will show the status of one or more `git` projects in `.` or `$PROJECTS`. Usage tips are included below.
+* `projects` (a.k.a. `proj`) will show the status of one or more `git` projects in `$PWD` or `$PROJECTS`. Usage tips are included below.
 * `ssh_copy_id` emulates `ssh-copy-id`.
 * `wan_ip` (a.k.a. `wimi`) will show your public IP address.
 
@@ -88,7 +88,7 @@ gizmos
 ## master...origin/master
 ```
 
-If `projects` cannot find a project in `.`, it will look in `$PROJECTS` (which defaults to `$HOME/projects`).
+If `projects` cannot find a project in `$PWD`, it will look in `$PROJECTS` (which defaults to `$HOME/projects`).
 This allows it to be very used very flexibly:
 
 ```
