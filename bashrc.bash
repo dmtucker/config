@@ -1,7 +1,7 @@
 [[ $- = *i* ]] || return  # Require an interactive shell.
 if command -v fortune &>/dev/null; then fortune; fi
 
-######################################################################## exports
+############################################################################ env
 
 export PATH=".:$PATH"
 
@@ -69,7 +69,7 @@ export FLASH="$(tput flash)"
 export TERM_CUR_TITLE='\033]0'
 export TERM_CUR_TITLE_END='\007'
 
-############################################################################# UI
+############################################################################ CLI
 
 export PS1="\[$TXT_CYAN_FG\][\D{%F}T\t\D{%z}] \u@\H \\$\[$TXT_YELLOW_FG\] "
 TITLE=''
@@ -103,15 +103,14 @@ esac
 
 alias grep='grep --color=auto'
 
-######################################################################## aliases
+###################################################################### utilities
+
 
 alias r='clear && ls -h -l' # refresh
 cdr () { cd $@ && r; }
 
-alias l="$HOME/projects/gizmos/l.py"  # https://github.com/dmtucker/gizmos
+alias l="$PROJECTS/gizmos/l.py"  # https://github.com/dmtucker/gizmos
 alias ll='ls -h -l'
-
-###################################################################### utilities
 
 
 capture () {
