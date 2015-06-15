@@ -106,13 +106,6 @@ alias grep='grep --color=auto'
 ###################################################################### utilities
 
 
-alias r='clear && ls -h -l' # refresh
-cdr () { cd $@ && r; }
-
-alias l="$PROJECTS/gizmos/l.py"  # https://github.com/dmtucker/gizmos
-alias ll='ls -h -l'
-
-
 capture () {
     # Redirect output to unique files.
     local unique="$(date -u "+%Y%m%dT%H%M%SZ").$(hostname -s).$$"
@@ -163,6 +156,10 @@ functions () {
     fi
     set | grep -Po '^\w*(?=\s\(\))'
 }
+
+
+alias l="$PROJECTS/gizmos/l.py"  # https://github.com/dmtucker/gizmos
+alias ll='ls -h -l'
 
 
 monitor () {
@@ -220,6 +217,13 @@ projects () {
 alias projects-all='projects "$PROJECTS/"*'
 alias proj='projects'
 alias proj-all='projects-all'
+alias cdproj='cd "$PROJECTS"'
+
+
+alias r='clear && ls -h -l' # refresh
+cdr () { cd $@ && r; }
+projr () { proj $@ && r; }
+alias cdprojr='cd "$PROJECTS" && r'
 
 
 ssh_copy_id () {
