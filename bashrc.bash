@@ -133,9 +133,7 @@ projects () {
     fi
 }
 alias proj='projects'
-alias projects-all='projects "$PROJECTS/"*'
-alias proj-all='projects-all'
-alias cdproj='cd "$PROJECTS" && proj-all'
+alias proj-all='projects "$PROJECTS/"*'
 
 ###################################################################### utilities
 
