@@ -1,17 +1,17 @@
 #!/usr/bin/env sh
 
+echo 'Installing tools...'
 case "$(uname -s)" in
     Linux)
         case "$(lsb_release -is)" in
             Debian|Ubuntu)
-                sudo apt-get -y -qq install \
-                    git \
-                    make \
-                    ssh openssh-server
+                sudo apt-get update
+                sudo apt-get -y -qq install ssh openssh-server git make
                 ;;
             *)
-                echo "Your distribution ($(lsb_release -is)) is not supported." 1>&2
+                echo "Your distro ($(lsb_release -is)) is not supported." 1>&2
                 exit "$LINENO"
+                ;;
         esac;;
     *)
         echo "Your operating system ($(uname -s)) is not supported." 1>&2
@@ -19,19 +19,22 @@ case "$(uname -s)" in
 esac
 
 printf 'Generating an SSH key... '
-key="$HOME/.ssh/id_ecdsa"
-ssh-keygen -q -t ecdsa -f "$key" -N ''
-less "$key.pub"
+algorithm='ecdsa'
+key="$HOME/.ssh/id_$algorithm"
+ssh-keygen -q -t "$algorithm" -f "$key" -N ''
 echo "$key.pub"
 
-printf 'Cloning projects... '
-mkdir -p "$HOME/projects"
-cd "$HOME/projects"
-git clone git@github.com:dmtucker/config.git
-cd -
-echo 'done'
+printf 'Creating a directory for projects... '
+[ "$PROJECTS" = '' ] && export PROJECTS="$HOME/projects"
+mkdir -p "$PROJECTS"
+echo "$PROJECTS"
 
-echo 'Configuring... '
-cd "$HOME/projects/config"
+printf 'Cloning the config repository... '
+git clone 'https://github.com/dmtucker/config.git' "$PROJECTS/config"
+echo "$PROJECTS/config"
+
+echo 'Configuring...'
+cd "$PROJECTS/config"
+git remote set-url origin 'git@github.com:dmtucker/config.git'
 make workstation
-cd -
+cd - 1>/dev/null 2>&1
