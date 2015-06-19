@@ -103,6 +103,38 @@ esac
 
 alias grep='grep --color=auto'
 
+####################################################################### workflow
+
+export PROJECTS="$HOME/projects"
+projects () {
+    # View the status of git repositorys in $PROJECTS.
+    [[ -e "$PROJECTS" ]] || mkdir -p "$PROJECTS"
+    if (( $# < 2 ))
+    then
+        local repo="$1"
+        shift 1
+        [[ "$repo" = "" ]] && repo="."
+        [[ -e "$repo" ]] || repo="$PROJECTS/$repo"
+        cd "$repo" &&
+        ls -lh &&
+        git status
+    else
+        local repos="$@"
+        for repo in $repos
+        do
+            echo "$(tput setaf 4)$(basename "$repo")$(tput sgr0)"
+            [[ -e "$repo" ]] || repo="$PROJECTS/$repo"
+            cd "$repo" &&
+            for cmd in 'fetch --all -q' 'status -bs'
+            do git $cmd
+            done
+            cd - &>/dev/null
+        done
+    fi
+}
+alias proj='projects'
+alias proj-all='projects "$PROJECTS/"*'
+
 ###################################################################### utilities
 
 
@@ -187,43 +219,8 @@ pprint () {
 }
 
 
-export PROJECTS="$HOME/projects"
-projects () {
-    # View the status of git repositorys in $PROJECTS.
-    [[ -e "$PROJECTS" ]] || mkdir -p "$PROJECTS"
-    if (( $# < 2 ))
-    then
-        local repo="$1"
-        shift 1
-        [[ "$repo" = "" ]] && repo="."
-        [[ -e "$repo" ]] || repo="$PROJECTS/$repo"
-        cd "$repo" &&
-        ls -lh &&
-        git status
-    else
-        local repos="$@"
-        for repo in $repos
-        do
-            echo "$(tput setaf 4)$(basename "$repo")$(tput sgr0)"
-            [[ -e "$repo" ]] || repo="$PROJECTS/$repo"
-            cd "$repo" &&
-            for cmd in 'fetch --all -q' 'status -bs'
-            do git $cmd
-            done
-            cd - &>/dev/null
-        done
-    fi
-}
-alias projects-all='projects "$PROJECTS/"*'
-alias proj='projects'
-alias proj-all='projects-all'
-alias cdproj='cd "$PROJECTS"'
-
-
 alias r='clear && ls -h -l' # refresh
 cdr () { cd $@ && r; }
-projr () { proj $@ && r; }
-alias cdprojr='cd "$PROJECTS" && r'
 
 
 ssh_copy_id () {
