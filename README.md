@@ -9,7 +9,6 @@ usage: make <target>
     bash
     chrome
     cli
-    cli-all
     gedit
     git
     gnome
