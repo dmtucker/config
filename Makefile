@@ -10,7 +10,7 @@ help:
 ################################################################################
 
 
-/bin/bash /usr/bin/gedit /usr/bin/git /usr/bin/irssi /usr/bin/screen /usr/bin/ssh /usr/bin/vim:
+/bin/bash /usr/bin/gedit /usr/bin/git /usr/bin/screen /usr/bin/ssh /usr/bin/vim:
 	# Installing $@...
 	@case "$$(uname -s)" in \
 		Darwin) \
@@ -46,10 +46,9 @@ help:
 
 
 ~/.gitconfig: ${PWD}/gitconfig.ini
-~/.irssi/config: ${PWD}/irssi.pl
 ~/.screenrc: ${PWD}/screenrc.screen
 ~/.vimrc: ${PWD}/vimrc.vim
-~/.gitconfig ~/.irssi/config ~/.screenrc ~/.vimrc:
+~/.gitconfig ~/.screenrc ~/.vimrc:
 	@[ -e "$$(dirname "$@")" ] || mkdir -p "$$(dirname "$@")"
 	cp -i "$^" "$@"
 
@@ -58,15 +57,12 @@ help:
 	ssh-keygen -q -N '' -t 'ecdsa' -f "$@"
 
 
-.PHONY: bash git irssi screen ssh vim
+.PHONY: bash git screen ssh vim
 
 bash: /bin/bash ~/.bash_profile
 	-[ "$$(uname -s)" = 'Linux' ] && chsh -s /bin/bash
 
 git: /usr/bin/git ~/.gitconfig
-
-irssi: /usr/bin/irssi ~/.irssi/config
-	./customize.py -t '##customize.py##' -p '# ' ~/.irssi/config
 
 screen: /usr/bin/screen ~/.screenrc
 
@@ -80,8 +76,6 @@ vim: /usr/bin/vim ~/.vimrc
 .PHONY: cli cli-all
 
 cli: bash git screen ssh vim
-
-cli-all: cli irssi
 
 
 ################################################################################

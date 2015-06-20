@@ -14,7 +14,6 @@ usage: make <target>
     git
     gnome
     help
-    irssi
     nautilus
     print
     screen
@@ -71,7 +70,6 @@ total 152
 -rwxr-xr-x  1 david  staff   1.4K Apr 13 00:26 customize.py
 -rwxr-xr-x  1 david  staff   873B Jun  4 23:57 deploy.sh
 -rw-r--r--  1 david  staff   177B Apr 13 00:26 gitconfig.ini
--rw-r--r--  1 david  staff   5.4K May 29 22:13 irssi.pl
 -rw-r--r--  1 david  staff    53B Apr 11 13:55 screenrc.screen
 -rw-r--r--@ 1 david  staff   293B Apr  9 12:32 sublime.json
 -rw-r--r--  1 david  staff    25B Jan 31 14:26 vimrc.vim
