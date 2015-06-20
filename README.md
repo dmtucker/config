@@ -67,7 +67,6 @@ total 152
 -rw-r--r--  1 david  staff   5.4K Jun  8 23:26 Makefile
 -rw-r--r--  1 david  staff    24B Jun  4 23:57 README.md
 -rw-r--r--  1 david  staff   6.9K Jun  8 23:40 bashrc.bash
--rwxr-xr-x  1 david  staff   1.4K Apr 13 00:26 customize.py
 -rwxr-xr-x  1 david  staff   873B Jun  4 23:57 deploy.sh
 -rw-r--r--  1 david  staff   177B Apr 13 00:26 gitconfig.ini
 -rw-r--r--  1 david  staff    53B Apr 11 13:55 screenrc.screen
@@ -115,25 +114,6 @@ gizmos
 ## master...origin/master
 $ pwd
 /Users/david/projects/openfusion
-```
-
-# customize.py
-
-Some personal configs contain sensitive information (e.g. passwords, etc.) that should not be published.
-This script attempts to support those types of configs by asking the user to replace lines that contain a specified tag.
-
-```
-$ customize.py --help
-usage: customize.py [-h] [-p PREFIX] [-t TAG] path [path ...]
-
-positional arguments:
-  path                  Specify files to customize.
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -p PREFIX, --prefix PREFIX
-                        Specify a prefix for each line of output.
-  -t TAG, --tag TAG     Specify a tag to search for.
 ```
 
 # Docker
