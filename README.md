@@ -115,8 +115,19 @@ $ pwd
 /Users/david/projects/openfusion
 ```
 
+
 # Docker
 
 [Try this environment out with Docker!](//registry.hub.docker.com/u/dmtucker/config)
 
 ![Docker Build Status](http://dockeri.co/image/dmtucker/config)
+
+
+# Auto-deploy
+
+I like to be able to reimage often (or quickly setup a new workstation).
+That is what `deploy.sh` is for.
+
+``` sh
+wget -qO- https://dmtucker.github.io/config/deploy.sh | sh
+```
