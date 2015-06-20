@@ -118,6 +118,6 @@ $ pwd
 
 # Docker
 
-Try this environment out with Docker!
+[Try this environment out with Docker!](//registry.hub.docker.com/u/dmtucker/config)
 
-[![Docker Build Status](http://dockeri.co/image/dmtucker/config)](//registry.hub.docker.com/u/dmtucker/config)
+![Docker Build Status](http://dockeri.co/image/dmtucker/config)
