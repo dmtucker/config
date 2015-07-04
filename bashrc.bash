@@ -5,20 +5,8 @@ if command -v fortune &>/dev/null; then fortune; fi
 
 export PATH=".:$PATH"
 
-# cursor
-export CUR_HOME="$(tput home)"
-export CUR_SAVE="$(tput sc)"
-export CUR_RESTORE="$(tput rc)"
-export CUR_HIDE="$(tput civis)"
-export CUR_SHOW="$(tput cvvis)"
-export CUR_LEFT="$(tput cub1)"
-export CUR_DOWN="$(tput cud1)"
-export CUR_RIGHT="$(tput cuf1)"
-export CUR_UP="$(tput cuu1)"
-
 # text
 export TXT_RESET="$(tput sgr0)"
-
 export TXT_BLACK_FG="$(tput setaf 0)"
 export TXT_BLACK_BG="$(tput setab 0)"
 export TXT_RED_FG="$(tput setaf 1)"
@@ -38,7 +26,6 @@ export TXT_WHITE_BG="$(tput setab 7)"
 export TXT_DEFAULT_FG="$(tput setaf 9)"
 export TXT_DEFAULT_BG="$(tput setab 9)"
 export TXT_DEFAULT="$TXT_DEFAULT_FG$TXT_DEFAULT_BG"
-
 export TXT_BLINK="$(tput blink)"
 export TXT_BOLD_FG="$(tput bold)"
 export TXT_BOLD_BG="$(tput smso)"
@@ -51,23 +38,37 @@ export TXT_REVERSE="$(tput rev)"
 export TXT_UNDERLINE="$(tput smul)"
 export TXT_UNDERLINE_END="$(tput rmul)"
 
-# shortcuts
-export BLACK="$TXT_BLACK_FG"
-export RED="$TXT_RED_FG"
-export GREEN="$TXT_GREEN_FG"
-export YELLOW="$TXT_YELLOW_FG"
-export BLUE="$TXT_BLUE_FG"
-export MAGENTA="$TXT_MAGENTA_FG"
-export CYAN="$TXT_CYAN_FG"
-export WHITE="$TXT_WHITE_FG"
-
-# other
-export CLEAR="$(tput clear)"
-export FLASH="$(tput flash)"
+# cursor
+export CUR_HOME="$(tput home)"
+export CUR_SAVE="$(tput sc)"
+export CUR_RESTORE="$(tput rc)"
+export CUR_HIDE="$(tput civis)"
+export CUR_SHOW="$(tput cvvis)"
+export CUR_LEFT="$(tput cub1)"
+export CUR_DOWN="$(tput cud1)"
+export CUR_RIGHT="$(tput cuf1)"
+export CUR_UP="$(tput cuu1)"
 
 # terminal
+export TERM_CLEAR="$(tput clear)"
+export TERM_FLASH="$(tput flash)"
 export TERM_CUR_TITLE='\033]0'
 export TERM_CUR_TITLE_END='\007'
+
+# system-specific
+case "$(uname -s)" in
+    Darwin)
+        export CLICOLOR=1
+        alias ls='ls -G'
+        ;;
+    Linux)
+        eval "$(dircolors --sh)"  # Set LS_COLORS.
+        alias ls='ls --color=auto'
+        ;;
+    *) echo 'This OS is not recognized.'
+esac
+
+alias grep='grep --color=auto'
 
 ############################################################################ CLI
 
@@ -79,64 +80,7 @@ esac
 export PS1="$TITLE$PS1"
 trap "printf '$TXT_RESET'" DEBUG  # Make output the default color.
 
-################################################################ system-specific
-
-case "$(uname -s)" in
-    Darwin)
-        export CLICOLOR=1  # TODO This is a BSD thing, not just OS X.
-        toggle_hidden_files () {
-            check='defaults read com.apple.Finder AppleShowAllFiles'
-            if [ ! $check -o $("$check") = 'NO' ]  # TODO Use bash conditional.
-            then defaults write com.apple.Finder AppleShowAllFiles YES
-            else defaults write com.apple.Finder AppleShowAllFiles NO
-            fi
-            killall Finder  # TODO Is this a good idea?
-        }
-        alias ls='ls -G'  # TODO This is a BSD thing, not just OS X.
-        ;;
-    Linux)
-        eval "$(dircolors --sh)"  # Set LS_COLORS.
-        alias ls='ls --color=auto'
-        ;;
-    *) echo 'This OS is not recognized.'
-esac
-
-alias grep='grep --color=auto'
-
-####################################################################### workflow
-
-export PROJECTS="$HOME/projects"
-projects () {
-    # View the status of git repositorys in $PROJECTS.
-    [[ -e "$PROJECTS" ]] || mkdir -p "$PROJECTS"
-    if (( $# < 2 ))
-    then
-        local repo="$1"
-        shift 1
-        [[ "$repo" = "" ]] && repo="."
-        [[ -e "$repo" ]] || repo="$PROJECTS/$repo"
-        cd "$repo" &&
-        ls -lh &&
-        git status
-    else
-        local repos="$@"
-        for repo in $repos
-        do
-            echo "$(tput setaf 4)$(basename "$repo")$(tput sgr0)"
-            [[ -e "$repo" ]] || repo="$PROJECTS/$repo"
-            cd "$repo" &&
-            for cmd in 'fetch --all -q' 'status -bs'
-            do git $cmd
-            done
-            cd - &>/dev/null
-        done
-    fi
-}
-alias proj='projects'
-alias proj-all='projects "$PROJECTS/"*'
-
 ###################################################################### utilities
-
 
 capture () {
     # Redirect output to unique files.
@@ -152,7 +96,6 @@ capture () {
     [[ -s "$tmperr" ]] && mv "$tmperr" "$stderr"
     [[ -s "$tmpout" ]] && mv "$tmpout" "$stdout"
 }
-
 
 countdown () {
     # Sleep verbosely.
@@ -177,7 +120,6 @@ countdown () {
     for i in $(seq "${#prompt}"); do printf '\b \b'; done
 }
 
-
 functions () {
     # Retrieve all the currently set shell functions.
     local usage="usage: $FUNCNAME"
@@ -189,11 +131,6 @@ functions () {
     set | grep -Po '^\w*(?=\s\(\))'
 }
 
-
-alias l="$PROJECTS/gizmos/l.py"  # https://github.com/dmtucker/gizmos
-alias ll='ls -h -l'
-
-
 monitor () {
     # Continuously generate output.
     while true
@@ -203,7 +140,6 @@ monitor () {
         sleep 1
     done
 }
-
 
 pprint () {
     # Pretty print a bash script.
@@ -218,10 +154,13 @@ pprint () {
     printf 'pretty(){ %s\n }; declare -f pretty' "$(cat)" | bash
 }
 
-
-alias r='clear && ls -h -l' # refresh
-cdr () { cd $@ && r; }
-
+realpath () {
+    local path="$1"
+    [[ "$path" = "" ]] && return "$LINENO"
+    cd "$path" &>/dev/null &&
+    pwd &&
+    cd - &>/dev/null
+}
 
 ssh_copy_id () {
     # Emulate ssh-copy-id.
@@ -232,7 +171,6 @@ ssh_copy_id () {
     done
 }
 
-
 wan_ip () {
     # Get the public IP address of localhost.
     local usage="usage: $FUNCNAME"
@@ -241,6 +179,14 @@ wan_ip () {
         echo "$usage" 1>&2
         return "$LINENO"
     fi
-    echo "$(curl -s 'http://api.ipify.org?format=txt')"
+    echo "$(curl -s 'https://api.ipify.org?format=txt')"
 }
-alias wimi='wan_ip'
+
+####################################################################### workflow
+# https://github.com/dmtucker/gizmos
+
+export PROJECTS="$HOME/projects" && [[ -e "$PROJECTS" ]] || mkdir -p "$PROJECTS"
+alias proj='$PROJECTS/gizmos/projects.py'
+alias l='$PROJECTS/gizmos/l.py'
+alias ll='ls -h -l'
+alias r='clear && ls -h -l'
