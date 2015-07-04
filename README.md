@@ -44,6 +44,7 @@ Life is better in color.
 * `ssh_copy_id` emulates `ssh-copy-id`.
 * `wan_ip` will show your public IP address.
 
+#### Aliases
 * `ll` (a.k.a. "long list") is an alias for `ls -h -l`.
 * `r` (a.k.a. "refresh") clears the terminal and does an `ls -h -l`.
 
