@@ -52,8 +52,6 @@ Life is better in color.
 
 [Try this environment out with Docker!](//registry.hub.docker.com/u/dmtucker/config)
 
-![Docker Build Status](http://dockeri.co/image/dmtucker/config)
-
 
 # Auto-deploy
 
