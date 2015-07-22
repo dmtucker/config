@@ -50,7 +50,7 @@ Life is better in color.
 
 # Docker
 
-[Try this environment out with Docker!](//registry.hub.docker.com/u/dmtucker/config)
+[Try this environment out with Docker!](https://registry.hub.docker.com/u/dmtucker/config)
 
 
 # Auto-deploy
