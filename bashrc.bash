@@ -193,4 +193,4 @@ alias ll='ls -h -l'
 alias r='clear && ls -h -l'
 
 # https://github.com/dmtucker/backlog
-alias backlog='python $PROJECTS/backlog/backlog -f $HOME/backlog.json'
+alias backlog='python $PROJECTS/backlog/backlog -f $HOME/.backlog.json'
