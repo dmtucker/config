@@ -73,7 +73,7 @@ vim: /usr/bin/vim ~/.vimrc
 	sudo update-alternatives --set editor /usr/bin/vim.basic
 
 
-.PHONY: cli cli-all
+.PHONY: cli
 
 cli: bash git screen ssh vim
 
@@ -178,4 +178,4 @@ gnome: gedit nautilus
 
 .PHONY: workstation
 
-workstation: cli-all gnome chrome print
+workstation: cli gnome chrome print
