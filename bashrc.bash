@@ -154,15 +154,6 @@ pprint () {
     printf 'pretty(){ %s\n }; declare -f pretty' "$(cat)" | bash
 }
 
-realpath () {
-    # Emulate realpath.
-    local path="$1"
-    [[ "$path" = "" ]] && return "$LINENO"
-    cd "$path" &>/dev/null &&
-    pwd &&
-    cd - &>/dev/null
-}
-
 ssh_copy_id () {
     # Emulate ssh-copy-id.
     local usage="usage: $FUNCNAME [<[user@]host> ...]"
