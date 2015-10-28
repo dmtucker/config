@@ -1,8 +1,11 @@
 FROM debian:latest
-USER root
-ENV HOME /root
-ENV USER root
+RUN apt-get update && apt-get -y install \
+  curl \
+  lsb-release \
+  make \
+  openssh-client \
+  sudo
 COPY . $HOME/projects/config
-RUN apt-get update
-RUN apt-get -y -qq install lsb-release make sudo openssh-client curl
-RUN cd $HOME/projects/config && make cli
+WORKDIR $HOME/projects/config
+RUN make cli
+ENTRYPOINT ["bash"]
