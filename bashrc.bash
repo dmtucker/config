@@ -176,12 +176,13 @@ wan_ip () {
 
 ####################################################################### workflow
 
+alias ll='ls -h -l'
+alias r='clear && ls -h -l'
+
 # https://github.com/dmtucker/gizmos
 export PROJECTS="$HOME/projects" && [[ -e "$PROJECTS" ]] || mkdir -p "$PROJECTS"
 alias proj='$PROJECTS/gizmos/projects.py'
 alias l='$PROJECTS/gizmos/l.py'
-alias ll='ls -h -l'
-alias r='clear && ls -h -l'
 
 # https://github.com/dmtucker/backlog
 alias backlog='python $PROJECTS/backlog/backlog -f $HOME/.backlog.json'
