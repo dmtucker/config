@@ -145,7 +145,7 @@ pprint () {
     # Pretty print a bash script.
     # Example: Style an existing script in-place.
     #   echo "$(pretty_bash < ~/.bashrc)" > ~/.bashrc
-    local usage="usage: $FUNCNAME"
+    local usage="usage: $FUNCNAME < file.bash"
     if (( $# != 0 ))
     then
         echo "$usage" 1>&2
