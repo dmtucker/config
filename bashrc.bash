@@ -72,20 +72,14 @@ alias grep='grep --color=auto'
 
 ############################################################################ CLI
 
-prompt_status_color () {
-    status="$?"
-    if (( $status == 0 ))
-    then printf "$TXT_GREEN_FG"
-    else printf "$TXT_RED_FG" && return $status
-    fi
-}
-export PS1='\[$(prompt_status_color)\][\D{%F}T\t\D{%z}] $?\n\[$TXT_CYAN_FG\]\u@\H:\w \\$\[$TXT_YELLOW_FG\] '
+export PS1='\[$TXT_CYAN_FG\]\u@\H:\w \\$\[$TXT_YELLOW_FG\] '
 TITLE=''
 case $TERM in
     xterm*) TITLE="\[$TERM_CUR_TITLE;\u@\h$TERM_CUR_TITLE_END\]";;
 esac
 export PS1="$TITLE$PS1"
-trap "printf '$TXT_RESET'" DEBUG  # Make output the default color.
+trap 'printf "$TXT_RESET"' DEBUG  # Make output the default color.
+trap 'status="$?"; echo "$TXT_RED_FG[$(date)] $status"' ERR
 
 ###################################################################### utilities
 
