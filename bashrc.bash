@@ -1,5 +1,4 @@
 [[ $- = *i* ]] || return  # Require an interactive shell.
-if command -v fortune &>/dev/null; then fortune; fi
 
 ############################################################################ env
 
@@ -192,3 +191,13 @@ alias l='$PROJECTS/gizmos/l.py'
 
 # https://github.com/dmtucker/backlog
 alias backlog='python $PROJECTS/backlog/backlog -f $HOME/.backlog.json'
+
+########################################################################## intro
+
+if command -v fortune &>/dev/null
+then
+    if command -v lolcat &>/dev/null
+    then fortune | lolcat -F 0.2
+    else fortune
+    fi
+fi
