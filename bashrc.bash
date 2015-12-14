@@ -194,10 +194,13 @@ alias backlog='python $PROJECTS/backlog/backlog -f $HOME/.backlog.json'
 
 ########################################################################## intro
 
-if command -v fortune &>/dev/null
-then
-    if command -v lolcat &>/dev/null
-    then fortune | lolcat -F 0.2
-    else fortune
+intro () {
+    if command -v fortune &>/dev/null
+    then
+        if command -v lolcat &>/dev/null
+        then fortune | lolcat -F 0.2
+        else fortune
+        fi
     fi
-fi
+}
+intro
