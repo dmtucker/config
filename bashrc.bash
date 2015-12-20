@@ -184,13 +184,17 @@ wan_ip () {
 alias ll='ls -h -l'
 alias r='clear && ls -h -l'
 
-# https://github.com/dmtucker/gizmos
-export PROJECTS="$HOME/projects" && [[ -e "$PROJECTS" ]] || mkdir -p "$PROJECTS"
-alias proj='$PROJECTS/gizmos/projects.py'
-alias l='$PROJECTS/gizmos/l.py'
+if [[ -e "$PROJECTS/projects/gizmos" ]] # https://github.com/dmtucker/gizmos
+then
+    export PROJECTS="$HOME/projects" && mkdir -p "$PROJECTS"
+    alias proj='$PROJECTS/gizmos/projects.py'
+    alias l='$PROJECTS/gizmos/l.py'
+fi
 
-# https://github.com/dmtucker/backlog
-alias backlog='python $PROJECTS/backlog/backlog -f $HOME/.backlog.json'
+if [[ -e "$PROJECTS/projects/backlog" ]] # https://github.com/dmtucker/backlog
+then
+    alias backlog='python $PROJECTS/backlog/backlog -f $HOME/.backlog.json'
+fi
 
 ########################################################################## intro
 
