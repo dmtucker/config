@@ -179,6 +179,39 @@ wan_ip () {
     echo "$(curl -s 'https://api.ipify.org?format=txt')"
 }
 
+wan_ip4 () {
+    # Get the public IPv6 address of localhost.
+    local usage="usage: $FUNCNAME"
+    if (( $# != 0 ))
+    then
+        echo "$usage" 1>&2
+        return "$LINENO"
+    fi
+    echo "$(curl -s 'http://v4.ipv6-test.com/api/myip.php')"
+}
+
+wan_ip6 () {
+    # Get the public IPv6 address of localhost.
+    local usage="usage: $FUNCNAME"
+    if (( $# != 0 ))
+    then
+        echo "$usage" 1>&2
+        return "$LINENO"
+    fi
+    echo "$(curl -s 'http://v6.ipv6-test.com/api/myip.php')"
+}
+
+wan_ip46 () {
+    # Get the public IPv6 address of localhost.
+    local usage="usage: $FUNCNAME"
+    if (( $# != 0 ))
+    then
+        echo "$usage" 1>&2
+        return "$LINENO"
+    fi
+    echo "$(curl -s 'http://v4v6.ipv6-test.com/api/myip.php')"
+}
+
 ####################################################################### workflow
 
 alias ll='ls -h -l'
