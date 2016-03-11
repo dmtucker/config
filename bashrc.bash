@@ -202,7 +202,7 @@ wan_ip6 () {
 }
 
 wan_ip46 () {
-    # Get the public IPv6 address of localhost.
+    # Get the public IPv6 or IPv4 address of localhost.
     local usage="usage: $FUNCNAME"
     if (( $# != 0 ))
     then
