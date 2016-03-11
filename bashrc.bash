@@ -212,6 +212,17 @@ wan_ip46 () {
     echo "$(curl -s 'http://v4v6.ipv6-test.com/api/myip.php')"
 }
 
+weather () {
+    # Get the weather.
+    local usage="usage: $FUNCNAME city"
+    if (( $# != 1 ))
+    then
+        echo "$usage" 1>&2
+        return "$LINENO"
+    fi
+    curl -s "http://wttr.in/$1"
+}
+
 ####################################################################### workflow
 
 alias ll='ls -h -l'
