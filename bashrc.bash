@@ -225,7 +225,7 @@ then
     alias l='$PROJECTS/gizmos/l.py'
 fi
 
-if [[ -e "$PROJECTS/projects/backlog" ]] # https://github.com/dmtucker/backlog
+if [[ -e "$PROJECTS/backlog" ]] # https://github.com/dmtucker/backlog
 then
     alias backlog='python $PROJECTS/backlog/backlog -f $HOME/.backlog.json'
 fi
