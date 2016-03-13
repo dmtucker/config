@@ -202,7 +202,7 @@ wan_ip6 () {
 }
 
 wan_ip46 () {
-    # Get the public IPv6 address of localhost.
+    # Get the public IPv6 or IPv4 address of localhost.
     local usage="usage: $FUNCNAME"
     if (( $# != 0 ))
     then
@@ -210,6 +210,17 @@ wan_ip46 () {
         return "$LINENO"
     fi
     echo "$(curl -s 'http://v4v6.ipv6-test.com/api/myip.php')"
+}
+
+weather () {
+    # Get the weather.
+    local usage="usage: $FUNCNAME city"
+    if (( $# != 1 ))
+    then
+        echo "$usage" 1>&2
+        return "$LINENO"
+    fi
+    curl -s "http://wttr.in/$1"
 }
 
 ####################################################################### workflow
