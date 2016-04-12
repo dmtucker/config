@@ -230,12 +230,6 @@ alias r='clear && ls -h -l'
 
 export PROJECTS="$HOME/projects" && mkdir -p "$PROJECTS"
 
-if [[ -e "$PROJECTS/gizmos" ]] # https://github.com/dmtucker/gizmos
-then
-    alias proj='$PROJECTS/gizmos/projects.py'
-    alias l='$PROJECTS/gizmos/l.py'
-fi
-
 ########################################################################## intro
 
 intro () {
