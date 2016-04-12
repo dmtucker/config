@@ -34,15 +34,13 @@ Life is better in color.
 * `git`, `grep`, and `ls` coloring is almost essential.
 * Portable (ANSI) color constants are included.
 
-### Utilities
+### Functions
 
-* `capture` makes saving output easy by redirecting `stdout` and `stderr` to unique files in `$PWD`.
-* `countdown` is basically a digital kitchen timer. Substitute `sleep` for it to add visible delays.
-* `functions` will show you all set shell functions.
-* `monitor` wraps commands that are then called every second forever. This is useful with tools like `ifconfig` while debugging network issues.
-* `pprint` is a pretty printer for Bash code (which it accepts via `stdin`).
-* `ssh_copy_id` emulates `ssh-copy-id`.
-* `wan_ip` will show your public IP address.
+A number of handy functions are included.
+
+``` bash
+define -f
+```
 
 #### Aliases
 * `ll` (a.k.a. "long list") is an alias for `ls -h -l`.
