@@ -69,6 +69,12 @@ esac
 
 alias grep='grep --color=auto'
 
+# other
+alias ll='ls -h -l'
+alias r='clear && ls -h -l'
+
+export PROJECTS="$HOME/projects" && mkdir -p "$PROJECTS"
+
 ############################################################################ CLI
 
 export PS1='\[$TXT_CYAN_FG\]\u@\H:\w \\$\[$TXT_YELLOW_FG\] '
@@ -80,7 +86,7 @@ export PS1="$TITLE$PS1"
 trap 'printf "$TXT_RESET"' DEBUG  # Make output the default color.
 trap 'status="$?"; echo "$TXT_RED_FG[$(date)] $status"' ERR
 
-###################################################################### utilities
+###################################################################### functions
 
 address () {
     # Get the public IPv6 and/or IPv4 address of localhost.
@@ -145,17 +151,6 @@ countdown () {
     for i in $(seq "${#prompt}"); do printf '\b \b'; done
 }
 
-functions () {
-    # Retrieve all the currently set shell functions.
-    local usage="usage: $FUNCNAME"
-    if (( $# != 0 ))
-    then
-        echo "$usage" 1>&2
-        return "$LINENO"
-    fi
-    set | grep -Po '^\w*(?=\s\(\))'
-}
-
 monitor () {
     # Continuously generate output.
     while true
@@ -164,39 +159,6 @@ monitor () {
         $@
         sleep 1
     done
-}
-
-pprint () {
-    # Pretty print a bash script.
-    # Example: Style an existing script in-place.
-    #   echo "$(pretty_bash < ~/.bashrc)" > ~/.bashrc
-    local usage="usage: $FUNCNAME < file.bash"
-    if (( $# != 0 ))
-    then
-        echo "$usage" 1>&2
-        return "$LINENO"
-    fi
-    printf 'pretty(){ %s\n }; declare -f pretty' "$(cat)" | bash
-}
-
-ssh_copy_id () {
-    # Emulate ssh-copy-id.
-    local usage="usage: $FUNCNAME [<[user@]host> ...]"
-    (( $# < 1 )) && echo "$usage"
-    for host in "$@"
-    do ssh "$host" "echo $(cat $HOME/.ssh/id_*.pub) >> ~/.ssh/authorized_keys"
-    done
-}
-
-wan_ip () {
-    # Get the public IP address of localhost.
-    local usage="usage: $FUNCNAME"
-    if (( $# != 0 ))
-    then
-        echo "$usage" 1>&2
-        return "$LINENO"
-    fi
-    echo "$(curl -s 'https://api.ipify.org?format=txt')"
 }
 
 weather () {
@@ -209,13 +171,6 @@ weather () {
     fi
     curl -s "http://wttr.in/$1"
 }
-
-####################################################################### workflow
-
-alias ll='ls -h -l'
-alias r='clear && ls -h -l'
-
-export PROJECTS="$HOME/projects" && mkdir -p "$PROJECTS"
 
 ########################################################################## intro
 
