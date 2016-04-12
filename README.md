@@ -24,27 +24,14 @@ usage: make <target>
 
 ## bash
 
-I like to use `bash`, but I generally script in `sh` for portability.
-
-### Color
-
-Life is better in color.
-
-* The prompt, the command, and the output are different colors which makes it easier to see the beginning and end of the output in the scrollback.
-* `git`, `grep`, and `ls` coloring is almost essential.
-* Portable (ANSI) color constants are included.
-
-### Functions
-
-A number of handy functions are included.
+* Minimal
+* Lots of Color
 
 ``` bash
-define -f
+env | less
+declare -f
+alias
 ```
-
-#### Aliases
-* `ll` (a.k.a. "long list") is an alias for `ls -h -l`.
-* `r` (a.k.a. "refresh") clears the terminal and does an `ls -h -l`.
 
 # Docker
 
