@@ -82,6 +82,26 @@ trap 'status="$?"; echo "$TXT_RED_FG[$(date)] $status"' ERR
 
 ###################################################################### utilities
 
+address () {
+    # Get the public IPv6 and/or IPv4 address of localhost.
+    local usage="usage: $FUNCNAME"
+    if (( $# != 0 ))
+    then
+        echo "$usage" 1>&2
+        return "$LINENO"
+    fi
+    local ipv4="$(curl -s 'http://v4.ipv6-test.com/api/myip.php')"
+    local ipv6="$(curl -s 'http://v6.ipv6-test.com/api/myip.php')"
+    local pref="$(curl -s 'http://v4v6.ipv6-test.com/api/myip.php')"
+    echo "IPv4: $ipv4"
+    echo "IPv6: $ipv6"
+    printf "Prefer: "
+    if [[ "$pref" = "$ipv6" ]]
+    then echo 'IPv6'
+    else echo 'IPv4'
+    fi
+}
+
 calculate () {
     # Do basic math.
     bc -l <<< "$@"
@@ -177,39 +197,6 @@ wan_ip () {
         return "$LINENO"
     fi
     echo "$(curl -s 'https://api.ipify.org?format=txt')"
-}
-
-wan_ip4 () {
-    # Get the public IPv6 address of localhost.
-    local usage="usage: $FUNCNAME"
-    if (( $# != 0 ))
-    then
-        echo "$usage" 1>&2
-        return "$LINENO"
-    fi
-    echo "$(curl -s 'http://v4.ipv6-test.com/api/myip.php')"
-}
-
-wan_ip6 () {
-    # Get the public IPv6 address of localhost.
-    local usage="usage: $FUNCNAME"
-    if (( $# != 0 ))
-    then
-        echo "$usage" 1>&2
-        return "$LINENO"
-    fi
-    echo "$(curl -s 'http://v6.ipv6-test.com/api/myip.php')"
-}
-
-wan_ip46 () {
-    # Get the public IPv6 or IPv4 address of localhost.
-    local usage="usage: $FUNCNAME"
-    if (( $# != 0 ))
-    then
-        echo "$usage" 1>&2
-        return "$LINENO"
-    fi
-    echo "$(curl -s 'http://v4v6.ipv6-test.com/api/myip.php')"
 }
 
 weather () {
