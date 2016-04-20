@@ -168,14 +168,7 @@ sublime: ${PWD}/sublime.json
 	esac
 
 
-.PHONY: gnome
+.PHONY: gnome-config
 
-gnome: gedit nautilus
+gnome-config: gedit nautilus
 	gsettings set org.gnome.Terminal.Legacy.Settings dark-theme true
-
-
-################################################################################
-
-.PHONY: workstation
-
-workstation: cli gnome chrome print

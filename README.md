@@ -2,24 +2,8 @@
 
 All you need is `make` (and CentOS, Debian, OS X, or Ubuntu).
 
-```
-$ make
-usage: make <target>
-  where target can be:
-    bash
-    chrome
-    cli
-    gedit
-    git
-    gnome
-    help
-    nautilus
-    print
-    screen
-    ssh
-    sublime
-    vim
-    workstation
+``` sh
+make help
 ```
 
 ## bash

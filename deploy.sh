@@ -6,7 +6,7 @@ case "$(uname -s)" in
         case "$(lsb_release -is)" in
             Debian|Ubuntu)
                 sudo apt-get update
-                sudo apt-get -y -qq install ssh openssh-server git make
+                sudo apt-get -y -qq install openssh git make
                 ;;
             *)
                 echo "Your distro ($(lsb_release -is)) is not supported." 1>&2
@@ -36,5 +36,5 @@ echo "$PROJECTS/config"
 echo 'Configuring...'
 cd "$PROJECTS/config"
 git remote set-url origin 'git@github.com:dmtucker/config.git'
-make workstation
+make cli
 cd - 1>/dev/null 2>&1
