@@ -10,7 +10,7 @@ help:
 ################################################################################
 
 
-/bin/bash /usr/bin/gedit /usr/bin/git /usr/bin/screen /usr/bin/ssh /usr/bin/vim:
+/bin/bash /usr/bin/bc /usr/bin/curl /usr/bin/fortune /usr/bin/gedit /usr/bin/git /usr/bin/lolcat /usr/bin/screen /usr/bin/ssh /usr/bin/vim:
 	# Installing $@...
 	@case "$$(uname -s)" in \
 		Darwin) \
@@ -59,8 +59,10 @@ help:
 
 .PHONY: bash git screen ssh vim
 
-bash: /bin/bash ~/.bash_profile
+bash: /bin/bash ~/.bash_profile bash-extras
 	-[ "$$(uname -s)" = 'Linux' ] && chsh -s /bin/bash
+
+bash-extras: /usr/bin/bc /usr/bin/curl /usr/bin/fortune /usr/bin/lolcat
 
 git: /usr/bin/git ~/.gitconfig
 

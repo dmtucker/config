@@ -2,7 +2,7 @@
 
 ############################################################################ env
 
-export PATH=".:$PATH"
+export PATH=".:$PATH:/usr/games"
 
 # text
 export TXT_RESET="$(tput sgr0)"

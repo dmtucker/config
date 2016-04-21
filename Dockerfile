@@ -1,11 +1,7 @@
 FROM debian:latest
-RUN apt-get update && apt-get -y install \
-  curl \
-  lsb-release \
-  make \
-  openssh-client \
-  sudo
-COPY . $HOME/projects/config
-WORKDIR $HOME/projects/config
-RUN make cli
+MAINTAINER david.michael.tucker@gmail.com
+RUN apt-get update && apt-get install -y lsb-release sudo
+WORKDIR /root
+COPY . projects/config/
+RUN projects/config/deploy.sh
 ENTRYPOINT ["bash"]
