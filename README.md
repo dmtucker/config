@@ -1,6 +1,6 @@
 # config
 
-All you need is `make` (and CentOS, Debian, OS X, or Ubuntu).
+All you need is `make`.
 
 ``` sh
 make help
