@@ -19,7 +19,7 @@ alias
 
 # Docker
 
-[Try this environment out with Docker!](https://registry.hub.docker.com/u/dmtucker/config)
+[Try this environment out with Docker!](https://hub.docker.com/r/dmtucker/config/)
 
 
 # Auto-deploy
