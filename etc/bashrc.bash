@@ -94,17 +94,18 @@ address () {
     if (( $# != 0 ))
     then
         echo "$usage" 1>&2
-        return "$LINENO"
+        return 1
     fi
     local ipv4="$(curl -s 'http://v4.ipv6-test.com/api/myip.php')"
     local ipv6="$(curl -s 'http://v6.ipv6-test.com/api/myip.php')"
     local pref="$(curl -s 'http://v4v6.ipv6-test.com/api/myip.php')"
-    echo "IPv4: $ipv4"
-    echo "IPv6: $ipv6"
-    printf "Prefer: "
-    if [[ "$pref" = "$ipv6" ]]
-    then echo 'IPv6'
-    else echo 'IPv4'
+    if [[ "$pref" = "$ipv4" ]]
+    then
+        echo "IPv4: $ipv4"
+        echo "IPv6: $ipv6"
+    else
+        echo "IPv6: $ipv6"
+        echo "IPv4: $ipv4"
     fi
 }
 
@@ -136,7 +137,7 @@ countdown () {
     if (( $# != 1 ))
     then
         echo "$usage" 1>&2
-        return "$LINENO"
+        return 1
     fi
     local from="$1"
     shift 1
@@ -167,7 +168,7 @@ weather () {
     if (( $# != 1 ))
     then
         echo "$usage" 1>&2
-        return "$LINENO"
+        return 1
     fi
     curl -s "http://wttr.in/$1"
 }
