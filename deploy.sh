@@ -12,7 +12,7 @@ get ()
                 fi;
                 dist="$(lsb_release -is)";
                 case "$dist" in 
-                    Debian | Ubuntu)
+                    Debian)
                         sudo apt-get update;
                         sudo apt-get -y install "$(basename "$prog")"
                     ;;

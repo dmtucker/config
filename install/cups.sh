@@ -12,7 +12,7 @@ case "$os" in
         fi;
         dist="$(lsb_release -is)";
         case "$dist" in 
-            Debian | Ubuntu)
+            Debian)
                 apt-get install cups || exit 1;
                 adduser "$(id -un)" lpadmin || exit 1;
                 echo 'http://localhost:631/admin'
