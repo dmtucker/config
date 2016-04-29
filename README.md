@@ -22,7 +22,7 @@ alias
 [Try this environment out with Docker!](https://hub.docker.com/r/dmtucker/config/)
 
 
-# Auto-deploy
+# Automatic Deployment
 
 I like to be able to reimage often (or quickly setup a new workstation).
 That is what `deploy.sh` is for.
@@ -30,3 +30,5 @@ That is what `deploy.sh` is for.
 ``` sh
 wget -qO- https://dmtucker.github.io/config/deploy.sh | sh
 ```
+
+* Note: Only Debian is supported.
