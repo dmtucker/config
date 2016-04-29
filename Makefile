@@ -10,7 +10,7 @@ help:
 all: bash git screen ssh vim
 
 bash: /bin/bash ~/.bash_profile bash-extras
-	chsh -s /bin/bash
+	sudo chsh -s /bin/bash "$$(id -un)"
 
 bash-extras: /usr/bin/bc /usr/bin/curl /usr/games/fortune /usr/games/lolcat
 
