@@ -164,8 +164,8 @@ monitor () {
 
 weather () {
     # Get the weather.
-    local usage="usage: $FUNCNAME city"
-    if (( $# != 1 ))
+    local usage="usage: $FUNCNAME [city]"
+    if (( $# > 1 ))
     then
         echo "$usage" 1>&2
         return 1
