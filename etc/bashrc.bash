@@ -77,7 +77,7 @@ export PROJECTS="$HOME/projects" && mkdir -p "$PROJECTS"
 
 ############################################################################ CLI
 
-export PS1='\[$TXT_CYAN_FG\]\u@\H:\w \\$\[$TXT_YELLOW_FG\] '
+export PS1='\[$TXT_CYAN_FG\]\u@\h:\w \\$\[$TXT_YELLOW_FG\] '
 TITLE=''
 case $TERM in
     xterm*) TITLE="\[$TERM_CUR_TITLE;\u@\h$TERM_CUR_TITLE_END\]";;
