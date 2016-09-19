@@ -1,5 +1,8 @@
 # config
 
+[![Docker Build Status](https://img.shields.io/docker/automated/dmtucker/config.svg)](https://hub.docker.com/r/dmtucker/config/)
+
+
 All you need is `make`.
 
 ``` sh
@@ -16,11 +19,6 @@ env | less
 declare -f
 alias
 ```
-
-# Docker
-
-[Try this environment out with Docker!](https://hub.docker.com/r/dmtucker/config/)
-
 
 # Automatic Deployment
 
