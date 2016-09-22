@@ -1,8 +1,0 @@
-// Settings in here override those in "Default/Preferences.sublime-settings",
-// and are overridden in turn by file type specific settings.
-{
-    "tab_size": 4,
-    "detect_indentation": false,
-    "translate_tabs_to_spaces": true,
-    "rulers": [100],
-}
