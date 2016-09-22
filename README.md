@@ -11,9 +11,6 @@ make help
 
 ## bash
 
-* Minimal
-* Lots of Color
-
 ``` bash
 env | less
 declare -f
