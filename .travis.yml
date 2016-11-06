@@ -1,0 +1,8 @@
+branches:
+  only:
+    - gh-pages
+sudo: required
+language: generic
+services:
+  - docker
+install: docker build -t config:latest .
