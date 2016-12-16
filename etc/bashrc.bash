@@ -166,15 +166,16 @@ multiping () {
     for host in "$@"
     do
         printf "Pinging $host..."
-        ping -qoc4 "$host" 1>'/dev/null' 2>&1
+        ping -qc1 "$host" 1>'/dev/null' 2>&1
         case $? in
             0) printf ' IPv4 up';;
+            1) printf ' IPv4 down';;
             2) printf ' IPv4 down';;
             68) printf ' no IPv4';;
             *) printf "\nAn exit code is not recognized: $?\n" && return 1;;
         esac
         printf ','
-        ping6 -qoc4 "$host" 1>'/dev/null' 2>&1
+        ping6 -qc1 "$host" 1>'/dev/null' 2>&1
         case $? in
             0) printf ' IPv6 up';;
             1) printf ' no IPv6';;
