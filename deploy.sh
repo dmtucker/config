@@ -21,4 +21,4 @@ if ! command -v make > /dev/null 2>&1; then
 fi;
 echo 'Configuring...';
 cd "$PROJECTS/config";
-make all
+make all | tee "deploy.$(date +%s.%N).sh"
