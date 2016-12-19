@@ -23,7 +23,11 @@ I like to be able to reimage often (or quickly setup a new workstation).
 That is what `deploy.sh` is for.
 
 ``` sh
+curl -sSL https://dmtucker.github.io/config/deploy.sh | sh
+```
+OR
+``` sh
 wget -qO- https://dmtucker.github.io/config/deploy.sh | sh
 ```
 
-* Note: Only Debian is supported.
+* Note: Only Debian is officially supported.
