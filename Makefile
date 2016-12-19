@@ -27,7 +27,7 @@ vim: /usr/bin/vim ~/.vimrc
 
 /bin/bash /usr/bin/bc /usr/bin/curl /usr/games/fortune /usr/bin/git /usr/games/lolcat /usr/bin/screen /usr/bin/ssh /usr/bin/vim:
 	# Installing $@...
-	sudo "${PWD}/deploy.sh" "$@" | sed 's/^/# /'
+	sudo apt-get install -yqq "$$(basename "$@")" | sed 's/^/# /'
 
 ~/.bashrc: ${PWD}/etc/bashrc.bash
 ~/.bash_profile: ~/.bashrc
