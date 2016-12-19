@@ -14,7 +14,7 @@ bash: /bin/bash ~/.bash_profile bash-extras
 
 bash-extras: /usr/bin/bc /usr/bin/curl /usr/games/fortune /usr/games/lolcat
 
-git: /usr/bin/git ~/.gitconfig
+git: /usr/bin/git ~/.gitconfig ~/.gitignore
 
 screen: /usr/bin/screen ~/.screenrc
 
@@ -37,9 +37,10 @@ vim: /usr/bin/vim ~/.vimrc
 	grep -q "source '$^'" '$@' || echo "source '$^'" >> '$@'
 
 ~/.gitconfig: ${PWD}/etc/gitconfig.ini
+~/.gitignore: ${PWD}/etc/gitignore
 ~/.screenrc: ${PWD}/etc/screenrc.screen
 ~/.vimrc: ${PWD}/etc/vimrc.vim
-~/.gitconfig ~/.screenrc ~/.vimrc:
+~/.gitconfig ~/.gitignore ~/.screenrc ~/.vimrc:
 	@[ -e "$$(dirname "$@")" ] || mkdir -p "$$(dirname "$@")"
 	cp -i "$^" "$@"
 
