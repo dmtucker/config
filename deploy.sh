@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 sudo apt-get update;
+sudo apt-get install -y apt-listbugs apt-listchanges apt-transport-https;
+sudo apt-get upgrade && sudo dist-upgrade;
 [ "$PROJECTS" = '' ] && export PROJECTS="$HOME/projects";
 if [ ! -e "$PROJECTS" ]; then
     printf 'Creating a directory for projects... ';
