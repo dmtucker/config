@@ -30,4 +30,4 @@ OR
 wget -qO- https://dmtucker.github.io/config/deploy.sh | sh
 ```
 
-* Note: Only Debian is officially supported.
+* Note: Only `dpkg` systems are officially supported.

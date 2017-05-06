@@ -5,4 +5,11 @@ sudo: required
 language: generic
 services:
   - docker
-install: docker build -t config:latest .
+env:
+  - PROJECTS="$(readlink -f ..)"
+before_script:
+  - cat ~/.gitconfig && rm ~/.gitconfig
+script:
+  - ./deploy.sh
+#  - mv deploy.*.sh deploy.sh  # https://github.com/dmtucker/config/issues/36
+  - docker build .
