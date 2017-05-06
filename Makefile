@@ -10,7 +10,7 @@ help:
 all: bash git screen ssh vim
 
 bash: /bin/bash ~/.bash_profile bash-extras
-	if cut -d: -f1 /etc/passwd | grep "$$(id -un)"; then chsh -s /bin/bash "$$(id -un)"; fi
+	if cut -d: -f1 /etc/passwd | grep "$$(id -un)"; then sudo chsh -s /bin/bash "$$(id -un)"; fi
 
 bash-extras: /usr/bin/bc /usr/bin/curl /usr/games/fortune /usr/games/lolcat
 
