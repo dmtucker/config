@@ -1,6 +1,6 @@
 branches:
   only:
-    - gh-pages
+    - master
 sudo: required
 language: generic
 services:
