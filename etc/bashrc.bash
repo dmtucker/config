@@ -73,7 +73,7 @@ alias grep='grep --color=auto'
 alias ll='ls -h -l'
 alias r='clear && ls -h -l'
 
-export PROJECTS="$HOME/projects" && mkdir -p "$PROJECTS"
+export PROJECTS="$HOME/Projects" && mkdir -p "$PROJECTS"
 export PIP_REQUIRE_VIRTUALENV=true
 
 ############################################################################ CLI
