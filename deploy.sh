@@ -2,7 +2,7 @@
 sudo apt-get update;
 sudo apt-get install -y apt-listbugs apt-listchanges apt-transport-https;
 sudo apt-get upgrade && sudo dist-upgrade;
-[ "$PROJECTS" = '' ] && export PROJECTS="$HOME/projects";
+[ "$PROJECTS" = '' ] && export PROJECTS="$HOME/Projects";
 if [ ! -e "$PROJECTS" ]; then
     printf 'Creating a directory for projects... ';
     mkdir -p "$PROJECTS";
