@@ -153,16 +153,6 @@ countdown () {
     for i in $(seq "${#prompt}"); do printf '\b \b'; done
 }
 
-monitor () {
-    # Continuously generate output.
-    while true
-    do
-        clear
-        $@
-        sleep 1
-    done
-}
-
 multiping () {
     for host in "$@"
     do
