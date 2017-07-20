@@ -68,6 +68,7 @@ case "$(uname -s)" in
 esac
 
 alias grep='grep --color=auto'
+alias watch='watch --color'
 
 # other
 alias ll='ls -h -l'
