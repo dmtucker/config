@@ -155,7 +155,9 @@ countdown () {
 }
 
 l () {
-    for path in "$@"
+    local paths="$@"
+    [ "$paths" = '' ] && paths="$PWD"
+    for path in $paths
     do
         [ -d "$path" ] && ls -h -l "$path" && continue
         [ -f "$path" ] && vim "$path" && continue
