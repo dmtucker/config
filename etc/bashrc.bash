@@ -205,9 +205,9 @@ project_path () {
 
 projects () {
     # Show info about projects.
-    local projects_="$@"
-    [ "$projects_" = '' ] && projects_="$PROJECTS/*"
-    for project in $projects_
+    local names="$@"
+    [ -z "$@"] && names="$PROJECTS/*"
+    for project in $names
     do
         local path="$(project_path "$project")"
         [ "$path" = '' ] && continue
@@ -217,6 +217,7 @@ projects () {
         git status --branch --short
         cd - > /dev/null
     done
+    [ -z "$@" ] && cd "$PROJECTS"
 }
 
 weather () {
