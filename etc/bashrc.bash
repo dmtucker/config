@@ -156,7 +156,7 @@ countdown () {
 
 l () {
     local paths="$@"
-    [ "$paths" = '' ] && paths="$PWD"
+    [ -z "$@" ] && paths="$PWD"
     for path in $paths
     do
         [ -d "$path" ] && ls -h -l "$path" && continue
@@ -210,7 +210,7 @@ projects () {
     for project in $names
     do
         local path="$(project_path "$project")"
-        [ "$path" = '' ] && continue
+        [ -z "$path" ] && continue
         echo "$TXT_BOLD_FG$TXT_BLUE_FG$(basename "$path")$TXT_RESET"
         cd "$path"
         git fetch --quiet --tags --prune --all
