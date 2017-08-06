@@ -193,7 +193,6 @@ project_path () {
 
 projects () {
     # Show info about projects.
-    local usage="usage: $FUNCNAME [project ...]"
     local projects_="$@"
     [ "$projects_" = '' ] && projects_="$PROJECTS/*"
     for project in $projects_
