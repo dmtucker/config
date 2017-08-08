@@ -206,7 +206,7 @@ project_path () {
 projects () {
     # Show info about projects.
     local names="$@"
-    [ -z "$@"] && names="$PROJECTS/*"
+    [ -z "$@" ] && names="$PROJECTS/*"
     for project in $names
     do
         local path="$(project_path "$project")"
