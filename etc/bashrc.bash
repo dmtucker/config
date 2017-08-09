@@ -189,35 +189,28 @@ multiping () {
     done
 }
 
-project_path () {
-    # Get the path to a project by name.
-    local usage="usage: $FUNCNAME project"
-    if (( $# != 1 ))
-    then
-        echo "$usage" 1>&2
-        return 1
-    fi
-    local path="$1"
-    [ -d "$path" ] || path="$PROJECTS/$1"
-    [ -d "$path" ] || return 1
-    echo "$(realpath "$path")"
-}
-
 projects () {
     # Show info about projects.
     local names="$@"
-    [ -z "$@" ] && names="$PROJECTS/*"
+    (( $# > 0 )) || names="$PROJECTS/*"
     for project in $names
     do
-        local path="$(project_path "$project")"
+        local path="$project"
         [ -z "$path" ] && continue
-        echo "$TXT_BOLD_FG$TXT_BLUE_FG$(basename "$path")$TXT_RESET"
+        [ -d "$path" ] || path="$PROJECTS/$path"
+        [ -d "$path" ] || {
+            printf "$TXT_BOLD_FG$TXT_RED_FG" 1>&2
+            printf "No project named '$project' could be found." 1>&2
+            echo "$TXT_RESET" 1>&2
+            continue
+        }
         cd "$path"
+        echo "$TXT_BOLD_FG$TXT_BLUE_FG$(basename "$PWD")$TXT_RESET"
         git fetch --quiet --tags --prune --all
         git status --branch --short
         cd - > /dev/null
     done
-    [ -z "$@" ] && cd "$PROJECTS"
+    (( $# > 0 )) || cd "$PROJECTS"
 }
 
 weather () {
