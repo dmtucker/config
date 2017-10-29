@@ -2,8 +2,6 @@
 
 ############################################################################ env
 
-export PATH=".:$PATH:/usr/games"
-
 # text
 export TXT_RESET="$(tput sgr0)"
 export TXT_BLACK_FG="$(tput setaf 0)"
@@ -75,6 +73,8 @@ alias ll='ls -h -l'
 alias r='clear && ls -h -l'
 
 export PROJECTS="$HOME/Projects" && mkdir -p "$PROJECTS"
+export PATH=".:$PATH:/usr/games:$PROJECTS/config/gadgets"
+
 export PIP_REQUIRE_VIRTUALENV=true
 
 ############################################################################ CLI
