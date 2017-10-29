@@ -2,8 +2,6 @@
 
 ############################################################################ env
 
-export PATH=".:$PATH:/usr/games"
-
 # text
 export TXT_RESET="$(tput sgr0)"
 export TXT_BLACK_FG="$(tput setaf 0)"
@@ -75,6 +73,8 @@ alias ll='ls -h -l'
 alias r='clear && ls -h -l'
 
 export PROJECTS="$HOME/Projects" && mkdir -p "$PROJECTS"
+export PATH=".:$PATH:/usr/games:$PROJECTS/config/gadgets"
+
 export PIP_REQUIRE_VIRTUALENV=true
 
 ############################################################################ CLI
@@ -109,11 +109,6 @@ address () {
         echo "IPv6: $ipv6"
         echo "IPv4: $ipv4"
     fi
-}
-
-calculate () {
-    # Do basic math.
-    bc -l <<< "$@"
 }
 
 capture () {
@@ -152,18 +147,6 @@ countdown () {
         for j in $(seq "${#from}"); do printf '\b \b'; done
     done
     for i in $(seq "${#prompt}"); do printf '\b \b'; done
-}
-
-l () {
-    local paths="$@"
-    [ -z "$@" ] && paths="$PWD"
-    for path in $paths
-    do
-        [ -d "$path" ] && ls -h -l "$path" && continue
-        [ -f "$path" ] && vim "$path" && continue
-        [ ! -e "$path" ] && echo "$path does not exist." 1>&2 && continue
-        echo "$path could not be shown." 1>&2
-    done
 }
 
 multiping () {
@@ -221,7 +204,7 @@ weather () {
         echo "$usage" 1>&2
         return 1
     fi
-    curl -s "http://wttr.in/$1"
+    wget -qO- "http://wttr.in/$1"
 }
 
 ########################################################################## intro
