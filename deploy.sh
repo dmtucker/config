@@ -1,7 +1,9 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
+set -e;  # Stop the script if any command fails.
+set -o pipefail;  # "The pipeline's return status is the value of the last
+                  # (rightmost) command to exit with a non-zero status,
+                  # or zero if all commands exit success fully."
 sudo apt-get update;
-sudo apt-get install -y apt-listbugs apt-listchanges apt-transport-https needrestart unattended-upgrades;
-sudo apt-get upgrade && sudo dist-upgrade;
 [ "$PROJECTS" = '' ] && export PROJECTS="$HOME/Projects";
 if [ ! -e "$PROJECTS" ]; then
     printf 'Creating a directory for projects... ';
@@ -23,4 +25,6 @@ if ! command -v make > /dev/null 2>&1; then
 fi;
 echo 'Configuring...';
 cd "$PROJECTS/config";
-make all | tee "deploy.$(date +%s.%N).sh"
+logscript="deploy.$(date +%s.%N).sh"
+make all | tee "$logscript"
+chmod +x "$logscript"

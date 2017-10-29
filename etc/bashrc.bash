@@ -73,7 +73,7 @@ alias ll='ls -h -l'
 alias r='clear && ls -h -l'
 
 export PROJECTS="$HOME/Projects" && mkdir -p "$PROJECTS"
-export PATH=".:$PATH:/usr/games:$PROJECTS/config/gadgets"
+export PATH=".:$PATH:/usr/games:$HOME/.local/bin:$PROJECTS/config/gadgets"
 
 export PIP_REQUIRE_VIRTUALENV=true
 
@@ -98,9 +98,9 @@ address () {
         echo "$usage" 1>&2
         return 1
     fi
-    local ipv4="$(curl -s 'http://v4.ipv6-test.com/api/myip.php')"
-    local ipv6="$(curl -s 'http://v6.ipv6-test.com/api/myip.php')"
-    local pref="$(curl -s 'http://v4v6.ipv6-test.com/api/myip.php')"
+    local ipv4="$(curl -sS 'http://v4.ipv6-test.com/api/myip.php')"
+    local ipv6="$(curl -sS 'http://v6.ipv6-test.com/api/myip.php')"
+    local pref="$(curl -sS 'http://v4v6.ipv6-test.com/api/myip.php')"
     if [[ "$pref" = "$ipv4" ]]
     then
         echo "IPv4: $ipv4"
@@ -204,7 +204,7 @@ weather () {
         echo "$usage" 1>&2
         return 1
     fi
-    wget -qO- "http://wttr.in/$1"
+    curl -sS "http://wttr.in/$1"
 }
 
 ########################################################################## intro
