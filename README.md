@@ -22,12 +22,14 @@ alias
 I like to be able to reimage often (or quickly setup a new workstation).
 That is what `deploy.sh` is for.
 
-``` sh
-curl -sSL https://dmtucker.github.io/config/deploy.sh | sh
-```
-OR
+* Note: Only `dpkg` systems are officially supported.
+
 ``` sh
 wget -qO- https://dmtucker.github.io/config/deploy.sh | sh
 ```
 
-* Note: Only `dpkg` systems are officially supported.
+OR
+
+``` sh
+curl -sSL https://dmtucker.github.io/config/deploy.sh | sh
+```
