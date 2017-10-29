@@ -204,7 +204,7 @@ weather () {
         echo "$usage" 1>&2
         return 1
     fi
-    curl -s "http://wttr.in/$1"
+    wget -qO- "http://wttr.in/$1"
 }
 
 ########################################################################## intro
