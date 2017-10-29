@@ -9,25 +9,14 @@ All you need is `make`.
 make help
 ```
 
-* Note: Only Debian is officially supported.
-
-## bash
-
-``` bash
-env | less
-declare -f
-alias
-```
-
 # Automatic Deployment
 
-
 ``` sh
-wget -qO- https://dmtucker.github.io/config/deploy.sh | sh
+wget -qO- https://dmtucker.github.io/config/deploy.sh | bash
 ```
 
 OR
 
 ``` sh
-curl -sSL https://dmtucker.github.io/config/deploy.sh | sh
+curl -sSL https://dmtucker.github.io/config/deploy.sh | bash
 ```

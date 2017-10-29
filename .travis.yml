@@ -1,15 +1,16 @@
 branches:
   only:
     - master
-sudo: required
 language: generic
 services:
   - docker
-env:
-  - PROJECTS="$(readlink -f ..)"
 before_script:
-  - cat ~/.gitconfig && rm ~/.gitconfig
+  - make help
 script:
-  - ./deploy.sh
-#  - mv deploy.*.sh deploy.sh  # https://github.com/dmtucker/config/issues/36
-  - docker build .
+  - docker build -t config:latest .
+  - mkdir ./tmp
+  - docker run --rm -v "$PWD/tmp:/tmp_" config:latest bash -c 'cp /root/Projects/config/deploy.*.sh /tmp_/'
+  - mv ./tmp/* ./deploy.sh
+  - cat deploy.sh
+  - rmdir ./tmp
+  - docker build -t config:latest .
