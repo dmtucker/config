@@ -111,11 +111,6 @@ address () {
     fi
 }
 
-calculate () {
-    # Do basic math.
-    bc -l <<< "$@"
-}
-
 capture () {
     # Redirect output to unique files.
     local unique="$(date -u "+%Y%m%dT%H%M%SZ").$(hostname -s).$$"
