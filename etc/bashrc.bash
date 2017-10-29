@@ -149,18 +149,6 @@ countdown () {
     for i in $(seq "${#prompt}"); do printf '\b \b'; done
 }
 
-l () {
-    local paths="$@"
-    [ -z "$@" ] && paths="$PWD"
-    for path in $paths
-    do
-        [ -d "$path" ] && ls -h -l "$path" && continue
-        [ -f "$path" ] && vim "$path" && continue
-        [ ! -e "$path" ] && echo "$path does not exist." 1>&2 && continue
-        echo "$path could not be shown." 1>&2
-    done
-}
-
 multiping () {
     for host in "$@"
     do
