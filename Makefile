@@ -12,7 +12,7 @@ all: bash git screen ssh vim
 bash: /bin/bash ~/.bash_profile bash-extras
 	if cut -d: -f1 /etc/passwd | grep "$$(id -un)"; then sudo chsh -s /bin/bash "$$(id -un)"; fi
 
-bash-extras: /usr/bin/bc /usr/bin/curl /usr/games/fortune /usr/games/lolcat
+bash-extras: /usr/bin/curl /usr/games/fortune /usr/games/lolcat
 
 git: /usr/bin/git ~/.gitconfig ~/.gitignore
 
@@ -25,7 +25,7 @@ vim: /usr/bin/vim ~/.vimrc
 
 ################################################################################
 
-/bin/bash /usr/bin/bc /usr/bin/curl /usr/games/fortune /usr/bin/git /usr/games/lolcat /usr/bin/screen /usr/bin/ssh /usr/bin/vim:
+/bin/bash /usr/bin/curl /usr/games/fortune /usr/bin/git /usr/games/lolcat /usr/bin/screen /usr/bin/ssh /usr/bin/vim:
 	# Installing $@...
 	sudo apt-get install -yqq "$$(basename "$@")" | sed 's/^/# /'
 
