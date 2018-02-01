@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 sudo apt-get update;
-sudo apt-get install -y apt-listbugs apt-listchanges apt-transport-https;
+sudo apt-get install -y apt-listbugs apt-listchanges apt-transport-https needrestart unattended-upgrades;
 sudo apt-get upgrade && sudo dist-upgrade;
 [ "$PROJECTS" = '' ] && export PROJECTS="$HOME/Projects";
 if [ ! -e "$PROJECTS" ]; then
