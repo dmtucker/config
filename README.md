@@ -9,6 +9,8 @@ All you need is `make`.
 make help
 ```
 
+* Note: Only Debian is officially supported.
+
 ## bash
 
 ``` bash
@@ -19,10 +21,6 @@ alias
 
 # Automatic Deployment
 
-I like to be able to reimage often (or quickly setup a new workstation).
-That is what `deploy.sh` is for.
-
-* Note: Only `dpkg` systems are officially supported.
 
 ``` sh
 wget -qO- https://dmtucker.github.io/config/deploy.sh | sh
