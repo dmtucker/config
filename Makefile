@@ -1,4 +1,4 @@
-.PHONY: help all bash bash-extras git screen ssh vim
+.PHONY: help  all dev env  apt-optional bash bash-deps git pipenv screen ssh vim
 
 help:
 	@echo 'usage: make <target>'
@@ -7,27 +7,60 @@ help:
 	@make -pn | grep -B1 '#  Phony target (prerequisite of .PHONY).' | \
 		grep -vE '#|--|@' | cut -d ':' -f '1' | sort | sed 's/^/    /'
 
-all: bash git screen ssh vim
+################################################################################
 
-bash: /bin/bash ~/.bash_profile bash-extras
-	if cut -d: -f1 /etc/passwd | grep "$$(id -un)"; then sudo chsh -s /bin/bash "$$(id -un)"; fi
+all: dev env apt-optional
 
-bash-extras: /usr/games/fortune /usr/games/lolcat
+dev: git pipenv vim
+
+env: bash screen ssh vim
+
+################################################################################
+
+# Assume essential packages are installed.
+# https://www.debian.org/doc/debian-policy/#essential-packages
+# apt-listbugs goes last to avoid test issues.
+apt-optional: /usr/bin/apt-file /usr/bin/apt-listchanges /usr/bin/apt-transport-https /usr/bin/unattended-upgrades /usr/sbin/needrestart /usr/bin/apt-listbugs
+
+bash: /bin/bash ~/.bashrc ~/.bash_profile /usr/bin/sudo /usr/bin/chsh bash-deps
+	chsh -s /bin/bash
+
+bash-deps: /bin/ping /usr/bin/curl /usr/bin/watch /usr/games/fortune /usr/games/lolcat git
 
 git: /usr/bin/git ~/.gitconfig ~/.gitignore
+
+# Depend on bash to make sure ~/.local/bin is in $PATH.
+pipenv: ~/.local/bin/pipenv bash
 
 screen: /usr/bin/screen ~/.screenrc
 
 ssh: /usr/bin/ssh ~/.ssh/id_ecdsa
 
-vim: /usr/bin/vim ~/.vimrc
-	sudo update-alternatives --set editor /usr/bin/vim.basic
+vim: /usr/bin/vim.basic ~/.vimrc
+	update-alternatives --set editor /usr/bin/vim.basic
 
 ################################################################################
 
-/bin/bash /usr/games/fortune /usr/bin/git /usr/games/lolcat /usr/bin/screen /usr/bin/ssh /usr/bin/vim:
-	# Installing $@...
-	sudo apt-get install -yqq "$$(basename "$@")" | sed 's/^/# /'
+/bin/ping: /usr/bin/sudo /usr/bin/apt-get
+	sudo apt-get install -yqq iputils-ping | sed 's/^/# /'
+
+/usr/bin/apt-file: /usr/bin/sudo /usr/bin/apt-get
+	sudo apt-get install -yqq apt-file | sed 's/^/# /'
+	sudo apt-file update | sed 's/^/# /'
+
+/usr/bin/apt-get:
+	echo 'Please install apt and try again: https://packages.debian.org/stable/apt' 1>&2
+	false
+
+/usr/bin/sudo:
+	echo 'Please install sudo and try again: https://packages.debian.org/stable/sudo' 1>&2
+	false
+
+/usr/bin/vim.basic: /usr/bin/sudo /usr/bin/apt-get
+	sudo apt-get install -yqq vim | sed 's/^/# /'
+
+/usr/bin/apt-listbugs /usr/bin/apt-listchanges /usr/bin/apt-transport-https /usr/bin/chsh /usr/bin/curl /usr/bin/git /usr/bin/pip3 /usr/bin/screen /usr/bin/ssh /usr/bin/ssh-keygen /usr/bin/unattended-upgrades /usr/bin/watch /usr/sbin/needrestart /usr/games/fortune /usr/games/lolcat: /usr/bin/sudo /usr/bin/apt-file /usr/bin/apt-get
+	sudo apt-get install -yqq "$$(apt-file find "$@ " | cut -d: -f1)" | sed 's/^/# /'
 
 ~/.bashrc: ${PWD}/etc/bashrc.bash
 ~/.bash_profile: ~/.bashrc
@@ -44,5 +77,8 @@ vim: /usr/bin/vim ~/.vimrc
 	@[ -e "$$(dirname "$@")" ] || mkdir -p "$$(dirname "$@")"
 	cp -i "$^" "$@"
 
-~/.ssh/id_ecdsa:
+~/.ssh/id_ecdsa: /usr/bin/ssh-keygen
 	ssh-keygen -q -N '' -t 'ecdsa' -f "$@"
+
+~/.local/bin/pipenv: /usr/bin/pip3
+	PIP_REQUIRE_VIRTUALENV=false pip3 install --upgrade --user pipenv | sed 's/^/# /'
