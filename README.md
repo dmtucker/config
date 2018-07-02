@@ -1,9 +1,6 @@
 # config
 
-[![Build Status](https://img.shields.io/travis/dmtucker/config.svg)](https://travis-ci.org/dmtucker/config) [![Docker Build Status](https://img.shields.io/docker/automated/dmtucker/config.svg)](https://hub.docker.com/r/dmtucker/config/)
-
-
-All you need is `make`.
+[![Build Status](https://img.shields.io/travis/dmtucker/config.svg)](https://travis-ci.org/dmtucker/config) [![Docker Build Status](https://img.shields.io/docker/build/dmtucker/config.svg)](https://hub.docker.com/r/dmtucker/config/)
 
 ``` sh
 make help
