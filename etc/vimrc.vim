@@ -1,5 +1,6 @@
-syntax on
-set number
-set tabstop=4
-set expandtab
 set autoindent
+set expandtab
+set number
+set shiftwidth=4
+set tabstop=4
+syntax on
