@@ -1,2 +1,0 @@
-hardstatus alwayslastline "%{=b}%{G} screen: %{b}%w"
-shell "/bin/bash"

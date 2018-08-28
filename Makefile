@@ -1,4 +1,4 @@
-.PHONY: help  all dev env  apt-optional bash bash-deps git pipenv screen ssh vim
+.PHONY: help  all dev env  apt-optional bash bash-deps git pipenv ssh vim
 
 help:
 	@echo 'usage: make <target>'
@@ -13,7 +13,7 @@ all: dev env apt-optional
 
 dev: git pipenv vim
 
-env: bash screen ssh vim
+env: bash ssh vim
 
 ################################################################################
 
@@ -31,8 +31,6 @@ git: /usr/bin/git ~/.gitconfig ~/.gitignore
 
 # Depend on bash to make sure ~/.local/bin is in $PATH.
 pipenv: ~/.local/bin/pipenv bash
-
-screen: /usr/bin/screen ~/.screenrc
 
 ssh: /usr/bin/ssh ~/.ssh/id_ecdsa
 
@@ -59,7 +57,7 @@ vim: /usr/bin/vim.basic ~/.vimrc
 /usr/bin/vim.basic: /usr/bin/sudo /usr/bin/apt-get
 	sudo apt-get install -yqq vim | sed 's/^/# /'
 
-/usr/bin/apt-listbugs /usr/bin/apt-listchanges /usr/bin/apt-transport-https /usr/bin/chsh /usr/bin/curl /usr/bin/git /usr/bin/pip3 /usr/bin/screen /usr/bin/ssh /usr/bin/ssh-keygen /usr/bin/unattended-upgrades /usr/bin/watch /usr/sbin/needrestart /usr/games/fortune /usr/games/lolcat: /usr/bin/sudo /usr/bin/apt-file /usr/bin/apt-get
+/usr/bin/apt-listbugs /usr/bin/apt-listchanges /usr/bin/apt-transport-https /usr/bin/chsh /usr/bin/curl /usr/bin/git /usr/bin/pip3 /usr/bin/ssh /usr/bin/ssh-keygen /usr/bin/unattended-upgrades /usr/bin/watch /usr/sbin/needrestart /usr/games/fortune /usr/games/lolcat: /usr/bin/sudo /usr/bin/apt-file /usr/bin/apt-get
 	sudo apt-get install -yqq "$$(apt-file find "$@ " | cut -d: -f1)" | sed 's/^/# /'
 
 ~/.bashrc: ${PWD}/etc/bashrc.bash
@@ -71,9 +69,8 @@ vim: /usr/bin/vim.basic ~/.vimrc
 
 ~/.gitconfig: ${PWD}/etc/gitconfig.ini
 ~/.gitignore: ${PWD}/etc/gitignore
-~/.screenrc: ${PWD}/etc/screenrc.screen
 ~/.vimrc: ${PWD}/etc/vimrc.vim
-~/.gitconfig ~/.gitignore ~/.screenrc ~/.vimrc:
+~/.gitconfig ~/.gitignore ~/.vimrc:
 	@[ -e "$$(dirname "$@")" ] || mkdir -p "$$(dirname "$@")"
 	cp -i "$^" "$@"
 
