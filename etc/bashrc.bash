@@ -74,7 +74,6 @@ alias watch='watch --color'
 alias ll='ls -h -l'
 alias r='clear && ls -h -l'
 
-export PROJECTS="$HOME/Projects" && mkdir -p "$PROJECTS"
 export PATH=".:$PATH:/usr/games:$HOME/.local/bin"
 
 export PIP_REQUIRE_VIRTUALENV=true
@@ -176,26 +175,15 @@ multiping () {
 
 projects () {
     # Show info about projects.
-    local names="$@"
-    (( $# > 0 )) || names="$PROJECTS/*"
-    for project in $names
+    for path in ${@:-"${PROJECTS:-"$HOME/projects"}/"*}
     do
-        local path="$project"
-        [ -z "$path" ] && continue
-        [ -d "$path" ] || path="$PROJECTS/$path"
-        [ -d "$path" ] || {
-            printf "$TXT_BOLD_FG$TXT_RED_FG" 1>&2
-            printf "No project named '$project' could be found." 1>&2
-            echo "$TXT_RESET" 1>&2
-            continue
-        }
-        cd "$path"
-        echo "$TXT_BOLD_FG$TXT_BLUE_FG$(basename "$PWD")$TXT_RESET"
-        git fetch --quiet --tags --prune --all
-        git status --branch --short
-        cd - > /dev/null
+        git -C "$path" status > /dev/null || continue
+        printf "$TXT_BOLD_FG$TXT_BLUE_FG"
+        basename "$(git -C "$path" rev-parse --show-toplevel)"
+        printf "$TXT_RESET"
+        git -C "$path" fetch --quiet --tags --prune --all
+        git -C "$path" status --branch --short
     done
-    (( $# > 0 )) || cd "$PROJECTS"
 }
 
 weather () {
