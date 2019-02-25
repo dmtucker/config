@@ -75,7 +75,7 @@ alias ll='ls -h -l'
 alias r='clear && ls -h -l'
 
 export PROJECTS="$HOME/Projects" && mkdir -p "$PROJECTS"
-export PATH=".:$PATH:/usr/games:$HOME/.local/bin:$PROJECTS/config/gadgets"
+export PATH=".:$PATH:/usr/games:$HOME/.local/bin"
 
 export PIP_REQUIRE_VIRTUALENV=true
 
