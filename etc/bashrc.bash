@@ -4,55 +4,58 @@ umask 0027
 
 ############################################################################ env
 
-# text
-export TXT_RESET="$(tput sgr0)"
-export TXT_BLACK_FG="$(tput setaf 0)"
-export TXT_BLACK_BG="$(tput setab 0)"
-export TXT_RED_FG="$(tput setaf 1)"
-export TXT_RED_BG="$(tput setab 1)"
-export TXT_GREEN_FG="$(tput setaf 2)"
-export TXT_GREEN_BG="$(tput setab 2)"
-export TXT_YELLOW_FG="$(tput setaf 3)"
-export TXT_YELLOW_BG="$(tput setab 3)"
-export TXT_BLUE_FG="$(tput setaf 4)"
-export TXT_BLUE_BG="$(tput setab 4)"
-export TXT_MAGENTA_FG="$(tput setaf 5)"
-export TXT_MAGENTA_BG="$(tput setab 5)"
-export TXT_CYAN_FG="$(tput setaf 6)"
-export TXT_CYAN_BG="$(tput setab 6)"
-export TXT_WHITE_FG="$(tput setaf 7)"
-export TXT_WHITE_BG="$(tput setab 7)"
-export TXT_DEFAULT_FG="$(tput setaf 9)"
-export TXT_DEFAULT_BG="$(tput setab 9)"
-export TXT_DEFAULT="$TXT_DEFAULT_FG$TXT_DEFAULT_BG"
-export TXT_BLINK="$(tput blink)"
-export TXT_BOLD_FG="$(tput bold)"
-export TXT_BOLD_BG="$(tput smso)"
-export TXT_BOLD_BG_END="$(tput rmso)"
-export TXT_DIM="$(tput dim)"
-export TXT_HIDE="$(tput invis)"
-export TXT_ITALIC="$(tput sitm)"
-export TXT_ITALIC_END="$(tput ritm)"
-export TXT_REVERSE="$(tput rev)"
-export TXT_UNDERLINE="$(tput smul)"
-export TXT_UNDERLINE_END="$(tput rmul)"
+if command -v tput &>/dev/null
+then
+    # text
+    export TXT_RESET="$(tput sgr0)"
+    export TXT_BLACK_FG="$(tput setaf 0)"
+    export TXT_BLACK_BG="$(tput setab 0)"
+    export TXT_RED_FG="$(tput setaf 1)"
+    export TXT_RED_BG="$(tput setab 1)"
+    export TXT_GREEN_FG="$(tput setaf 2)"
+    export TXT_GREEN_BG="$(tput setab 2)"
+    export TXT_YELLOW_FG="$(tput setaf 3)"
+    export TXT_YELLOW_BG="$(tput setab 3)"
+    export TXT_BLUE_FG="$(tput setaf 4)"
+    export TXT_BLUE_BG="$(tput setab 4)"
+    export TXT_MAGENTA_FG="$(tput setaf 5)"
+    export TXT_MAGENTA_BG="$(tput setab 5)"
+    export TXT_CYAN_FG="$(tput setaf 6)"
+    export TXT_CYAN_BG="$(tput setab 6)"
+    export TXT_WHITE_FG="$(tput setaf 7)"
+    export TXT_WHITE_BG="$(tput setab 7)"
+    export TXT_DEFAULT_FG="$(tput setaf 9)"
+    export TXT_DEFAULT_BG="$(tput setab 9)"
+    export TXT_DEFAULT="$TXT_DEFAULT_FG$TXT_DEFAULT_BG"
+    export TXT_BLINK="$(tput blink)"
+    export TXT_BOLD_FG="$(tput bold)"
+    export TXT_BOLD_BG="$(tput smso)"
+    export TXT_BOLD_BG_END="$(tput rmso)"
+    export TXT_DIM="$(tput dim)"
+    export TXT_HIDE="$(tput invis)"
+    export TXT_ITALIC="$(tput sitm)"
+    export TXT_ITALIC_END="$(tput ritm)"
+    export TXT_REVERSE="$(tput rev)"
+    export TXT_UNDERLINE="$(tput smul)"
+    export TXT_UNDERLINE_END="$(tput rmul)"
 
-# cursor
-export CUR_HOME="$(tput home)"
-export CUR_SAVE="$(tput sc)"
-export CUR_RESTORE="$(tput rc)"
-export CUR_HIDE="$(tput civis)"
-export CUR_SHOW="$(tput cvvis)"
-export CUR_LEFT="$(tput cub1)"
-export CUR_DOWN="$(tput cud1)"
-export CUR_RIGHT="$(tput cuf1)"
-export CUR_UP="$(tput cuu1)"
+    # cursor
+    export CUR_HOME="$(tput home)"
+    export CUR_SAVE="$(tput sc)"
+    export CUR_RESTORE="$(tput rc)"
+    export CUR_HIDE="$(tput civis)"
+    export CUR_SHOW="$(tput cvvis)"
+    export CUR_LEFT="$(tput cub1)"
+    export CUR_DOWN="$(tput cud1)"
+    export CUR_RIGHT="$(tput cuf1)"
+    export CUR_UP="$(tput cuu1)"
 
-# terminal
-export TERM_CLEAR="$(tput clear)"
-export TERM_FLASH="$(tput flash)"
-export TERM_CUR_TITLE='\033]0'
-export TERM_CUR_TITLE_END='\007'
+    # terminal
+    export TERM_CLEAR="$(tput clear)"
+    export TERM_FLASH="$(tput flash)"
+    export TERM_CUR_TITLE='\033]0'
+    export TERM_CUR_TITLE_END='\007'
+fi
 
 # system-specific
 case "$(uname -s)" in
@@ -74,14 +77,13 @@ alias watch='watch --color'
 alias ll='ls -h -l'
 alias r='clear && ls -h -l'
 
-export PROJECTS="$HOME/Projects" && mkdir -p "$PROJECTS"
-export PATH=".:$PATH:/usr/games:$HOME/.local/bin:$PROJECTS/config/gadgets"
+export PATH=".:$PATH:/usr/games:$HOME/.local/bin"
 
 export PIP_REQUIRE_VIRTUALENV=true
 
-############################################################################ CLI
+########################################################################### REPL
 
-export PS1='\[$TXT_CYAN_FG\]\u@\h:\w \\$\[$TXT_YELLOW_FG\] '
+export PS1='\[$TXT_CYAN_FG\]\u\[$TXT_WHITE_FG\]@\[$TXT_GREEN_FG\]\h\[$TXT_WHITE_FG\]:\[$TXT_YELLOW_FG\]\w\[$TXT_WHITE_FG\] \\$ \[$TXT_DEFAULT_FG\]'
 TITLE=''
 case $TERM in
     xterm*) TITLE="\[$TERM_CUR_TITLE;\u@\h$TERM_CUR_TITLE_END\]";;
@@ -176,26 +178,15 @@ multiping () {
 
 projects () {
     # Show info about projects.
-    local names="$@"
-    (( $# > 0 )) || names="$PROJECTS/*"
-    for project in $names
+    for path in ${@:-"${PROJECTS:-"$HOME/projects"}/"*}
     do
-        local path="$project"
-        [ -z "$path" ] && continue
-        [ -d "$path" ] || path="$PROJECTS/$path"
-        [ -d "$path" ] || {
-            printf "$TXT_BOLD_FG$TXT_RED_FG" 1>&2
-            printf "No project named '$project' could be found." 1>&2
-            echo "$TXT_RESET" 1>&2
-            continue
-        }
-        cd "$path"
-        echo "$TXT_BOLD_FG$TXT_BLUE_FG$(basename "$PWD")$TXT_RESET"
-        git fetch --quiet --tags --prune --all
-        git status --branch --short
-        cd - > /dev/null
+        git -C "$path" status > /dev/null || continue
+        printf "$TXT_BOLD_FG$TXT_BLUE_FG"
+        basename "$(git -C "$path" rev-parse --show-toplevel)"
+        printf "$TXT_RESET"
+        git -C "$path" fetch --quiet --tags --prune --all
+        git -C "$path" status --branch --short
     done
-    (( $# > 0 )) || cd "$PROJECTS"
 }
 
 weather () {
