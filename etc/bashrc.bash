@@ -4,55 +4,58 @@ umask 0027
 
 ############################################################################ env
 
-# text
-export TXT_RESET="$(tput sgr0)"
-export TXT_BLACK_FG="$(tput setaf 0)"
-export TXT_BLACK_BG="$(tput setab 0)"
-export TXT_RED_FG="$(tput setaf 1)"
-export TXT_RED_BG="$(tput setab 1)"
-export TXT_GREEN_FG="$(tput setaf 2)"
-export TXT_GREEN_BG="$(tput setab 2)"
-export TXT_YELLOW_FG="$(tput setaf 3)"
-export TXT_YELLOW_BG="$(tput setab 3)"
-export TXT_BLUE_FG="$(tput setaf 4)"
-export TXT_BLUE_BG="$(tput setab 4)"
-export TXT_MAGENTA_FG="$(tput setaf 5)"
-export TXT_MAGENTA_BG="$(tput setab 5)"
-export TXT_CYAN_FG="$(tput setaf 6)"
-export TXT_CYAN_BG="$(tput setab 6)"
-export TXT_WHITE_FG="$(tput setaf 7)"
-export TXT_WHITE_BG="$(tput setab 7)"
-export TXT_DEFAULT_FG="$(tput setaf 9)"
-export TXT_DEFAULT_BG="$(tput setab 9)"
-export TXT_DEFAULT="$TXT_DEFAULT_FG$TXT_DEFAULT_BG"
-export TXT_BLINK="$(tput blink)"
-export TXT_BOLD_FG="$(tput bold)"
-export TXT_BOLD_BG="$(tput smso)"
-export TXT_BOLD_BG_END="$(tput rmso)"
-export TXT_DIM="$(tput dim)"
-export TXT_HIDE="$(tput invis)"
-export TXT_ITALIC="$(tput sitm)"
-export TXT_ITALIC_END="$(tput ritm)"
-export TXT_REVERSE="$(tput rev)"
-export TXT_UNDERLINE="$(tput smul)"
-export TXT_UNDERLINE_END="$(tput rmul)"
+if command -v tput &>/dev/null
+then
+    # text
+    export TXT_RESET="$(tput sgr0)"
+    export TXT_BLACK_FG="$(tput setaf 0)"
+    export TXT_BLACK_BG="$(tput setab 0)"
+    export TXT_RED_FG="$(tput setaf 1)"
+    export TXT_RED_BG="$(tput setab 1)"
+    export TXT_GREEN_FG="$(tput setaf 2)"
+    export TXT_GREEN_BG="$(tput setab 2)"
+    export TXT_YELLOW_FG="$(tput setaf 3)"
+    export TXT_YELLOW_BG="$(tput setab 3)"
+    export TXT_BLUE_FG="$(tput setaf 4)"
+    export TXT_BLUE_BG="$(tput setab 4)"
+    export TXT_MAGENTA_FG="$(tput setaf 5)"
+    export TXT_MAGENTA_BG="$(tput setab 5)"
+    export TXT_CYAN_FG="$(tput setaf 6)"
+    export TXT_CYAN_BG="$(tput setab 6)"
+    export TXT_WHITE_FG="$(tput setaf 7)"
+    export TXT_WHITE_BG="$(tput setab 7)"
+    export TXT_DEFAULT_FG="$(tput setaf 9)"
+    export TXT_DEFAULT_BG="$(tput setab 9)"
+    export TXT_DEFAULT="$TXT_DEFAULT_FG$TXT_DEFAULT_BG"
+    export TXT_BLINK="$(tput blink)"
+    export TXT_BOLD_FG="$(tput bold)"
+    export TXT_BOLD_BG="$(tput smso)"
+    export TXT_BOLD_BG_END="$(tput rmso)"
+    export TXT_DIM="$(tput dim)"
+    export TXT_HIDE="$(tput invis)"
+    export TXT_ITALIC="$(tput sitm)"
+    export TXT_ITALIC_END="$(tput ritm)"
+    export TXT_REVERSE="$(tput rev)"
+    export TXT_UNDERLINE="$(tput smul)"
+    export TXT_UNDERLINE_END="$(tput rmul)"
 
-# cursor
-export CUR_HOME="$(tput home)"
-export CUR_SAVE="$(tput sc)"
-export CUR_RESTORE="$(tput rc)"
-export CUR_HIDE="$(tput civis)"
-export CUR_SHOW="$(tput cvvis)"
-export CUR_LEFT="$(tput cub1)"
-export CUR_DOWN="$(tput cud1)"
-export CUR_RIGHT="$(tput cuf1)"
-export CUR_UP="$(tput cuu1)"
+    # cursor
+    export CUR_HOME="$(tput home)"
+    export CUR_SAVE="$(tput sc)"
+    export CUR_RESTORE="$(tput rc)"
+    export CUR_HIDE="$(tput civis)"
+    export CUR_SHOW="$(tput cvvis)"
+    export CUR_LEFT="$(tput cub1)"
+    export CUR_DOWN="$(tput cud1)"
+    export CUR_RIGHT="$(tput cuf1)"
+    export CUR_UP="$(tput cuu1)"
 
-# terminal
-export TERM_CLEAR="$(tput clear)"
-export TERM_FLASH="$(tput flash)"
-export TERM_CUR_TITLE='\033]0'
-export TERM_CUR_TITLE_END='\007'
+    # terminal
+    export TERM_CLEAR="$(tput clear)"
+    export TERM_FLASH="$(tput flash)"
+    export TERM_CUR_TITLE='\033]0'
+    export TERM_CUR_TITLE_END='\007'
+fi
 
 # system-specific
 case "$(uname -s)" in
