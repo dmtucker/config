@@ -83,7 +83,7 @@ export PIP_REQUIRE_VIRTUALENV=true
 
 ########################################################################### REPL
 
-export PS1='\[$TXT_CYAN_FG\]\u\[$TXT_WHITE_FG\]@\[$TXT_GREEN_FG\]\h\[$TXT_WHITE_FG\]:\[$TXT_YELLOW_FG\]\w\[$TXT_WHITE_FG\] \\$ \[$TXT_DEFAULT_FG\]'
+export PS1='\[$TXT_CYAN_FG\]\u\[$TXT_WHITE_FG\]@\[$TXT_GREEN_FG\]\h\[$TXT_WHITE_FG\]:\[$TXT_YELLOW_FG\]\w\[$TXT_WHITE_FG\] \\$ \[$TXT_RED_FG\]'
 TITLE=''
 case $TERM in
     xterm*) TITLE="\[$TERM_CUR_TITLE;\u@\h$TERM_CUR_TITLE_END\]";;
