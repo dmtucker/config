@@ -191,6 +191,17 @@ projects () {
     done
 }
 
+rebash () {
+    # Refresh Bash config.
+    local usage="usage: $FUNCNAME"
+    if (( $# > 0 ))
+    then
+        echo "$usage" 1>&2
+        return 1
+    fi
+    curl -sSL https://dmtucker.github.io/config/bash.bash | "$BASH"
+}
+
 weather () {
     # Get the weather.
     local usage="usage: $FUNCNAME [city]"
