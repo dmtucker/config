@@ -55,6 +55,8 @@ then
     export TERM_FLASH="$(tput flash)"
     export TERM_CUR_TITLE='\033]0'
     export TERM_CUR_TITLE_END='\007'
+else
+    tput
 fi
 
 # system-specific
@@ -77,7 +79,9 @@ alias watch='watch --color'
 alias ll='ls -h -l'
 alias r='clear && ls -h -l'
 
-export PATH=".:$PATH:/usr/games:$HOME/.local/bin"
+[[ $PATH == *'/usr/games'* ]] || export PATH="$PATH:/usr/games"
+[[ $PATH == *"$HOME/.local/bin"* ]] || export PATH="$HOME/.local/bin:$PATH"
+[[ $PATH == *'.'* ]] || export PATH=".:$PATH"
 
 export PIP_REQUIRE_VIRTUALENV=true
 
@@ -187,6 +191,17 @@ projects () {
         git -C "$path" fetch --quiet --tags --prune --all
         git -C "$path" status --branch --short
     done
+}
+
+rebash () {
+    # Refresh Bash config.
+    local usage="usage: $FUNCNAME"
+    if (( $# > 0 ))
+    then
+        echo "$usage" 1>&2
+        return 1
+    fi
+    curl -sSL https://dmtucker.github.io/config/bash.bash | "$BASH"
 }
 
 weather () {
