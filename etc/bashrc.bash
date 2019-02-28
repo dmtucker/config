@@ -55,6 +55,8 @@ then
     export TERM_FLASH="$(tput flash)"
     export TERM_CUR_TITLE='\033]0'
     export TERM_CUR_TITLE_END='\007'
+else
+    tput
 fi
 
 # system-specific
