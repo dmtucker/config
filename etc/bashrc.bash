@@ -201,7 +201,7 @@ rebash () {
         echo "$usage" 1>&2
         return 1
     fi
-    url='https://raw.githubusercontent.com/dmtucker/config/master/bash.bash'
+    url='https://raw.githubusercontent.com/dmtucker/config/master/deploy.bash'
     if command -v curl 1>/dev/null 2>&1
     then curl -sSL "$url" | "$BASH"
     elif command -v wget 1>/dev/null 2>&1
