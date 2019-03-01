@@ -17,3 +17,12 @@ OR
 ``` sh
 curl -sSL https://dmtucker.github.io/config/deploy.sh | bash
 ```
+
+## Git
+
+``` sh
+path="$HOME/.dmtucker.gitconfig"
+curl -sSL 'https://raw.githubusercontent.com/dmtucker/config/master/etc/gitconfig.ini' > "$path" && {
+    git config --global --type path include.path "$HOME/.dmtucker.gitconfig"
+}
+```
