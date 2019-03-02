@@ -4,7 +4,7 @@ set -o pipefail;  # "The pipeline's return status is the value of the last
                   # or zero if all commands exit success fully."
 set -o xtrace;    # Show commands as they execute.
 
-path="$HOME/.dmtucker.bash"
+path="$HOME/.dmtucker.bashrc"
 pathdir="$(dirname "$path")"
 [ -e "$pathdir" ] || mkdir -p "$pathdir"
 url='https://raw.githubusercontent.com/dmtucker/config/master/etc/bashrc.bash'
