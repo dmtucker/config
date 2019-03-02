@@ -7,10 +7,11 @@ set -o xtrace;    # Show commands as they execute.
 path="$HOME/.dmtucker.bash"
 pathdir="$(dirname "$path")"
 [ -e "$pathdir" ] || mkdir -p "$pathdir"
+url='https://raw.githubusercontent.com/dmtucker/config/master/etc/bashrc.bash'
 if command -v curl 1>/dev/null 2>&1
-then curl -sSL https://dmtucker.github.io/config/etc/bashrc.bash > "$path"
+then curl -sSL "$url" > "$path"
 elif command -v wget 1>/dev/null 2>&1
-then wget -qO- https://dmtucker.github.io/config/etc/bashrc.bash > "$path"
+then wget -qO- "$url" > "$path"
 fi
 
 source_path="source '$path'"
