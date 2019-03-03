@@ -14,3 +14,4 @@ script:
   - cat deploy.sh
   - rmdir ./tmp
   - docker build -t config:latest .
+  - shellcheck deploy.bash
