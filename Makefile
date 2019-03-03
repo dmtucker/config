@@ -27,7 +27,7 @@ bash: /bin/bash ~/.bashrc ~/.bash_profile /usr/bin/sudo /usr/bin/chsh bash-deps
 
 bash-deps: /bin/ping /usr/bin/curl /usr/bin/watch /usr/games/fortune /usr/games/lolcat git
 
-git: /usr/bin/git ~/.gitconfig ~/.gitignore
+git: /usr/bin/git ~/.gitconfig
 
 # Depend on bash to make sure ~/.local/bin is in $PATH.
 pipenv: ~/.local/bin/pipenv bash
@@ -68,9 +68,8 @@ vim: /usr/bin/vim.basic ~/.vimrc
 	grep -q "source '$^'" '$@' || echo "source '$^'" >> '$@'
 
 ~/.gitconfig: ${PWD}/etc/gitconfig.ini
-~/.gitignore: ${PWD}/etc/gitignore
 ~/.vimrc: ${PWD}/etc/vimrc.vim
-~/.gitconfig ~/.gitignore ~/.vimrc:
+~/.gitconfig ~/.vimrc:
 	@[ -e "$$(dirname "$@")" ] || mkdir -p "$$(dirname "$@")"
 	cp -i "$^" "$@"
 
