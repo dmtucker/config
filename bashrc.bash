@@ -105,10 +105,12 @@ address () {
     then
         echo "$usage" 1>&2
         return 1
+    elif ! command -v wget &>/dev/null
+    then wget || return 1
     fi
-    local ipv4="$(curl -sS 'http://v4.ipv6-test.com/api/myip.php')"
-    local ipv6="$(curl -sS 'http://v6.ipv6-test.com/api/myip.php')"
-    local pref="$(curl -sS 'http://v4v6.ipv6-test.com/api/myip.php')"
+    local ipv4="$(wget -qO- 'http://v4.ipv6-test.com/api/myip.php')"
+    local ipv6="$(wget -qO- 'http://v6.ipv6-test.com/api/myip.php')"
+    local pref="$(wget -qO- 'http://v4v6.ipv6-test.com/api/myip.php')"
     if [[ "$pref" = "$ipv4" ]]
     then
         echo "IPv4: $ipv4"
@@ -200,13 +202,11 @@ rebash () {
     then
         echo "$usage" 1>&2
         return 1
+    elif ! command -v wget &>/dev/null
+    then wget || return 1
     fi
     url='https://raw.githubusercontent.com/dmtucker/config/master/deploy.bash'
-    if command -v curl 1>/dev/null 2>&1
-    then curl -sSL "$url" | "$BASH"
-    elif command -v wget 1>/dev/null 2>&1
-    then wget -qO- "$url" | "$BASH"
-    fi
+    wget -O- "$url" | "$BASH"
 }
 
 weather () {
@@ -216,8 +216,10 @@ weather () {
     then
         echo "$usage" 1>&2
         return 1
+    elif ! command -v wget &>/dev/null
+    then wget || return 1
     fi
-    curl -sS "http://wttr.in/$1"
+    wget -qO- "http://wttr.in/$1"
 }
 
 ########################################################################## intro
