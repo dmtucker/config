@@ -12,7 +12,7 @@ curl -sSL 'https://raw.githubusercontent.com/dmtucker/config/master/deploy.bash'
 
 ``` sh
 path="$HOME/.dmtucker.gitconfig"
-curl -sSL 'https://raw.githubusercontent.com/dmtucker/config/master/etc/gitconfig.ini' > "$path" && {
+curl -sSL 'https://raw.githubusercontent.com/dmtucker/config/master/gitconfig.ini' > "$path" && {
     git config --global --type path include.path "$HOME/.dmtucker.gitconfig"
 }
 ```
@@ -21,7 +21,7 @@ curl -sSL 'https://raw.githubusercontent.com/dmtucker/config/master/etc/gitconfi
 
 ``` sh
 path="$HOME/.dmtucker.vimrc"
-curl -sSL 'https://raw.githubusercontent.com/dmtucker/config/master/etc/vimrc.vim' > "$path" && {
+curl -sSL 'https://raw.githubusercontent.com/dmtucker/config/master/vimrc.vim' > "$path" && {
     source_path="source $path"
     home_vimrc="$HOME/.vimrc"
     grep -q "$source_path" "$home_vimrc" || echo "$source_path" >> "$home_vimrc"
