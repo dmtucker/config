@@ -11,19 +11,21 @@ wget -O- 'https://raw.githubusercontent.com/dmtucker/config/master/deploy.bash' 
 ## Git
 
 ``` sh
-path="$HOME/.dmtucker.gitconfig"
-wget -O- 'https://raw.githubusercontent.com/dmtucker/config/master/gitconfig.ini' > "$path" && {
-    git config --global --type path include.path "$HOME/.dmtucker.gitconfig"
+url='https://raw.githubusercontent.com/dmtucker/config/master/gitconfig.ini'
+configdir="${XDG_CONFIG_HOME:-"$HOME/.config"}/dmtucker"
+wget --directory-prefix "$configdir" "$url" && {
+    git config --global --type path include.path "$configdir/$(basename "$url")"
 }
 ```
 
 ## Vim
 
 ``` sh
-path="$HOME/.dmtucker.vimrc"
-wget -O- 'https://raw.githubusercontent.com/dmtucker/config/master/vimrc.vim' > "$path" && {
-    source_path="source $path"
-    home_vimrc="$HOME/.vimrc"
-    grep -q "$source_path" "$home_vimrc" || echo "$source_path" >> "$home_vimrc"
+url='https://raw.githubusercontent.com/dmtucker/config/master/vimrc.vim'
+configdir="${XDG_CONFIG_HOME:-"$HOME/.config"}/dmtucker"
+wget --directory-prefix "$configdir" "$url" && {
+    source_cmd="source $configdir/$(basename "$url")"
+    vimrc="$HOME/.vimrc"
+    grep -q "$source_cmd" "$vimrc" || echo "$source_cmd" >> "$vimrc"
 }
 ```
