@@ -41,6 +41,9 @@ then
     TXT_UNDERLINE="$(tput smul)" && export TXT_UNDERLINE
     TXT_UNDERLINE_END="$(tput rmul)" && export TXT_UNDERLINE_END
 
+    export PS1='\[$TXT_CYAN_FG\]\u\[$TXT_WHITE_FG\]@\[$TXT_GREEN_FG\]\h\[$TXT_WHITE_FG\]:\[$TXT_YELLOW_FG\]\w\[$TXT_WHITE_FG\] \\$ \[$TXT_RED_FG\]'
+    trap 'printf "%s" "$TXT_RESET"' DEBUG  # Make output the default color.
+
     # cursor
     CUR_HOME="$(tput home)" && export CUR_HOME
     CUR_SAVE="$(tput sc)" && export CUR_SAVE
@@ -57,6 +60,12 @@ then
     TERM_FLASH="$(tput flash)" && export TERM_FLASH
     TERM_CUR_TITLE='\033]0' && export TERM_CUR_TITLE
     TERM_CUR_TITLE_END='\007' && export TERM_CUR_TITLE_END
+
+    TITLE=''
+    case $TERM in
+        xterm*) TITLE="\[$TERM_CUR_TITLE;\u@\h$TERM_CUR_TITLE_END\]";;
+    esac
+    export PS1="$TITLE$PS1"
 else
     tput
 fi
@@ -80,21 +89,11 @@ alias watch='watch --color'
 # other
 alias ll='ls -h -l'
 alias r='clear && ls -h -l'
+trap 'printf "%s $?\n" "$TXT_RED_FG[$(date)]"' ERR
 
 [[ $PATH == *'.'* ]] || export PATH=".:$PATH"
 
 export PIP_REQUIRE_VIRTUALENV=true
-
-########################################################################### REPL
-
-export PS1='\[$TXT_CYAN_FG\]\u\[$TXT_WHITE_FG\]@\[$TXT_GREEN_FG\]\h\[$TXT_WHITE_FG\]:\[$TXT_YELLOW_FG\]\w\[$TXT_WHITE_FG\] \\$ \[$TXT_RED_FG\]'
-TITLE=''
-case $TERM in
-    xterm*) TITLE="\[$TERM_CUR_TITLE;\u@\h$TERM_CUR_TITLE_END\]";;
-esac
-export PS1="$TITLE$PS1"
-trap 'printf "%s" "$TXT_RESET"' DEBUG  # Make output the default color.
-trap 'printf "%s $?\n" "$TXT_RED_FG[$(date)]"' ERR
 
 ###################################################################### functions
 
