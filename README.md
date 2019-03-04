@@ -8,16 +8,6 @@
 wget -O- 'https://raw.githubusercontent.com/dmtucker/config/master/deploy.bash' | bash
 ```
 
-## Git
-
-``` sh
-url='https://raw.githubusercontent.com/dmtucker/config/master/gitconfig.ini'
-configdir="${XDG_CONFIG_HOME:-"$HOME/.config"}/dmtucker"
-wget --directory-prefix "$configdir" "$url" && {
-    git config --global --type path include.path "$configdir/$(basename "$url")"
-}
-```
-
 ## Vim
 
 ``` sh
