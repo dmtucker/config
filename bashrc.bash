@@ -185,8 +185,6 @@ rebash () {
     then
         echo "$usage" 1>&2
         return 1
-    elif ! command -v wget &>/dev/null
-    then wget || return 1
     fi
     url='https://raw.githubusercontent.com/dmtucker/config/master/deploy.bash'
     wget -O- "$url" | "$BASH"
@@ -199,8 +197,6 @@ weather () {
     then
         echo "$usage" 1>&2
         return 1
-    elif ! command -v wget &>/dev/null
-    then wget || return 1
     fi
     wget -qO- "http://wttr.in/$1"
 }
