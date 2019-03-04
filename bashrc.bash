@@ -82,7 +82,6 @@ alias ll='ls -h -l'
 alias r='clear && ls -h -l'
 
 [[ $PATH == *'/usr/games'* ]] || export PATH="$PATH:/usr/games"
-[[ $PATH == *"$HOME/.local/bin"* ]] || export PATH="$HOME/.local/bin:$PATH"
 [[ $PATH == *'.'* ]] || export PATH=".:$PATH"
 
 export PIP_REQUIRE_VIRTUALENV=true
