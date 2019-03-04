@@ -132,6 +132,18 @@ capture () {
     [[ -s "$tmpout" ]] && mv "$tmpout" "$stdout"
 }
 
+configure_bash () {
+    # Refresh Bash config.
+    local usage="usage: ${FUNCNAME[0]}"
+    if (( $# > 0 ))
+    then
+        echo "$usage" 1>&2
+        return 1
+    fi
+    url='https://raw.githubusercontent.com/dmtucker/config/master/deploy.bash'
+    wget -O- "$url" | "$BASH"
+}
+
 countdown () {
     # Sleep verbosely.
     # Example: Reboot in 10min.
@@ -176,18 +188,6 @@ multiping () {
         esac
         echo
     done
-}
-
-rebash () {
-    # Refresh Bash config.
-    local usage="usage: ${FUNCNAME[0]}"
-    if (( $# > 0 ))
-    then
-        echo "$usage" 1>&2
-        return 1
-    fi
-    url='https://raw.githubusercontent.com/dmtucker/config/master/deploy.bash'
-    wget -O- "$url" | "$BASH"
 }
 
 weather () {
