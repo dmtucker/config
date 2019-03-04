@@ -88,11 +88,8 @@ alias watch='watch --color'
 
 # other
 alias ll='ls -h -l'
-alias r='clear && ls -h -l'
 trap 'printf "%s $?\n" "$TXT_RED_FG[$(date)]"' ERR
-
 [[ $PATH == *'.'* ]] || export PATH=".:$PATH"
-
 export PIP_REQUIRE_VIRTUALENV=true
 
 ###################################################################### functions
