@@ -228,12 +228,14 @@ fi
 
 if command -v vim &>/dev/null
 then
-    url='https://raw.githubusercontent.com/dmtucker/config/master/vimrc.vim'
-    configdir="${XDG_CONFIG_HOME:-~/.config}/dmtucker"
-    wget --directory-prefix "$configdir" "$url" && {
-        source_cmd="source $configdir/$(basename "$url")"
-        vimrc=~/.vimrc
-        grep -q "$source_cmd" "$vimrc" || echo "$source_cmd" >> "$vimrc"
+    configure_vim () {
+        url='https://raw.githubusercontent.com/dmtucker/config/master/vimrc.vim'
+        configdir="${XDG_CONFIG_HOME:-~/.config}/dmtucker"
+        wget --directory-prefix "$configdir" "$url" && {
+            source_cmd="source $configdir/$(basename "$url")"
+            vimrc=~/.vimrc
+            grep -q "$source_cmd" "$vimrc" || echo "$source_cmd" >> "$vimrc"
+        }
     }
 fi
 
