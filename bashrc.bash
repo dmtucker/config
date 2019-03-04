@@ -178,20 +178,6 @@ multiping () {
     done
 }
 
-projects () {
-    # Show info about projects.
-    # shellcheck disable=SC2068
-    for path in ${@:-"${PROJECTS:-"$HOME/projects"}/"*}
-    do
-        git -C "$path" status > /dev/null || continue
-        printf '%s' "$TXT_BOLD_FG$TXT_BLUE_FG"
-        basename "$(git -C "$path" rev-parse --show-toplevel)"
-        printf '%s' "$TXT_RESET"
-        git -C "$path" fetch --quiet --tags --prune --all
-        git -C "$path" status --branch --short
-    done
-}
-
 rebash () {
     # Refresh Bash config.
     local usage="usage: ${FUNCNAME[0]}"
@@ -218,6 +204,31 @@ weather () {
     fi
     wget -qO- "http://wttr.in/$1"
 }
+
+if command -v git &>/dev/null
+then
+    configure_git () {
+        url='https://raw.githubusercontent.com/dmtucker/config/master/gitconfig.ini'
+        configdir="${XDG_CONFIG_HOME:-"$HOME/.config"}/dmtucker"
+        wget --directory-prefix "$configdir" "$url" && {
+            git config --global --type path include.path "$configdir/$(basename "$url")"
+        }
+    }
+
+    projects () {
+        # Show info about projects.
+        # shellcheck disable=SC2068
+        for path in ${@:-"${PROJECTS:-"$HOME/projects"}/"*}
+        do
+            git -C "$path" status > /dev/null || continue
+            printf '%s' "$TXT_BOLD_FG$TXT_BLUE_FG"
+            basename "$(git -C "$path" rev-parse --show-toplevel)"
+            printf '%s' "$TXT_RESET"
+            git -C "$path" fetch --quiet --tags --prune --all
+            git -C "$path" status --branch --short
+        done
+    }
+fi
 
 ########################################################################## intro
 
