@@ -1,19 +1,31 @@
 # config
 
-[![Build Status](https://img.shields.io/travis/dmtucker/config.svg)](https://travis-ci.org/dmtucker/config) [![Docker Build Status](https://img.shields.io/docker/build/dmtucker/config.svg)](https://hub.docker.com/r/dmtucker/config/)
+[![Build Status](https://img.shields.io/travis/dmtucker/config.svg)](https://travis-ci.org/dmtucker/config)
+
+## Bash
 
 ``` sh
-make help
+wget -O- 'https://raw.githubusercontent.com/dmtucker/config/master/deploy.bash' | bash
 ```
 
-# Automatic Deployment
+## Git
 
 ``` sh
-wget -qO- https://dmtucker.github.io/config/deploy.sh | bash
+url='https://raw.githubusercontent.com/dmtucker/config/master/gitconfig.ini'
+configdir="${XDG_CONFIG_HOME:-"$HOME/.config"}/dmtucker"
+wget --directory-prefix "$configdir" "$url" && {
+    git config --global --type path include.path "$configdir/$(basename "$url")"
+}
 ```
 
-OR
+## Vim
 
 ``` sh
-curl -sSL https://dmtucker.github.io/config/deploy.sh | bash
+url='https://raw.githubusercontent.com/dmtucker/config/master/vimrc.vim'
+configdir="${XDG_CONFIG_HOME:-"$HOME/.config"}/dmtucker"
+wget --directory-prefix "$configdir" "$url" && {
+    source_cmd="source $configdir/$(basename "$url")"
+    vimrc="$HOME/.vimrc"
+    grep -q "$source_cmd" "$vimrc" || echo "$source_cmd" >> "$vimrc"
+}
 ```

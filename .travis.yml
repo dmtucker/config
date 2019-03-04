@@ -2,15 +2,6 @@ branches:
   only:
     - master
 language: generic
-services:
-  - docker
-before_script:
-  - make help
 script:
-  - docker build -t config:latest .
-  - mkdir ./tmp
-  - docker run --rm -v "$PWD/tmp:/tmp_" config:latest bash -c 'cp /root/Projects/config/deploy.*.sh /tmp_/'
-  - mv ./tmp/* ./deploy.sh
-  - cat deploy.sh
-  - rmdir ./tmp
-  - docker build -t config:latest .
+  - shellcheck bashrc.bash deploy.bash
+  - vim -u NONE -c 'try | source vimrc.vim | catch | silent exec "! echo" shellescape(v:exception) | cquit | endtry | quit'
