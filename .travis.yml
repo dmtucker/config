@@ -3,4 +3,4 @@ branches:
     - master
 language: generic
 script:
-  - shellcheck deploy.bash
+  - shellcheck bashrc.bash deploy.bash
