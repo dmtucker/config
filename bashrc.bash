@@ -205,7 +205,7 @@ if command -v git &>/dev/null
 then
     configure_git () {
         url='https://raw.githubusercontent.com/dmtucker/config/master/gitconfig.ini'
-        configdir="${XDG_CONFIG_HOME:-~/.config}/dmtucker"
+        configdir="${XDG_CONFIG_HOME:-"$HOME/.config"}/dmtucker"
         wget --directory-prefix "$configdir" "$url" && {
             git config --global --type path include.path "$configdir/$(basename "$url")"
         }
@@ -214,7 +214,7 @@ then
     projects () {
         # Show info about projects.
         # shellcheck disable=SC2068
-        for path in ${@:-"${PROJECTS:-~/projects}/"*}
+        for path in ${@:-"${PROJECTS:-"$HOME/projects"}/"*}
         do
             git -C "$path" status > /dev/null || continue
             printf '%s' "$TXT_BOLD_FG$TXT_BLUE_FG"
@@ -230,10 +230,10 @@ if command -v vim &>/dev/null
 then
     configure_vim () {
         url='https://raw.githubusercontent.com/dmtucker/config/master/vimrc.vim'
-        configdir="${XDG_CONFIG_HOME:-~/.config}/dmtucker"
+        configdir="${XDG_CONFIG_HOME:-"$HOME/.config"}/dmtucker"
         wget --directory-prefix "$configdir" "$url" && {
             source_cmd="source $configdir/$(basename "$url")"
-            vimrc=~/.vimrc
+            vimrc="$HOME/.vimrc"
             grep -q "$source_cmd" "$vimrc" || echo "$source_cmd" >> "$vimrc"
         }
     }
