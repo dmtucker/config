@@ -222,6 +222,7 @@ then
             printf '%s' "$TXT_RESET"
             git -C "$path" fetch --quiet --tags --prune --all
             git -C "$path" status --branch --short
+            git -C "$path" stash list
         done
     }
 fi
