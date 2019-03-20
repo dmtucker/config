@@ -109,11 +109,11 @@ address () {
     local pref && pref="$(wget -qO- 'http://v4v6.ipv6-test.com/api/myip.php')"
     if [[ "$pref" = "$ipv4" ]]
     then
-        echo "IPv4: $ipv4"
-        echo "IPv6: $ipv6"
+        [[ -z "$ipv4" ]] || echo "IPv4: $ipv4"
+        [[ -z "$ipv6" ]] || echo "IPv6: $ipv6"
     else
-        echo "IPv6: $ipv6"
-        echo "IPv4: $ipv4"
+        [[ -z "$ipv6" ]] || echo "IPv6: $ipv6"
+        [[ -z "$ipv4" ]] || echo "IPv4: $ipv4"
     fi
 }
 
