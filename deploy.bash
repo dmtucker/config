@@ -8,6 +8,7 @@ set -o xtrace;    # Show commands as they execute.
 
 url='https://raw.githubusercontent.com/dmtucker/config/master/bashrc.bash'
 configdir="${XDG_CONFIG_HOME:-"$HOME/.config"}/dmtucker"
+mkdir -p "$configdir"
 wget --directory-prefix "$configdir" "$url" && {
     source_cmd="source '$configdir/$(basename "$url")'"
     bashrc="$HOME/.bashrc"
