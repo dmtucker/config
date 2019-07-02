@@ -57,4 +57,4 @@ Distribute changes by [creating a release](https://help.github.com/en/articles/c
 
 [Docker Hub](https://hub.docker.com/) distributes releases.
 
-[![Docker Build Status](https://img.shields.io/docker/build/dmtucker/config.svg)](https://cloud.docker.com/repository/docker/dmtucker/config)
+[![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/dmtucker/config.svg)](https://cloud.docker.com/repository/docker/dmtucker/config)
