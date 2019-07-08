@@ -1,4 +1,4 @@
-FROM bash:4
+FROM bash:4.4
 MAINTAINER david@tucker.name
 USER root
 WORKDIR /root
