@@ -15,8 +15,8 @@ wget --directory-prefix "$configdir" "$url" && {
     grep -q "$source_cmd" "$bashrc" || echo "$source_cmd" >> "$bashrc"
 }
 
-# You should therefore always have source ~/.bashrc at the end of your .bash_profile
-# in order to force it to be read by a login shell.
+# "You should therefore always have source ~/.bashrc at the end of your .bash_profile
+# in order to force it to be read by a login shell."
 # http://mywiki.wooledge.org/DotFiles
 source_bashrc="source ~/.bashrc"
 bash_profile="$HOME/.bash_profile"
