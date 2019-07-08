@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 [[ $- = *i* ]] || return  # Require an interactive shell.
 
 umask 0027
@@ -132,18 +130,6 @@ capture () {
     [[ -s "$tmpout" ]] && mv "$tmpout" "$stdout"
 }
 
-configure_bash () {
-    # Refresh Bash config.
-    local usage="usage: ${FUNCNAME[0]}"
-    if (( $# > 0 ))
-    then
-        echo "$usage" 1>&2
-        return 1
-    fi
-    url='https://raw.githubusercontent.com/dmtucker/config/master/deploy.bash'
-    wget -O- "$url" | "$BASH"
-}
-
 countdown () {
     # Sleep verbosely.
     # Example: Reboot in 10min.
@@ -165,6 +151,18 @@ countdown () {
         for _ in $(seq "${#from}"); do printf '\b \b'; done
     done
     for _ in $(seq "${#prompt}"); do printf '\b \b'; done
+}
+
+deploy_config () {
+    # Refresh config.
+    local usage="usage: ${FUNCNAME[0]}"
+    if (( $# > 0 ))
+    then
+        echo "$usage" 1>&2
+        return 1
+    fi
+    url='https://raw.githubusercontent.com/dmtucker/config/master/deploy.bash'
+    wget -O- "$url" | "$BASH"
 }
 
 multiping () {
@@ -190,6 +188,21 @@ multiping () {
     done
 }
 
+projects () {
+    # Show info about projects.
+    # shellcheck disable=SC2068
+    for path in ${@:-"${PROJECTS:-"$HOME/projects"}/"*}
+    do
+        git -C "$path" status > /dev/null || continue
+        printf '%s' "$TXT_BOLD_FG$TXT_BLUE_FG"
+        basename "$(git -C "$path" rev-parse --show-toplevel)"
+        printf '%s' "$TXT_RESET"
+        git -C "$path" fetch --quiet --tags --prune --all
+        git -C "$path" status --branch --short
+        git -C "$path" stash list
+    done
+}
+
 weather () {
     # Get the weather.
     local usage="usage: ${FUNCNAME[0]} [city]"
@@ -200,45 +213,6 @@ weather () {
     fi
     wget -qO- "http://wttr.in/$1"
 }
-
-if command -v git &>/dev/null
-then
-    configure_git () {
-        url='https://raw.githubusercontent.com/dmtucker/config/master/gitconfig.ini'
-        configdir="${XDG_CONFIG_HOME:-"$HOME/.config"}/dmtucker"
-        wget --directory-prefix "$configdir" "$url" && {
-            git config --global --type path include.path "$configdir/$(basename "$url")"
-        }
-    }
-
-    projects () {
-        # Show info about projects.
-        # shellcheck disable=SC2068
-        for path in ${@:-"${PROJECTS:-"$HOME/projects"}/"*}
-        do
-            git -C "$path" status > /dev/null || continue
-            printf '%s' "$TXT_BOLD_FG$TXT_BLUE_FG"
-            basename "$(git -C "$path" rev-parse --show-toplevel)"
-            printf '%s' "$TXT_RESET"
-            git -C "$path" fetch --quiet --tags --prune --all
-            git -C "$path" status --branch --short
-            git -C "$path" stash list
-        done
-    }
-fi
-
-if command -v vim &>/dev/null
-then
-    configure_vim () {
-        url='https://raw.githubusercontent.com/dmtucker/config/master/vimrc.vim'
-        configdir="${XDG_CONFIG_HOME:-"$HOME/.config"}/dmtucker"
-        wget --directory-prefix "$configdir" "$url" && {
-            source_cmd="source $configdir/$(basename "$url")"
-            vimrc="$HOME/.vimrc"
-            grep -q "$source_cmd" "$vimrc" || echo "$source_cmd" >> "$vimrc"
-        }
-    }
-fi
 
 ########################################################################## intro
 
