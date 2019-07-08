@@ -242,13 +242,7 @@ fi
 
 ########################################################################## intro
 
-intro () {
-    if command -v fortune &>/dev/null
-    then
-        if command -v lolcat &>/dev/null
-        then fortune | lolcat -F 0.2
-        else fortune
-        fi
-    fi
-}
-intro
+if command -v lolcat &>/dev/null
+then uptime | lolcat
+else uptime
+fi
