@@ -13,7 +13,7 @@ command -v bash &>/dev/null || {
     exit 0
 }
 config_bashrc="$config_home/bashrc.bash"
-cp "$config_repo/$(basename "$config_bashrc")" "$config_bashrc"
+cp "$config_repo/config/$(basename "$config_bashrc")" "$config_bashrc"
 echo "rm '$config_bashrc'" >> "$config_undo"
 source_config_bashrc="source '$config_bashrc'"
 bashrc="$HOME/.bashrc"

@@ -13,7 +13,7 @@ command -v git &>/dev/null || {
     exit 0
 }
 config_gitconfig="$config_home/gitconfig.ini"
-cp "$config_repo/$(basename "$config_gitconfig")" "$config_gitconfig"
+cp "$config_repo/config/$(basename "$config_gitconfig")" "$config_gitconfig"
 echo "rm '$config_gitconfig'" >> "$config_undo"
 git config --global --get include.path "$config_gitconfig" || {
     git config --global --type path include.path "$config_gitconfig"
