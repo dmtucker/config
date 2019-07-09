@@ -13,7 +13,7 @@ command -v vim &>/dev/null || {
     exit 0
 }
 config_vimrc="$config_home/vimrc.vim"
-cp "$config_repo/$(basename "$config_vimrc")" "$config_vimrc"
+cp "$config_repo/config/$(basename "$config_vimrc")" "$config_vimrc"
 echo "rm '$config_vimrc'" >> "$config_undo"
 source_config_vimrc="source $config_vimrc"
 vimrc="$HOME/.vimrc"
