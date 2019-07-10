@@ -216,7 +216,9 @@ weather () {
 
 ########################################################################## intro
 
-if command -v lolcat &>/dev/null
-then uptime | lolcat
-else uptime
-fi
+command -v uptime &>/dev/null && {
+    if command -v lolcat &>/dev/null
+    then uptime | lolcat
+    else uptime
+    fi
+}
