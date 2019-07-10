@@ -222,3 +222,4 @@ command -v uptime &>/dev/null && {
     else uptime
     fi
 }
+true
