@@ -1,7 +1,7 @@
-branches:
-  only:
-    - master
-language: generic
-script:
-  - shellcheck bashrc.bash deploy.bash
-  - vim -u NONE -c 'try | source vimrc.vim | catch | silent exec "! echo" shellescape(v:exception) | cquit | endtry | quit'
+dist: xenial
+language: bash
+addons:
+  apt:
+    packages:
+      - vim
+script: bash test.bash
