@@ -2,7 +2,7 @@ FROM dmtucker/config:latest AS test
 WORKDIR /tmp/config
 COPY . .
 RUN bash deploy.bash .
-RUN bash deploy.bash .
+RUN bash ~/.config/dmtucker/uninstall.bash
 
 FROM bash:4.4
 MAINTAINER david@tucker.name
