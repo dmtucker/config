@@ -7,7 +7,7 @@ config_repo="$1"
 config_home="$2"
 config_undo="$3"
 
-# Deploy configuration for Git.
+# Install configuration for Git.
 command -v git &>/dev/null || {
     echo 'Git is not installed. Skipping configuration...'
     exit 0
