@@ -1,7 +1,0 @@
-dist: xenial
-language: bash
-addons:
-  apt:
-    packages:
-      - vim
-script: bash test.bash
