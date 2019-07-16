@@ -49,4 +49,4 @@ install_scripts="$config_repo/install"
 for script in "$install_scripts"/*.bash
 do "$BASH" -o errexit -o pipefail -o xtrace "$script" "$config_repo" "$CONFIG_HOME" "$config_uninstall" 2>&1 | sed 's/^/  /'
 done
-echo 'Deployment succeeded.'
+echo 'Installation succeeded.'
