@@ -41,7 +41,6 @@ Propose changes by [creating a pull request](https://help.github.com/articles/cr
 
 [Docker Cloud](https://cloud.docker.com/) builds, tests, and deploys the project to [Docker Hub](https://hub.docker.com/).
 
-[![Travis (.com) branch](https://img.shields.io/travis/com/dmtucker/config/master.svg)](https://travis-ci.com/dmtucker/config)
 [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/dmtucker/config.svg)](https://cloud.docker.com/repository/docker/dmtucker/config)
 [![Docker Pulls](https://img.shields.io/docker/pulls/dmtucker/config.svg)](https://hub.docker.com/r/dmtucker/config)
 
