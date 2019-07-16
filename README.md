@@ -1,9 +1,6 @@
 # config
 
-Try it out:
-``` sh
-docker run -it dmtucker/config:latest
-```
+The Personal Environment of David Tucker
 
 ## Installation
 
