@@ -6,7 +6,7 @@ The Personal Environment of David Tucker
 
 Install:
 ``` sh
-wget -O- 'https://raw.githubusercontent.com/dmtucker/config/master/deploy.bash' | bash
+wget -O- 'https://raw.githubusercontent.com/dmtucker/config/master/install.bash' | bash
 ```
 
 Uninstall:

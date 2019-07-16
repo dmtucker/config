@@ -153,18 +153,6 @@ countdown () {
     for _ in $(seq "${#prompt}"); do printf '\b \b'; done
 }
 
-deploy_config () {
-    # Refresh config.
-    local usage="usage: ${FUNCNAME[0]}"
-    if (( $# > 0 ))
-    then
-        echo "$usage" 1>&2
-        return 1
-    fi
-    url='https://raw.githubusercontent.com/dmtucker/config/master/deploy.bash'
-    wget -O- "$url" | "$BASH"
-}
-
 multiping () {
     for host in "$@"
     do
@@ -201,6 +189,17 @@ projects () {
         git -C "$path" status --branch --short
         git -C "$path" stash list
     done
+}
+
+refresh_config () {
+    local usage="usage: ${FUNCNAME[0]}"
+    if (( $# > 0 ))
+    then
+        echo "$usage" 1>&2
+        return 1
+    fi
+    url='https://raw.githubusercontent.com/dmtucker/config/master/install.bash'
+    wget -O- "$url" | "$BASH"
 }
 
 weather () {

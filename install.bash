@@ -11,7 +11,7 @@ set -o pipefail;  # "The pipeline's return status is the value of the last
                   # or zero if all commands exit success fully."
 set -o xtrace;    # Show commands as they execute.
 
-# Get the path of the directory to deploy.
+# Get the path of the directory to install.
 config_repo="$1"
 [ -d "$config_repo" ] || {
     config_archive="$config_repo"
@@ -27,10 +27,10 @@ config_repo="$1"
     tar -vxzf "$config_archive" -C "$config_repo" --strip-components=1
 }
 
-# Get the path of the directory to deploy to.
+# Get the path of the directory to install to.
 [ -n "$CONFIG_HOME" ] || CONFIG_HOME="${XDG_CONFIG_HOME:-"$HOME/.config"}/dmtucker"
 
-# Remove the existing deployment, if there is one.
+# Remove the existing installment, if there is one.
 config_uninstall="$CONFIG_HOME/uninstall.bash"
 [ -e "$config_uninstall" ] && "$BASH" "$config_uninstall" 2>&1 | sed 's/^/  /'
 
@@ -44,9 +44,9 @@ sed -e "s#^config_home=\$#&'$CONFIG_HOME'#" "$config_repo/$(basename "$config_un
 mv "$tmp_uninstall" "$config_uninstall"
 echo "rm '$config_uninstall'" >> "$config_uninstall"
 
-# Deploy configs.
-deploy_scripts="$config_repo/deploy"
-for script in "$deploy_scripts"/*.bash
+# Install configs.
+install_scripts="$config_repo/install"
+for script in "$install_scripts"/*.bash
 do "$BASH" -o errexit -o pipefail -o xtrace "$script" "$config_repo" "$CONFIG_HOME" "$config_uninstall" 2>&1 | sed 's/^/  /'
 done
 echo 'Deployment succeeded.'
