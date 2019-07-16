@@ -51,5 +51,5 @@ Publish changes by [creating a release](https://help.github.com/articles/creatin
 [![GitHub release](https://img.shields.io/github/release/dmtucker/config.svg)](https://github.com/dmtucker/config/releases)
 
 1. [Change the version.](https://semver.org/)
-2. [Create a tag.](https://git-scm.com/book/v2/Git-Basics-Tagging)
+2. [Create a tag.](https://git-scm.com/book/en/v2/Git-Basics-Tagging)
 3. [Release the tag.](https://help.github.com/articles/about-releases)
