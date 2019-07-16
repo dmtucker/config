@@ -7,7 +7,7 @@ config_repo="$1"
 config_home="$2"
 config_undo="$3"
 
-# Deploy configuration for Bash.
+# Install configuration for Bash.
 command -v bash &>/dev/null || {
     echo 'Bash is not installed. Skipping configuration...'
     exit 0
