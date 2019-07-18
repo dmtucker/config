@@ -2,6 +2,10 @@
 
 The Personal Environment of David Tucker
 
+``` sh
+docker run -it dmtucker/config:latest
+```
+
 ## Installation
 
 Install:
