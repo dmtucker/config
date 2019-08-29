@@ -180,15 +180,15 @@ multiping () {
 projects () {
     # Show info about projects.
     # shellcheck disable=SC2068
-    for path in ${@:-"${PROJECTS:-"$HOME/projects"}/"*}
+    for path_ in ${@:-"${PROJECTS:-"$HOME/projects"}/"*}
     do
-        git -C "$path" status > /dev/null || continue
+        git -C "$path_" status > /dev/null || continue
         printf '%s' "$TXT_BOLD_FG$TXT_BLUE_FG"
-        basename "$(git -C "$path" rev-parse --show-toplevel)"
+        basename "$(git -C "$path_" rev-parse --show-toplevel)"
         printf '%s' "$TXT_RESET"
-        git -C "$path" fetch --quiet --tags --prune --all
-        git -C "$path" status --branch --short
-        git -C "$path" stash list
+        git -C "$path_" fetch --quiet --tags --prune --all
+        git -C "$path_" status --branch --short
+        git -C "$path_" stash list
     done
 }
 
