@@ -162,6 +162,7 @@ multiping () {
             0) printf ' IPv4 up';;
             1) printf ' IPv4 down';;
             2) printf ' no IPv4';;
+            68) printf ' no IPv4';;
             *) printf '\nAn exit code is not recognized: %d\n' "$?" && return 1;;
         esac
         printf ','
