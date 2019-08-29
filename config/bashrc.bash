@@ -40,7 +40,7 @@ then
     TXT_UNDERLINE_END="$(tput rmul)" && export TXT_UNDERLINE_END
 
     export PS1='\[$TXT_CYAN_FG\]\u\[$TXT_WHITE_FG\]@\[$TXT_GREEN_FG\]\h\[$TXT_WHITE_FG\]:\[$TXT_YELLOW_FG\]\w\[$TXT_WHITE_FG\] \\$ \[$TXT_RED_FG\]'
-    trap 'printf "%s" "$TXT_RESET"' DEBUG  # Make output the default color.
+    trap 'printf "%s" "$TXT_WHITE_FG"' DEBUG  # Make output white.
 
     # cursor
     CUR_HOME="$(tput home)" && export CUR_HOME
