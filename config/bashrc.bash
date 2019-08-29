@@ -189,13 +189,3 @@ weather () {
     fi
     wget -qO- "http://wttr.in/$1"
 }
-
-########################################################################## intro
-
-command -v uptime &>/dev/null && {
-    if command -v lolcat &>/dev/null
-    then uptime | lolcat
-    else uptime
-    fi
-}
-true

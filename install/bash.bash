@@ -32,5 +32,14 @@ grep -q "$source_bashrc" "$bash_profile" || {
     echo "sed -i.old '\#'""$(printf '%q' "$source_bashrc")""'#d' '$bash_profile'" >> "$config_undo"
 }
 
+# Run uptime on login, if it is installed.
+command -v uptime &>/dev/null && {
+    bash_profile="$HOME/.bash_profile"
+    grep -q uptime "$bash_profile" || {
+        echo 'uptime' >> "$bash_profile"
+        echo "sed -i.old '\#'""$(printf '%q' 'uptime')""'#d' '$bash_profile'" >> "$config_undo"
+    }
+}
+
 # There is no way to affect the calling environment.
 echo 'Bash configuration succeeded. Restart Bash.'
