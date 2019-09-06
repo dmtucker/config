@@ -4,8 +4,11 @@ umask 0027
 
 ############################################################################ env
 
-if command -v tput &>/dev/null
-then
+if ! command -v tput &>/dev/null
+then tput
+else
+    [[ "$TERM" == *'256'* ]] || echo "\$TERM ($TERM) does not appear to support 256 colors."
+
     # text
     TXT_RESET="$(tput sgr0)" && export TXT_RESET
     TXT_BLACK_FG="$(tput setaf 0)" && export TXT_BLACK_FG
@@ -24,9 +27,22 @@ then
     TXT_CYAN_BG="$(tput setab 6)" && export TXT_CYAN_BG
     TXT_WHITE_FG="$(tput setaf 7)" && export TXT_WHITE_FG
     TXT_WHITE_BG="$(tput setab 7)" && export TXT_WHITE_BG
-    TXT_DEFAULT_FG="$(tput setaf 9)" && export TXT_DEFAULT_FG
-    TXT_DEFAULT_BG="$(tput setab 9)" && export TXT_DEFAULT_BG
-    TXT_DEFAULT="$TXT_DEFAULT_FG$TXT_DEFAULT_BG" && export TXT_DEFAULT
+    TXT_BRIGHT_BLACK_FG="$(tput setaf 8)" && export TXT_BRIGHT_BLACK_FG
+    TXT_BRIGHT_BLACK_BG="$(tput setab 8)" && export TXT_BRIGHT_BLACK_BG
+    TXT_BRIGHT_RED_FG="$(tput setaf 9)" && export TXT_BRIGHT_RED_FG
+    TXT_BRIGHT_RED_BG="$(tput setab 9)" && export TXT_BRIGHT_RED_BG
+    TXT_BRIGHT_GREEN_FG="$(tput setaf 10)" && export TXT_BRIGHT_GREEN_FG
+    TXT_BRIGHT_GREEN_BG="$(tput setab 10)" && export TXT_BRIGHT_GREEN_BG
+    TXT_BRIGHT_YELLOW_FG="$(tput setaf 11)" && export TXT_BRIGHT_YELLOW_FG
+    TXT_BRIGHT_YELLOW_BG="$(tput setab 11)" && export TXT_BRIGHT_YELLOW_BG
+    TXT_BRIGHT_BLUE_FG="$(tput setaf 12)" && export TXT_BRIGHT_BLUE_FG
+    TXT_BRIGHT_BLUE_BG="$(tput setab 12)" && export TXT_BRIGHT_BLUE_BG
+    TXT_BRIGHT_MAGENTA_FG="$(tput setaf 13)" && export TXT_BRIGHT_MAGENTA_FG
+    TXT_BRIGHT_MAGENTA_BG="$(tput setab 13)" && export TXT_BRIGHT_MAGENTA_BG
+    TXT_BRIGHT_CYAN_FG="$(tput setaf 14)" && export TXT_BRIGHT_CYAN_FG
+    TXT_BRIGHT_CYAN_BG="$(tput setab 14)" && export TXT_BRIGHT_CYAN_BG
+    TXT_BRIGHT_WHITE_FG="$(tput setaf 15)" && export TXT_BRIGHT_WHITE_FG
+    TXT_BRIGHT_WHITE_BG="$(tput setab 15)" && export TXT_BRIGHT_WHITE_BG
     TXT_BLINK="$(tput blink)" && export TXT_BLINK
     TXT_BOLD_FG="$(tput bold)" && export TXT_BOLD_FG
     TXT_BOLD_BG="$(tput smso)" && export TXT_BOLD_BG
@@ -38,9 +54,6 @@ then
     TXT_REVERSE="$(tput rev)" && export TXT_REVERSE
     TXT_UNDERLINE="$(tput smul)" && export TXT_UNDERLINE
     TXT_UNDERLINE_END="$(tput rmul)" && export TXT_UNDERLINE_END
-
-    export PS1='\[$TXT_CYAN_FG\]\u\[$TXT_WHITE_FG\]@\[$TXT_GREEN_FG\]\h\[$TXT_WHITE_FG\]:\[$TXT_YELLOW_FG\]\w\[$TXT_WHITE_FG\] \\$ \[$TXT_RED_FG\]'
-    trap 'printf "%s" "$TXT_WHITE_FG"' DEBUG  # Make output white.
 
     # cursor
     CUR_HOME="$(tput home)" && export CUR_HOME
@@ -56,17 +69,22 @@ then
     # terminal
     TERM_CLEAR="$(tput clear)" && export TERM_CLEAR
     TERM_FLASH="$(tput flash)" && export TERM_FLASH
-    TERM_CUR_TITLE='\033]0' && export TERM_CUR_TITLE
-    TERM_CUR_TITLE_END='\007' && export TERM_CUR_TITLE_END
 
-    TITLE=''
-    case $TERM in
-        xterm*) TITLE="\[$TERM_CUR_TITLE;\u@\h$TERM_CUR_TITLE_END\]";;
-    esac
-    export PS1="$TITLE$PS1"
-else
-    tput
+    # shellcheck disable=SC2064
+    trap "printf '$TXT_RESET'" DEBUG
 fi
+export PS1="\[$TXT_RESET\][\#] \[$TXT_CYAN_FG\]\u\[$TXT_RESET\]@\[$TXT_GREEN_FG\]\h\[$TXT_RESET\]:\[$TXT_YELLOW_FG\]\w\[$TXT_RESET\] \$ \[$TXT_RED_FG\]"
+export PS1="\[$TXT_RESET$TXT_BRIGHT_BLACK_FG\]\D{%FT%T%z} exit \$?\n$PS1"
+case $TERM in
+    xterm*) export PS1="\[\033]0;\u@\h \l\007\]$PS1";;
+esac
+
+[[ $PATH == *'.'* ]] || export PATH=".:$PATH"
+export PIP_REQUIRE_VIRTUALENV=true
+
+alias grep='grep --color=auto'
+alias ll='ls -h -l'
+alias watch='watch --color'
 
 # system-specific
 case "$(uname -s)" in
@@ -80,15 +98,6 @@ case "$(uname -s)" in
         ;;
     *) echo 'This OS is not recognized.'
 esac
-
-alias grep='grep --color=auto'
-alias watch='watch --color'
-
-# other
-alias ll='ls -h -l'
-trap 'printf "%s $?\n" "$TXT_RED_FG[$(date)]"' ERR
-[[ $PATH == *'.'* ]] || export PATH=".:$PATH"
-export PIP_REQUIRE_VIRTUALENV=true
 
 ###################################################################### functions
 
