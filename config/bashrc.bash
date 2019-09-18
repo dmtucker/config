@@ -82,6 +82,7 @@ esac
 [[ $PATH == *'.'* ]] || export PATH=".:$PATH"
 export PIP_REQUIRE_VIRTUALENV=true
 
+alias cdtmp='cd "$(mktemp --directory)"'
 alias grep='grep --color=auto'
 alias ll='ls -h -l'
 alias watch='watch --color'
