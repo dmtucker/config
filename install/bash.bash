@@ -15,11 +15,18 @@ command -v bash &>/dev/null || {
 config_bashrc="$config_home/bashrc.bash"
 cp "$config_repo/config/$(basename "$config_bashrc")" "$config_bashrc"
 echo "rm '$config_bashrc'" >> "$config_undo"
-source_config_bashrc="source '$config_bashrc'"
+
+signature='# added by dmtucker/config'
+source_config="source '$config_bashrc'"
 bashrc="$HOME/.bashrc"
-grep -q "$source_config_bashrc" "$bashrc" || {
-    echo "$source_config_bashrc" >> "$bashrc"
-    echo "sed -i.old '\#'""$(printf '%q' "$source_config_bashrc")""'#d' '$bashrc'" >> "$config_undo"
+grep -q "$source_config" "$bashrc" || {
+    echo "sed -i.old '\|$signature|d' '$bashrc'" >> "$config_undo"
+    target='# dmtucker/config install target'
+    if grep -q "$target" "$bashrc"
+    then echo "sed -i.old -e '\|'$(printf '%q' "$source_config")'|s|$|\' -e '$target|' '$bashrc'" >> "$config_undo"
+    else echo "$target" >> "$bashrc"
+    fi
+    sed -i.old "s|$target|$source_config  $signature|" "$bashrc"
 }
 
 # "You should therefore always have source ~/.bashrc at the end of your .bash_profile
@@ -28,8 +35,8 @@ grep -q "$source_config_bashrc" "$bashrc" || {
 source_bashrc='source ~/.bashrc'
 bash_profile="$HOME/.bash_profile"
 grep -q "$source_bashrc" "$bash_profile" || {
-    echo "$source_bashrc" >> "$bash_profile"
-    echo "sed -i.old '\#'""$(printf '%q' "$source_bashrc")""'#d' '$bash_profile'" >> "$config_undo"
+    echo "sed -i.old '\|$signature|d' '$bash_profile'" >> "$config_undo"
+    echo "$source_bashrc  $signature" >> "$bash_profile"
 }
 
 # There is no way to affect the calling environment.
