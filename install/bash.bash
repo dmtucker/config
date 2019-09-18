@@ -23,8 +23,11 @@ grep -q "$source_config" "$bashrc" || {
     echo "sed -i.old '\|$signature|d' '$bashrc'" >> "$config_undo"
     target='# dmtucker/config install target'
     if grep -q "$target" "$bashrc"
-    then echo "sed -i.old -e '\|'$(printf '%q' "$source_config")'|s|$|\' -e '$target|' '$bashrc'" >> "$config_undo"
-    else echo "$target" >> "$bashrc"
+    then
+        # shellcheck disable=SC2028
+        echo "sed -i.old '\|'$(printf '%q' "$source_config")'|s|$|\n$target|' '$bashrc'" >> "$config_undo"
+    else
+        echo "$target" >> "$bashrc"
     fi
     sed -i.old "s|$target|$source_config  $signature|" "$bashrc"
 }
