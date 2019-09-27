@@ -77,7 +77,7 @@ case $TERM in
     xterm*) export PS1="\[\033]0;\u@\h \l\007\]$PS1";;
 esac
 
-[[ $PATH == *'.'* ]] || export PATH=".:$PATH"
+[[ ":$PATH:" == *':.:'* ]] || export PATH=".:$PATH"
 export PIP_REQUIRE_VIRTUALENV=true
 
 alias cdtmp='cd "$(mktemp --directory)"'
