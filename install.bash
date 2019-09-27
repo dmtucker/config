@@ -32,7 +32,7 @@ config_repo="$1"
 
 # Remove the existing installation, if there is one.
 config_uninstall="$CONFIG_HOME/uninstall.bash"
-[ -e "$config_uninstall" ] && "$BASH" "$config_uninstall" 2>&1 | sed 's/^/  /'
+[ -e "$config_uninstall" ] && "$BASH" -u "$config_uninstall" 2>&1 | sed 's/^/  /'
 
 # Initialize $CONFIG_HOME and $config_uninstall.
 tmp_uninstall="$(mktemp)"
@@ -47,6 +47,6 @@ echo "rm '$config_uninstall'" >> "$config_uninstall"
 # Install configs.
 install_scripts="$config_repo/install"
 for script in "$install_scripts"/*.bash
-do "$BASH" -o errexit -o pipefail -o xtrace "$script" "$config_repo" "$CONFIG_HOME" "$config_uninstall" 2>&1 | sed 's/^/  /'
+do "$BASH" -u -o errexit -o pipefail -o xtrace "$script" "$config_repo" "$CONFIG_HOME" "$config_uninstall" 2>&1 | sed 's/^/  /'
 done
 echo 'Installation succeeded.'
