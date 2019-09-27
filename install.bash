@@ -30,23 +30,23 @@ config_repo="$1"
 # Get the path of the directory to install to.
 [ -n "$CONFIG_HOME" ] || CONFIG_HOME="${XDG_CONFIG_HOME:-"$HOME/.config"}/dmtucker"
 
-# Remove the existing installment, if there is one.
+# Remove the existing installation, if there is one.
 config_uninstall="$CONFIG_HOME/uninstall.bash"
-[ -e "$config_uninstall" ] && "$BASH" "$config_uninstall" 2>&1 | sed 's/^/  /'
+[ -e "$config_uninstall" ] && "$BASH" -u "$config_uninstall" 2>&1 | sed 's/^/  /'
 
 # Initialize $CONFIG_HOME and $config_uninstall.
 tmp_uninstall="$(mktemp)"
-sed -e "s#^config_home=\$#&'$CONFIG_HOME'#" "$config_repo/$(basename "$config_uninstall")" > "$tmp_uninstall"
+sed -e "s|^config_home=\$|&'$CONFIG_HOME'|" "$config_repo/$(basename "$config_uninstall")" > "$tmp_uninstall"
 [ -e "$CONFIG_HOME" ] || {
-    mkdir -p "$CONFIG_HOME"
+    mkdir -pv "$CONFIG_HOME"
     echo "rmdir '$CONFIG_HOME'" >> "$tmp_uninstall"
 }
-mv "$tmp_uninstall" "$config_uninstall"
+mv -v "$tmp_uninstall" "$config_uninstall"
 echo "rm '$config_uninstall'" >> "$config_uninstall"
 
 # Install configs.
 install_scripts="$config_repo/install"
 for script in "$install_scripts"/*.bash
-do "$BASH" -o errexit -o pipefail -o xtrace "$script" "$config_repo" "$CONFIG_HOME" "$config_uninstall" 2>&1 | sed 's/^/  /'
+do "$BASH" -u -o errexit -o pipefail -o xtrace "$script" "$config_repo" "$CONFIG_HOME" "$config_uninstall" 2>&1 | sed 's/^/  /'
 done
 echo 'Installation succeeded.'
