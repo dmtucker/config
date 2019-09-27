@@ -20,5 +20,5 @@ config_home=
 # shellcheck disable=SC2120
 command -v tac &>/dev/null || tac () { tail -r "$@"; }
 # shellcheck disable=SC2119
-tail -n "+$((LINENO + 2))" "${BASH_SOURCE[0]}" | tac | "$BASH" -o errexit -o pipefail -o xtrace 2>&1 | sed 's/^/  /'
+tail -n "+$((LINENO + 2))" "${BASH_SOURCE[0]}" | tac | "$BASH" -u -o errexit -o pipefail -o xtrace 2>&1 | sed 's/^/  /'
 exit 0  # Do not execute commands that get appended.
