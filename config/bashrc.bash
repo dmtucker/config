@@ -81,7 +81,9 @@ esac
 export PIP_REQUIRE_VIRTUALENV=true
 
 alias cdtmp='cd "$(mktemp --directory)"'
+alias crontab='crontab -i'
 alias grep='grep --color=auto'
+alias less='less -r'
 alias ll='ls -h -l'
 alias watch='watch --color'
 
