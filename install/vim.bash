@@ -19,6 +19,6 @@ source_config_vimrc="source $config_vimrc"
 vimrc="$HOME/.vimrc"
 grep -q "$source_config_vimrc" "$vimrc" || {
     echo "$source_config_vimrc" >> "$vimrc"
-    echo "sed -i.old '\#'""$(printf '%q' "$source_config_vimrc")""'#d' '$vimrc'" >> "$config_undo"
+    echo "sed -i.old '\|'""$(printf '%q' "$source_config_vimrc")""'|d' '$vimrc'" >> "$config_undo"
 }
 echo 'Vim configuration succeeded.'

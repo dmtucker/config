@@ -36,7 +36,7 @@ config_uninstall="$CONFIG_HOME/uninstall.bash"
 
 # Initialize $CONFIG_HOME and $config_uninstall.
 tmp_uninstall="$(mktemp)"
-sed -e "s#^config_home=\$#&'$CONFIG_HOME'#" "$config_repo/$(basename "$config_uninstall")" > "$tmp_uninstall"
+sed -e "s|^config_home=\$|&'$CONFIG_HOME'|" "$config_repo/$(basename "$config_uninstall")" > "$tmp_uninstall"
 [ -e "$CONFIG_HOME" ] || {
     mkdir -p "$CONFIG_HOME"
     echo "rmdir '$CONFIG_HOME'" >> "$tmp_uninstall"
