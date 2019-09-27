@@ -30,7 +30,7 @@ config_repo="$1"
 # Get the path of the directory to install to.
 [ -n "$CONFIG_HOME" ] || CONFIG_HOME="${XDG_CONFIG_HOME:-"$HOME/.config"}/dmtucker"
 
-# Remove the existing installment, if there is one.
+# Remove the existing installation, if there is one.
 config_uninstall="$CONFIG_HOME/uninstall.bash"
 [ -e "$config_uninstall" ] && "$BASH" "$config_uninstall" 2>&1 | sed 's/^/  /'
 
