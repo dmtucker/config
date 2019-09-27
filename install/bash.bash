@@ -13,7 +13,7 @@ command -v bash &>/dev/null || {
     exit 0
 }
 config_bashrc="$config_home/bashrc.bash"
-cp "$config_repo/config/$(basename "$config_bashrc")" "$config_bashrc"
+cp -v "$config_repo/config/$(basename "$config_bashrc")" "$config_bashrc"
 echo "rm '$config_bashrc'" >> "$config_undo"
 
 signature='# added by dmtucker/config'
