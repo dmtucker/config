@@ -133,7 +133,7 @@ capture () {
     local stdcmd && stdcmd="$unique.stdcmd.bash"
     local stderr && stderr="$unique.stderr.log"
     local stdout && stdout="$unique.stdout.log"
-    echo "#!/usr/bin/env bash" >> "$stdcmd"
+    echo "#!$BASH" >> "$stdcmd"
     echo "$@" >> "$stdcmd"
     local tmperr && tmperr="$(mktemp)"
     local tmpout && tmpout="$(mktemp)"
