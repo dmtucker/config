@@ -4,6 +4,8 @@ umask 0027
 
 if ! command -v tput &>/dev/null
 then tput
+elif [[ "$TERM" == '' ]]
+then echo "\$TERM is not set."
 else
     [[ "$TERM" == *'256'* ]] || echo "\$TERM ($TERM) does not appear to support 256 colors."
 
@@ -80,8 +82,7 @@ esac
 [[ ":$PATH:" == *':.:'* ]] || export PATH=".:$PATH"
 export PIP_REQUIRE_VIRTUALENV=true
 
-alias cdtmp='cd "$(mktemp --directory)"'
-alias crontab='crontab -i'
+alias cdtmp='cd "$(mktemp -d)"'
 alias grep='grep --color=auto'
 alias less='less -r'
 alias ll='ls -h -l'
@@ -96,6 +97,7 @@ case "$(uname -s)" in
     Linux)
         eval "$(dircolors --sh)"  # Set LS_COLORS.
         alias ls='ls --color=auto'
+        alias crontab='crontab -i'
         ;;
     *) echo 'This OS is not recognized.'
 esac
@@ -131,7 +133,7 @@ capture () {
     local stdcmd && stdcmd="$unique.stdcmd.bash"
     local stderr && stderr="$unique.stderr.log"
     local stdout && stdout="$unique.stdout.log"
-    echo "#!/usr/bin/env bash" >> "$stdcmd"
+    echo "#!$BASH" >> "$stdcmd"
     echo "$@" >> "$stdcmd"
     local tmperr && tmperr="$(mktemp)"
     local tmpout && tmpout="$(mktemp)"
@@ -179,6 +181,7 @@ projects () {
 }
 
 refresh_config () {
+    # Install the latest dmtucker/config.
     local usage="usage: ${FUNCNAME[0]}"
     if (( $# > 0 ))
     then
