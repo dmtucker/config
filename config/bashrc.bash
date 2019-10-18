@@ -181,6 +181,7 @@ projects () {
 }
 
 refresh_config () {
+    # Install the latest dmtucker/config.
     local usage="usage: ${FUNCNAME[0]}"
     if (( $# > 0 ))
     then
