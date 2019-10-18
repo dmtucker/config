@@ -4,6 +4,8 @@ umask 0027
 
 if ! command -v tput &>/dev/null
 then tput
+elif [[ "$TERM" == '' ]]
+then echo "\$TERM is not set."
 else
     [[ "$TERM" == *'256'* ]] || echo "\$TERM ($TERM) does not appear to support 256 colors."
 
