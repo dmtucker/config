@@ -82,8 +82,7 @@ esac
 [[ ":$PATH:" == *':.:'* ]] || export PATH=".:$PATH"
 export PIP_REQUIRE_VIRTUALENV=true
 
-alias cdtmp='cd "$(mktemp --directory)"'
-alias crontab='crontab -i'
+alias cdtmp='cd "$(mktemp -d)"'
 alias grep='grep --color=auto'
 alias less='less -r'
 alias ll='ls -h -l'
@@ -98,6 +97,7 @@ case "$(uname -s)" in
     Linux)
         eval "$(dircolors --sh)"  # Set LS_COLORS.
         alias ls='ls --color=auto'
+        alias crontab='crontab -i'
         ;;
     *) echo 'This OS is not recognized.'
 esac
