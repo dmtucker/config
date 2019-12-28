@@ -156,11 +156,11 @@ countdown () {
     shift 1
     local prompt && prompt='countdown: '
     printf '%s' "$prompt"
-    for i in $(seq -f "%0${#from}g" $((from)) -1 1)
+    for i in $(seq $((from)) -1 1)
     do
         printf '%d' "$i"
         sleep 1
-        for _ in $(seq "${#from}"); do printf '\b \b'; done
+        for _ in $(seq "${#i}"); do printf '\b \b'; done
     done
     for _ in $(seq "${#prompt}"); do printf '\b \b'; done
 }
