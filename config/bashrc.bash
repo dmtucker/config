@@ -3,7 +3,7 @@ then tput
 elif [[ "$TERM" == '' ]]
 then echo "\$TERM is not set."
 else
-    [[ "$TERM" == *'256'* ]] || echo "\$TERM ($TERM) does not appear to support 256 colors."
+    [[ "$TERM" == *'256'* ]] || echo "\$TERM ($TERM) does not appear to support 256 colors." 1>&2
 
     # text
     TXT_RESET="$(tput sgr0)" && export TXT_RESET
