@@ -97,7 +97,7 @@ case "$(uname -s)" in
         alias ls='ls --color=auto'
         alias crontab='crontab -i'
         ;;
-    *) echo 'This OS is not recognized.'
+    *) echo 'This OS is not recognized.' 1>&2
 esac
 
 ###################################################################### functions
