@@ -4,7 +4,7 @@ COPY . .
 RUN bash install.bash .
 RUN bash ~/.config/dmtucker/uninstall.bash
 
-FROM koalaman/shellcheck-alpine:v0.6.0
+FROM koalaman/shellcheck-alpine:v0.7.1
 RUN apk add vim
 WORKDIR /tmp/config
 COPY --from=test /tmp/config .
