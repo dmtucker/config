@@ -198,5 +198,5 @@ weather () {
         echo "$usage" 1>&2
         return 1
     fi
-    wget -qO- "http://wttr.in/$1"
+    wget -qO- "https://wttr.in/$1"
 }
