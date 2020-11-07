@@ -3,7 +3,8 @@ if ! command -v tput &>/dev/null
 then tput
 elif [[ "$TERM" == '' ]]
 then echo "\$TERM is not set."
-else
+elif [[ $- == *i* ]]
+then
     [[ "$TERM" == *'256'* ]] || echo "\$TERM ($TERM) does not appear to support 256 colors." 1>&2
 
     # text
