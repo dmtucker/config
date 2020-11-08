@@ -1,70 +1,72 @@
+# shellcheck disable=SC2034
 if ! command -v tput &>/dev/null
 then tput
 elif [[ "$TERM" == '' ]]
 then echo "\$TERM is not set."
-else
+elif [[ $- == *i* ]]
+then
     [[ "$TERM" == *'256'* ]] || echo "\$TERM ($TERM) does not appear to support 256 colors." 1>&2
 
     # text
-    TXT_RESET="$(tput sgr0)" && export TXT_RESET
-    TXT_BLACK_FG="$(tput setaf 0)" && export TXT_BLACK_FG
-    TXT_BLACK_BG="$(tput setab 0)" && export TXT_BLACK_BG
-    TXT_RED_FG="$(tput setaf 1)" && export TXT_RED_FG
-    TXT_RED_BG="$(tput setab 1)" && export TXT_RED_BG
-    TXT_GREEN_FG="$(tput setaf 2)" && export TXT_GREEN_FG
-    TXT_GREEN_BG="$(tput setab 2)" && export TXT_GREEN_BG
-    TXT_YELLOW_FG="$(tput setaf 3)" && export TXT_YELLOW_FG
-    TXT_YELLOW_BG="$(tput setab 3)" && export TXT_YELLOW_BG
-    TXT_BLUE_FG="$(tput setaf 4)" && export TXT_BLUE_FG
-    TXT_BLUE_BG="$(tput setab 4)" && export TXT_BLUE_BG
-    TXT_MAGENTA_FG="$(tput setaf 5)" && export TXT_MAGENTA_FG
-    TXT_MAGENTA_BG="$(tput setab 5)" && export TXT_MAGENTA_BG
-    TXT_CYAN_FG="$(tput setaf 6)" && export TXT_CYAN_FG
-    TXT_CYAN_BG="$(tput setab 6)" && export TXT_CYAN_BG
-    TXT_WHITE_FG="$(tput setaf 7)" && export TXT_WHITE_FG
-    TXT_WHITE_BG="$(tput setab 7)" && export TXT_WHITE_BG
-    TXT_BRIGHT_BLACK_FG="$(tput setaf 8)" && export TXT_BRIGHT_BLACK_FG
-    TXT_BRIGHT_BLACK_BG="$(tput setab 8)" && export TXT_BRIGHT_BLACK_BG
-    TXT_BRIGHT_RED_FG="$(tput setaf 9)" && export TXT_BRIGHT_RED_FG
-    TXT_BRIGHT_RED_BG="$(tput setab 9)" && export TXT_BRIGHT_RED_BG
-    TXT_BRIGHT_GREEN_FG="$(tput setaf 10)" && export TXT_BRIGHT_GREEN_FG
-    TXT_BRIGHT_GREEN_BG="$(tput setab 10)" && export TXT_BRIGHT_GREEN_BG
-    TXT_BRIGHT_YELLOW_FG="$(tput setaf 11)" && export TXT_BRIGHT_YELLOW_FG
-    TXT_BRIGHT_YELLOW_BG="$(tput setab 11)" && export TXT_BRIGHT_YELLOW_BG
-    TXT_BRIGHT_BLUE_FG="$(tput setaf 12)" && export TXT_BRIGHT_BLUE_FG
-    TXT_BRIGHT_BLUE_BG="$(tput setab 12)" && export TXT_BRIGHT_BLUE_BG
-    TXT_BRIGHT_MAGENTA_FG="$(tput setaf 13)" && export TXT_BRIGHT_MAGENTA_FG
-    TXT_BRIGHT_MAGENTA_BG="$(tput setab 13)" && export TXT_BRIGHT_MAGENTA_BG
-    TXT_BRIGHT_CYAN_FG="$(tput setaf 14)" && export TXT_BRIGHT_CYAN_FG
-    TXT_BRIGHT_CYAN_BG="$(tput setab 14)" && export TXT_BRIGHT_CYAN_BG
-    TXT_BRIGHT_WHITE_FG="$(tput setaf 15)" && export TXT_BRIGHT_WHITE_FG
-    TXT_BRIGHT_WHITE_BG="$(tput setab 15)" && export TXT_BRIGHT_WHITE_BG
-    TXT_BLINK="$(tput blink)" && export TXT_BLINK
-    TXT_BOLD_FG="$(tput bold)" && export TXT_BOLD_FG
-    TXT_BOLD_BG="$(tput smso)" && export TXT_BOLD_BG
-    TXT_BOLD_BG_END="$(tput rmso)" && export TXT_BOLD_BG_END
-    TXT_DIM="$(tput dim)" && export TXT_DIM
-    TXT_HIDE="$(tput invis)" && export TXT_HIDE
-    TXT_ITALIC="$(tput sitm)" && export TXT_ITALIC
-    TXT_ITALIC_END="$(tput ritm)" && export TXT_ITALIC_END
-    TXT_REVERSE="$(tput rev)" && export TXT_REVERSE
-    TXT_UNDERLINE="$(tput smul)" && export TXT_UNDERLINE
-    TXT_UNDERLINE_END="$(tput rmul)" && export TXT_UNDERLINE_END
+    TXT_RESET="$(tput sgr0)"
+    TXT_BLACK_FG="$(tput setaf 0)"
+    TXT_BLACK_BG="$(tput setab 0)"
+    TXT_RED_FG="$(tput setaf 1)"
+    TXT_RED_BG="$(tput setab 1)"
+    TXT_GREEN_FG="$(tput setaf 2)"
+    TXT_GREEN_BG="$(tput setab 2)"
+    TXT_YELLOW_FG="$(tput setaf 3)"
+    TXT_YELLOW_BG="$(tput setab 3)"
+    TXT_BLUE_FG="$(tput setaf 4)"
+    TXT_BLUE_BG="$(tput setab 4)"
+    TXT_MAGENTA_FG="$(tput setaf 5)"
+    TXT_MAGENTA_BG="$(tput setab 5)"
+    TXT_CYAN_FG="$(tput setaf 6)"
+    TXT_CYAN_BG="$(tput setab 6)"
+    TXT_WHITE_FG="$(tput setaf 7)"
+    TXT_WHITE_BG="$(tput setab 7)"
+    TXT_BRIGHT_BLACK_FG="$(tput setaf 8)"
+    TXT_BRIGHT_BLACK_BG="$(tput setab 8)"
+    TXT_BRIGHT_RED_FG="$(tput setaf 9)"
+    TXT_BRIGHT_RED_BG="$(tput setab 9)"
+    TXT_BRIGHT_GREEN_FG="$(tput setaf 10)"
+    TXT_BRIGHT_GREEN_BG="$(tput setab 10)"
+    TXT_BRIGHT_YELLOW_FG="$(tput setaf 11)"
+    TXT_BRIGHT_YELLOW_BG="$(tput setab 11)"
+    TXT_BRIGHT_BLUE_FG="$(tput setaf 12)"
+    TXT_BRIGHT_BLUE_BG="$(tput setab 12)"
+    TXT_BRIGHT_MAGENTA_FG="$(tput setaf 13)"
+    TXT_BRIGHT_MAGENTA_BG="$(tput setab 13)"
+    TXT_BRIGHT_CYAN_FG="$(tput setaf 14)"
+    TXT_BRIGHT_CYAN_BG="$(tput setab 14)"
+    TXT_BRIGHT_WHITE_FG="$(tput setaf 15)"
+    TXT_BRIGHT_WHITE_BG="$(tput setab 15)"
+    TXT_BLINK="$(tput blink)"
+    TXT_BOLD_FG="$(tput bold)"
+    TXT_BOLD_BG="$(tput smso)"
+    TXT_BOLD_BG_END="$(tput rmso)"
+    TXT_DIM="$(tput dim)"
+    TXT_HIDE="$(tput invis)"
+    TXT_ITALIC="$(tput sitm)"
+    TXT_ITALIC_END="$(tput ritm)"
+    TXT_REVERSE="$(tput rev)"
+    TXT_UNDERLINE="$(tput smul)"
+    TXT_UNDERLINE_END="$(tput rmul)"
 
     # cursor
-    CUR_HOME="$(tput home)" && export CUR_HOME
-    CUR_SAVE="$(tput sc)" && export CUR_SAVE
-    CUR_RESTORE="$(tput rc)" && export CUR_RESTORE
-    CUR_HIDE="$(tput civis)" && export CUR_HIDE
-    CUR_SHOW="$(tput cvvis)" && export CUR_SHOW
-    CUR_LEFT="$(tput cub1)" && export CUR_LEFT
-    CUR_DOWN="$(tput cud1)" && export CUR_DOWN
-    CUR_RIGHT="$(tput cuf1)" && export CUR_RIGHT
-    CUR_UP="$(tput cuu1)" && export CUR_UP
+    CUR_HOME="$(tput home)"
+    CUR_SAVE="$(tput sc)"
+    CUR_RESTORE="$(tput rc)"
+    CUR_HIDE="$(tput civis)"
+    CUR_SHOW="$(tput cvvis)"
+    CUR_LEFT="$(tput cub1)"
+    CUR_DOWN="$(tput cud1)"
+    CUR_RIGHT="$(tput cuf1)"
+    CUR_UP="$(tput cuu1)"
 
     # terminal
-    TERM_CLEAR="$(tput clear)" && export TERM_CLEAR
-    TERM_FLASH="$(tput flash)" && export TERM_FLASH
+    TERM_CLEAR="$(tput clear)"
+    TERM_FLASH="$(tput flash)"
 
     # shellcheck disable=SC2064
     trap "printf '$TXT_RESET'" DEBUG
@@ -95,7 +97,7 @@ case "$(uname -s)" in
         alias ls='ls --color=auto'
         alias crontab='crontab -i'
         ;;
-    *) echo 'This OS is not recognized.'
+    *) echo 'This OS is not recognized.' 1>&2
 esac
 
 ###################################################################### functions
@@ -196,5 +198,5 @@ weather () {
         echo "$usage" 1>&2
         return 1
     fi
-    wget -qO- "http://wttr.in/$1"
+    wget -qO- "https://wttr.in/$1"
 }
