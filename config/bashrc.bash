@@ -168,10 +168,8 @@ projects () {
     # shellcheck disable=SC2068
     for path_ in ${@:-"${PROJECTS:-"$HOME/projects"}/"*}
     do
-        branch="$(git -C "$path_" rev-parse --show-toplevel)" || continue
-        echo "$TXT_BOLD_FG$TXT_BLUE_FG$(basename "$branch")$TXT_RESET"
-        git -C "$path_" fetch --quiet --tags --prune --all
-        git -C "$path_" status --branch --short
+        echo "$TXT_BOLD_FG$TXT_BLUE_FG$(basename "$path_")$TXT_RESET"
+        git -C "$path_" status --branch --short || continue
         git -C "$path_" stash list
     done
 }
