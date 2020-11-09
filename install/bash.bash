@@ -29,6 +29,15 @@ grep -q "$source_config" "$bashrc" || {
     sed -i.old "s|$target|$source_config  $signature|" "$bashrc"
 }
 
+source_profile="source ~/.profile"
+bash_profile="$HOME/.bash_profile"
+[ -f "$HOME/.profile" ] && {
+    grep -q "$source_profile" "$bash_profile" || {
+        echo "sed -i.old '\|$signature|d' '$bash_profile'" >> "$config_undo"
+        echo "$source_profile  $signature" >> "$bash_profile"
+    }
+}
+
 # "You should therefore always have source ~/.bashrc at the end of your .bash_profile
 # in order to force it to be read by a login shell."
 # http://mywiki.wooledge.org/DotFiles
