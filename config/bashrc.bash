@@ -168,9 +168,11 @@ projects () {
     # shellcheck disable=SC2068
     for path_ in ${@:-"${PROJECTS:-"$HOME/projects"}/"*}
     do
+        echo
         echo "$TXT_BOLD_FG$TXT_BLUE_FG$(basename "$path_")$TXT_RESET"
-        git -C "$path_" status --branch --short || continue
-        git -C "$path_" stash list
+        git -C "$path_" show-ref --abbrev --head --heads 2>/dev/null
+        git -C "$path_" stash list 2>/dev/null
+        git -C "$path_" status --branch --short
     done
 }
 
