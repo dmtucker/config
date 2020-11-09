@@ -41,12 +41,16 @@ bash_profile="$HOME/.bash_profile"
 # "You should therefore always have source ~/.bashrc at the end of your .bash_profile
 # in order to force it to be read by a login shell."
 # http://mywiki.wooledge.org/DotFiles
-source_bashrc='source ~/.bashrc'
-bash_profile="$HOME/.bash_profile"
-grep -q "$source_bashrc" "$bash_profile" || {
-    echo "sed -i.old '\|$signature|d' '$bash_profile'" >> "$config_undo"
-    echo "$source_bashrc  $signature" >> "$bash_profile"
+unique="$(tr -dc A-Za-z0-9 < /dev/urandom | head -c 6 || true)"
+echo "echo '$unique' $signature" >> "$bashrc"
+"$BASH" --login -i -c true | grep -q "$unique" || {
+    source_bashrc='source ~/.bashrc'
+    grep -q "$source_bashrc" "$bash_profile" || {
+        echo "sed -i.old '\|$signature|d' '$bash_profile'" >> "$config_undo"
+        echo "$source_bashrc  $signature" >> "$bash_profile"
+    }
 }
+sed -i.old "\|$unique|d" "$bashrc"
 
 # There is no way to affect the calling environment.
 echo 'Bash configuration succeeded. Restart Bash.'
