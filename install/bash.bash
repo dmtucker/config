@@ -34,7 +34,12 @@ bash_profile="$HOME/.bash_profile"
 [ -f "$HOME/.profile" ] && {
     grep -q "$source_profile" "$bash_profile" || {
         echo "sed -i.old '\|$signature|d' '$bash_profile'" >> "$config_undo"
-        echo "$source_profile  $signature" >> "$bash_profile"
+        target='# dmtucker/config install target'
+        if grep -q "$target" "$bash_profile"
+        then echo "sed -i.old 's|'$(printf '%q' "$source_profile")'  $signature|$target|' '$bash_profile'" >> "$config_undo"
+        else echo "$target" >> "$bash_profile"
+        fi
+        sed -i.old "s|$target|$source_profile  $signature|" "$bash_profile"
     }
 }
 
