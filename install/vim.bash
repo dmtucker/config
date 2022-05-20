@@ -16,9 +16,9 @@ config_vimrc="$config_home/vimrc.vim"
 cp -v "$config_repo/config/$(basename "$config_vimrc")" "$config_vimrc"
 echo "rm '$config_vimrc'" >> "$config_undo"
 source_config_vimrc="source $config_vimrc"
-vimrc="$HOME/.vimrc"
+vimrc="$(realpath "$HOME/.vimrc")"
 grep -q "$source_config_vimrc" "$vimrc" || {
     echo "$source_config_vimrc" >> "$vimrc"
-    echo "sed -i.old '\|'""$(printf '%q' "$source_config_vimrc")""'|d' '$vimrc'" >> "$config_undo"
+    echo "sed -i '\|'""$(printf '%q' "$source_config_vimrc")""'|d' '$vimrc'" >> "$config_undo"
 }
 echo 'Vim configuration succeeded.'
