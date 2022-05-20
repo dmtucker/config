@@ -18,28 +18,28 @@ echo "rm '$config_bashrc'" >> "$config_undo"
 
 signature='# added by dmtucker/config'
 source_config="source '$config_bashrc'"
-bashrc="$HOME/.bashrc"
+bashrc="$(realpath "$HOME/.bashrc")"
 grep -q "$source_config" "$bashrc" || {
-    echo "sed -i.old '\|$signature|d' '$bashrc'" >> "$config_undo"
+    echo "sed -i '\|$signature|d' '$bashrc'" >> "$config_undo"
     target='# dmtucker/config install target'
     if grep -q "$target" "$bashrc"
-    then echo "sed -i.old 's|'$(printf '%q' "$source_config")'  $signature|$target|' '$bashrc'" >> "$config_undo"
+    then echo "sed -i 's|'$(printf '%q' "$source_config")'  $signature|$target|' '$bashrc'" >> "$config_undo"
     else echo "$target" >> "$bashrc"
     fi
-    sed -i.old "s|$target|$source_config  $signature|" "$bashrc"
+    sed -i "s|$target|$source_config  $signature|" "$bashrc"
 }
 
 source_profile="source ~/.profile"
-bash_profile="$HOME/.bash_profile"
+bash_profile="$(realpath "$HOME/.bash_profile")"
 [ -f "$HOME/.profile" ] && {
     grep -q "$source_profile" "$bash_profile" || {
-        echo "sed -i.old '\|$signature|d' '$bash_profile'" >> "$config_undo"
+        echo "sed -i '\|$signature|d' '$bash_profile'" >> "$config_undo"
         target='# dmtucker/config install target'
         if grep -q "$target" "$bash_profile"
-        then echo "sed -i.old 's|'$(printf '%q' "$source_profile")'  $signature|$target|' '$bash_profile'" >> "$config_undo"
+        then echo "sed -i 's|'$(printf '%q' "$source_profile")'  $signature|$target|' '$bash_profile'" >> "$config_undo"
         else echo "$target" >> "$bash_profile"
         fi
-        sed -i.old "s|$target|$source_profile  $signature|" "$bash_profile"
+        sed -i "s|$target|$source_profile  $signature|" "$bash_profile"
     }
 }
 
@@ -52,11 +52,11 @@ output="$("$BASH" --login -i -c true)"
 echo "$output" | grep -q "$unique" || {
     source_bashrc='source ~/.bashrc'
     grep -q "$source_bashrc" "$bash_profile" || {
-        echo "sed -i.old '\|$signature|d' '$bash_profile'" >> "$config_undo"
+        echo "sed -i '\|$signature|d' '$bash_profile'" >> "$config_undo"
         echo "$source_bashrc  $signature" >> "$bash_profile"
     }
 }
-sed -i.old "\|$unique|d" "$bashrc"
+sed -i "\|$unique|d" "$bashrc"
 
 # There is no way to affect the calling environment.
 echo 'Bash configuration succeeded. Restart Bash.'
