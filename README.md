@@ -10,7 +10,7 @@ docker run -it dmtucker/config:latest
 
 Install:
 ``` sh
-wget -O- 'https://raw.githubusercontent.com/dmtucker/config/master/install.bash' | bash
+wget -O- 'https://raw.githubusercontent.com/dmtucker/config/main/install.bash' | bash
 ```
 
 Uninstall:

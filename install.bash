@@ -21,7 +21,7 @@ config_repo="$1"
             exit 1
         }
         config_archive="$(mktemp)"
-        wget --output-document "$config_archive" 'https://github.com/dmtucker/config/archive/master.tar.gz'
+        wget --output-document "$config_archive" 'https://github.com/dmtucker/config/archive/main.tar.gz'
     }
     config_repo="$(mktemp -d)"
     tar -vxzf "$config_archive" -C "$config_repo" --strip-components=1
