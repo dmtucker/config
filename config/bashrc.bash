@@ -184,7 +184,7 @@ refresh_config () {
         echo "$usage" 1>&2
         return 1
     fi
-    url='https://raw.githubusercontent.com/dmtucker/config/master/install.bash'
+    url='https://raw.githubusercontent.com/dmtucker/config/main/install.bash'
     wget -O- "$url" | "$BASH"
 }
 
