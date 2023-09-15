@@ -67,10 +67,8 @@ then
     # terminal
     TERM_CLEAR="$(tput clear)"
     TERM_FLASH="$(tput flash)"
-
-    # shellcheck disable=SC2064
-    trap "printf '$TXT_RESET'" DEBUG
 fi
+export PS0="\[$TXT_RESET\]"
 export PS1="\[$TXT_RESET\][\#] \[$TXT_CYAN_FG\]\u\[$TXT_RESET\]@\[$TXT_GREEN_FG\]\h\[$TXT_RESET\]:\[$TXT_YELLOW_FG\]\w\[$TXT_RESET\] \$ \[$TXT_RED_FG\]"
 export PS1="\[$TXT_RESET$TXT_BRIGHT_BLACK_FG\]\D{%FT%T%z} exit \$?\n$PS1"
 case $TERM in
