@@ -17,7 +17,7 @@ cp -v "$config_repo/config/$(basename "$config_bashrc")" "$config_bashrc"
 echo "rm '$config_bashrc'" >> "$config_undo"
 
 signature='# added by dmtucker/config'
-source_config="source '$config_bashrc'"
+source_config="source \"${config_bashrc/#$HOME/\$HOME}\""
 bashrc="$(realpath "$HOME/.bashrc")"
 grep -q "$source_config" "$bashrc" || {
     echo "sed -i '\|$signature|d' '$bashrc'" >> "$config_undo"
